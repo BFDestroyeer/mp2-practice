@@ -223,7 +223,7 @@ std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
 template <typename ValueType>
 std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 {
-    in << vector.size << vector.startIndex;
+    //in << vector.size << vector.startIndex;
     for (int i = 0; i < size; i++)
     {
         in << vector.elements[i];
