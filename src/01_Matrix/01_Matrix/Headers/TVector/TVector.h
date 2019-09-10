@@ -4,13 +4,14 @@
 template <typename ValueType>
 class TVector
 {
-protected:
+//protected:
+public:
     unsigned size;          //Размер вектора
     ValueType* elements;    //Данные
     unsigned startIndex;    //Начальный индекс 
 
 public:
-    TVector(unsigned size_ = 10, unsigned startIndex_ = 0);
+    TVector(unsigned size_ = 0, unsigned startIndex_ = 0);
     TVector(const TVector& temp);
     ~TVector();
 
@@ -46,6 +47,7 @@ public:
 
     //Операции индексации
     ValueType& operator[](unsigned index);
+    ValueType operator[](unsigned index) const;
 };
 
 
@@ -173,11 +175,12 @@ TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 template <typename ValueType>
 ValueType TVector<ValueType>::operator*(const TVector& temp) const
 {
-    if (size != temp.size) throw "Wrong range";
-    ValueType out = 0;
-    for (unsigned i = 0; i < size; i++)
+    if ((size + startIndex) != (temp.size + temp.startIndex)) throw "Wrong range";
+    ValueType out;
+    out = 0;
+    for (unsigned i = 0; i < (size + startIndex); i++)
     {
-        out += elements[i] * temp.elements[i];
+        out += (*this)[i] * temp[i];
     }
     return out;
 }
@@ -238,7 +241,17 @@ std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 template <typename ValueType>
 ValueType& TVector<ValueType>::operator[](unsigned index)
 {
-    index += startIndex;
-    if ((index < 0) || (index >= size)) throw "Bad index";
+    if (index < startIndex) throw "It's triangle matrix";
+    index -= startIndex;
+    if (index >= size) throw "Bad index";
+    return elements[index];
+}
+
+template <typename ValueType>
+ValueType TVector<ValueType>::operator[](unsigned index) const
+{
+    if (index < startIndex) return 0;
+    index -= startIndex;
+    if (index >= size) throw "Bad index";
     return elements[index];
 }

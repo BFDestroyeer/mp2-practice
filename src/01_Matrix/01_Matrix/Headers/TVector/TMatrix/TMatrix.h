@@ -31,18 +31,21 @@ public:
     TVector<ValueType> operator*(const TVector<ValueType>& temp) const;
 
     //Операции ввода-вывода в поток
+    template <typename ValueType>
     friend std::ostream& operator<<(std::ostream& out, const TMatrix& matrix);
-    friend std::istream& operator>>(std::istream& in, TMatrix& vector);
+    template <typename ValueType>
+    friend std::istream& operator>>(std::istream& in, TMatrix& matrix);
 };
 
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(unsigned size_)
 {
-    /*size = size_;
-    for (unsigned i = 0; i < size; i++)
+    this->size = size_;
+    this->elements = new TVector<ValueType>[this->size];
+    for (unsigned i = 0; i < this->size; i++)
     {
-        
-    }*/
+        this->elements[i] = TVector<ValueType>(this->size - i, i);
+    }
 }
 
 template <typename ValueType>
@@ -71,6 +74,12 @@ TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
     {
         this->elements[i] = temp.elements[i];
     }
+}
+
+template <typename ValueType>
+TMatrix<ValueType>::~TMatrix()
+{
+    delete[] this->elements;
 }
 
 //Чтение полей
@@ -177,10 +186,7 @@ TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp)
     TVector<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
-        for (unsigned j = 0; j < this->size; j++)
-        {
-            out[i] += this->elements[j][i] * temp.elements[j];
-        }
+        out[i] = this->elements[i] * temp;
     }
     return out;
 }
@@ -189,25 +195,19 @@ TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp)
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TMatrix<ValueType>& matrix)
 {
-    for (unsigned i = 0; i < this->size; i++)
+    for (unsigned i = 0; i < matrix.size; i++)
     {
-        for (unsigned j = 0; j < this->size; j++)
-        {
-            out << this->elements[j][i] << ' ';
-        }
-        out << std::endl;
+        out << matrix.elements[i] << std::endl;
     }
     return out;
 }
 
 template <typename ValueType>
-std::istream& operator>>(std::istream& in, TMatrix<ValueType>& vector)
+std::istream& operator>>(std::istream& in, TMatrix<ValueType>& matrix)
 {
-    //Чтение size?
-    for (unsigned i = 0; i < (this->size * this->size); i++)
+    for (unsigned i = 0; i <  matrix.size; i++)
     {
-        for (unsigned j = 0; j < (this->size * this->size); j++)
-        in >> this->elements[j][i];
+        in >> matrix.elements[i];
     }
     return in;
 }
