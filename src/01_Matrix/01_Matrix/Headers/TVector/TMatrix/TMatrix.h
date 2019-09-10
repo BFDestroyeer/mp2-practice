@@ -39,7 +39,7 @@ template <typename ValueType>
 TMatrix<ValueType>::TMatrix(unsigned size_)
 {
     /*size = size_;
-    for (int i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         
     }*/
@@ -53,7 +53,7 @@ TMatrix<ValueType>::TMatrix(const TMatrix& temp)
         delete[] this->elements;
         this->elements = new TVector<ValueType>(temp.size)[temp.size];
     }
-    for (int i = 0; i < this->size; i++)
+    for (unsigned i = 0; i < this->size; i++)
     {
         this->elements[i] = temp.elements[i];
     }
@@ -67,7 +67,7 @@ TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
         delete[] this->elements;
         this->elements = new TVector<ValueType>(temp.size)[temp.size];
     }
-    for (int i = 0; i < this->size; i++)
+    for (unsigned i = 0; i < this->size; i++)
     {
         this->elements[i] = temp.elements[i];
     }
@@ -86,7 +86,7 @@ bool TMatrix<ValueType>::operator==(const TMatrix& temp) const
 {
     if (this->elements == temp.elements) return true;
     if (this->size != temp.size) return false;
-    for (int i = 0; i < this->size; i++)
+    for (unsigned i = 0; i < this->size; i++)
     {
         if (this->elements[i] != temp.elements[i]) return false;
     }
@@ -98,7 +98,7 @@ bool TMatrix<ValueType>::operator!=(const TMatrix& temp) const
 {
     if (this->elements == temp.elements) return false;
     if (this->size != temp.size) return true;
-    for (int i = 0; i < this->size; i++)
+    for (unsigned i = 0; i < this->size; i++)
     {
         if (this->elements[i] != temp.elements[i]) return true;
     }

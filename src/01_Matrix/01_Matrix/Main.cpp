@@ -7,9 +7,8 @@
 
 int main()
 {
-    TVector<double> a(4), b(4);
-    a = a + b;
-    std::cin >> a;
-    //std::cout << std::endl;
+    TVector<double> a(4), b(4), c(4);
+    std::cin >> a /*>> b*/;
+    std::cout << a * -2;
     return 0;
 }

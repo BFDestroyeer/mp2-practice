@@ -39,8 +39,10 @@ public:
     ValueType Length() const;
 
     //Операции ввода-вывода в поток
+    template <typename ValueType>
     friend std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector);
-    friend std::istream& operator>>(std::istream&, TVector&);
+    template <typename ValueType>
+    friend std::istream& operator>>(std::istream& in, TVector<ValueType>& vector);
 
     //Операции индексации
     ValueType& operator[](unsigned index);
@@ -90,7 +92,7 @@ bool TVector<ValueType>::operator==(const TVector& temp) const
 {
     if (elements == temp.elements) return true;
     if (size != temp.size) return false;
-    for (int i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         if (elements[i] != temp.elements[i]) return false;
     }
@@ -102,7 +104,7 @@ bool TVector<ValueType>::operator!=(const TVector& temp) const
 {
     if (elements == temp.elements) return false;
     if (size != temp.size) return true;
-    for (int i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         if (elements[i] != temp.elements[i]) return true;
     }
@@ -215,10 +217,10 @@ ValueType TVector<ValueType>::Length() const
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
 {
-    /*for (unsigned i = 0; i < vector.size; i++)
+    for (unsigned i = 0; i < vector.size; i++)
     {
         out << vector.elements[i] << ' ';
-    }*/
+    }
     return out;
 }
 
