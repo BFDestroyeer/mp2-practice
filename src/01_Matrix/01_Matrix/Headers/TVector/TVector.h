@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿#pragma once
+#include <iostream>
 
 template <typename ValueType>
 class TVector
@@ -20,7 +21,7 @@ public:
     //Операции сравнения
     bool operator==(const TVector& temp) const;
     bool operator!=(const TVector& temp) const;
-    
+
     //Скалярные операции
     TVector operator+(const ValueType& temp) const;
     TVector operator-(const ValueType& temp) const;
@@ -30,16 +31,16 @@ public:
     TVector operator+(const TVector& temp) const;
     TVector operator-(const TVector& temp) const;
     ValueType operator*(const TVector& temp) const;
-    
+
     //Операция присваивания
     TVector& operator=(const TVector& temp);
-    
+
     //Получение длинны(не размера) вектора
     ValueType Length() const;
 
     //Операции ввода-вывода в поток
-    friend std::ostream& operator<<(std::ostream& out, const TVector& vector);
-    friend std::istream& operator>>(std::istream& in, TVector& vector);
+    friend std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector);
+    friend std::istream& operator>>(std::istream&, TVector&);
 
     //Операции индексации
     ValueType& operator[](unsigned index);
@@ -93,7 +94,7 @@ bool TVector<ValueType>::operator==(const TVector& temp) const
     {
         if (elements[i] != temp.elements[i]) return false;
     }
-    retrun true;
+    return true;
 }
 
 template <typename ValueType>
@@ -105,7 +106,7 @@ bool TVector<ValueType>::operator!=(const TVector& temp) const
     {
         if (elements[i] != temp.elements[i]) return true;
     }
-    retrun false;
+    return false;
 }
 
 //Скалярные операции
@@ -113,7 +114,7 @@ template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator+(const ValueType& temp) const
 {
     TVector<ValueType> out(size, startIndex);
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out.elements[i] = elements[i] + temp;
     }
@@ -124,7 +125,7 @@ template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator-(const ValueType& temp) const
 {
     TVector<ValueType> out(size, startIndex);
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out.elements[i] = elements[i] - temp;
     }
@@ -135,7 +136,7 @@ template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator*(const ValueType& temp) const
 {
     TVector<ValueType> out(size, startIndex);
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out.elements[i] = elements[i] * temp;
     }
@@ -148,7 +149,7 @@ TVector<ValueType> TVector<ValueType>::operator+(const TVector& temp) const
 {
     if (size != temp.size) throw "Wrong range";
     TVector<ValueType> out(size, startIndex);
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out.elements[i] = elements[i] + temp.elements[i];
     }
@@ -160,7 +161,7 @@ TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 {
     if (size != temp.size) throw "Wrong range";
     TVector<ValueType> out(size, startIndex);
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out.elements[i] = elements[i] - temp.elements[i];
     }
@@ -170,9 +171,9 @@ TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 template <typename ValueType>
 ValueType TVector<ValueType>::operator*(const TVector& temp) const
 {
-    if (size !- temp.size) throw "Wrong range";
+    if (size != temp.size) throw "Wrong range";
     ValueType out = 0;
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out += elements[i] * temp.elements[i];
     }
@@ -183,7 +184,7 @@ ValueType TVector<ValueType>::operator*(const TVector& temp) const
 template <typename ValueType>
 TVector<ValueType>& TVector<ValueType>::operator=(const TVector& temp)
 {
-    if (elements == temp.elements) return this*;
+    if (elements == temp.elements) return *this;
     if (size != temp.size)
     {
         delete[] elements;
@@ -191,11 +192,11 @@ TVector<ValueType>& TVector<ValueType>::operator=(const TVector& temp)
         elements = new ValueType[size];
     }
     startIndex = temp.startIndex;
-    for (int i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
-        elements = temp.elements[i];
+        elements[i] = temp.elements[i];
     }
-    return this*;
+    return *this;
 }
 
 //Получение длинны(не размера) вектора
@@ -203,7 +204,7 @@ template <typename ValueType>
 ValueType TVector<ValueType>::Length() const
 {
     ValueType out = 0;
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out += elements[i] * elements[i];
     }
@@ -214,25 +215,28 @@ ValueType TVector<ValueType>::Length() const
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
 {
-    for (int i = 0; i < size; i++)
+    /*for (unsigned i = 0; i < vector.size; i++)
     {
         out << vector.elements[i] << ' ';
-    }
+    }*/
+    return out;
 }
 
 template <typename ValueType>
 std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 {
-    //in << vector.size << vector.startIndex;
-    for (int i = 0; i < size; i++)
+    for (unsigned i = 0; i < vector.size; i++)
     {
-        in << vector.elements[i];
+        in >> vector.elements[i];
     }
+    return in;
 }
 
 //Операции индексации
 template <typename ValueType>
 ValueType& TVector<ValueType>::operator[](unsigned index)
 {
-    return elements[i];
+    index += startIndex;
+    if ((index < 0) || (index >= size)) throw "Bad index";
+    return elements[index];
 }

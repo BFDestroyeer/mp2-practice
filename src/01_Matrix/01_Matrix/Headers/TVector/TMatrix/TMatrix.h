@@ -1,7 +1,8 @@
-﻿#include "..//TVector.h"
+﻿#pragma once
+#include "..//TVector.h"
 
 template <typename ValueType>
-class TMatrix : TVector<TVector<ValueType> >
+class TMatrix : public TVector<TVector<ValueType> >
 {
 public:
     TMatrix(unsigned size_ = 10);
@@ -27,11 +28,11 @@ public:
     TMatrix operator*(const TMatrix& temp) const;
 
     //Операция умножения на вектор
-    TVector operator*(const TVector& temp) const;
+    TVector<ValueType> operator*(const TVector<ValueType>& temp) const;
 
     //Операции ввода-вывода в поток
-    friend std::ostream& operator<<(ostream& out, const TMatrix& matrix);
-    friend std::istream& operator>>(istream& in, const TMatrix& matrix);
+    friend std::ostream& operator<<(std::ostream& out, const TMatrix& matrix);
+    friend std::istream& operator>>(std::istream& in, TMatrix& vector);
 };
 
 template <typename ValueType>
@@ -47,28 +48,28 @@ TMatrix<ValueType>::TMatrix(unsigned size_)
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(const TMatrix& temp)
 {
-    if (size != temp.size)
+    if (this->size != temp.size)
     {
-        delete[] elements;
-        elements = new TVector<ValueType>(temp.size)[temp.size];
+        delete[] this->elements;
+        this->elements = new TVector<ValueType>(temp.size)[temp.size];
     }
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < this->size; i++)
     {
-        elements[i] = temp.elements[i];
+        this->elements[i] = temp.elements[i];
     }
 }
 
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
 {
-    if (size != temp.size)
+    if (this->size != temp.size)
     {
-        delete[] elements;
-        elements = new TVector<ValueType>(temp.size)[temp.size];
+        delete[] this->elements;
+        this->elements = new TVector<ValueType>(temp.size)[temp.size];
     }
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < this->size; i++)
     {
-        elements[i] = temp.elements[i];
+        this->elements[i] = temp.elements[i];
     }
 }
 
@@ -76,42 +77,42 @@ TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
 template <typename ValueType>
 unsigned TMatrix<ValueType>::GetSize()
 {
-    return size;
+    return this->size;
 }
 
 //Операции сравнения
 template <typename ValueType>
 bool TMatrix<ValueType>::operator==(const TMatrix& temp) const
 {
-    if (elements == temp.elements) return true;
-    if (size != temp.size) return false;
-    for (int i = 0; i < size; i++)
+    if (this->elements == temp.elements) return true;
+    if (this->size != temp.size) return false;
+    for (int i = 0; i < this->size; i++)
     {
-        if (elements[i] != temp.elements[i]) return false;
+        if (this->elements[i] != temp.elements[i]) return false;
     }
-    retrun true;
+    return true;
 }
 
 template <typename ValueType>
 bool TMatrix<ValueType>::operator!=(const TMatrix& temp) const
 {
-    if (elements == temp.elements) return false;
-    if (size != temp.size) return true;
-    for (int i = 0; i < size; i++)
+    if (this->elements == temp.elements) return false;
+    if (this->size != temp.size) return true;
+    for (int i = 0; i < this->size; i++)
     {
-        if (elements[i] != temp.elements[i]) return true;
+        if (this->elements[i] != temp.elements[i]) return true;
     }
-    retrun false;
+    return false;
 }
 
 //Скалярные операции
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator+(const ValueType& temp) const
 {
-    TMatrix<ValueType> out(size);
-    for (i = 0; i < size; i++)
+    TMatrix<ValueType> out(this->size);
+    for (unsigned i = 0; i < this->size; i++)
     {
-        out.elements[i] = elements[i] + temp;
+        out.elements[i] = this->elements[i] + temp;
     }
     return out;
 }
@@ -119,10 +120,10 @@ TMatrix<ValueType> TMatrix<ValueType>::operator+(const ValueType& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator-(const ValueType& temp) const
 {
-    TMatrix<ValueType> out(size);
-    for (i = 0; i < size; i++)
+    TMatrix<ValueType> out(this->size);
+    for (unsigned i = 0; i < this->size; i++)
     {
-        out.elements[i] = elements[i] - temp;
+        out.elements[i] = this->elements[i] - temp;
     }
     return out;
 }
@@ -130,10 +131,10 @@ TMatrix<ValueType> TMatrix<ValueType>::operator-(const ValueType& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator*(const ValueType& temp) const
 {
-    TMatrix<ValueType> out(size);
-    for (i = 0; i < size; i++)
+    TMatrix<ValueType> out(this->size);
+    for (unsigned i = 0; i < this->size; i++)
     {
-        out.elements[i] = elements[i] * temp;
+        out.elements[i] = this->elements[i] * temp;
     }
     return out;
 }
@@ -141,11 +142,11 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const ValueType& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator+(const TMatrix& temp) const
 {
-    if (size != temp.size) throw "Wrong range";
-    TMatrix<ValueType> out(size);
-    for (i = 0; i < size; i++)
+    if (this->size != temp.size) throw "Wrong range";
+    TMatrix<ValueType> out(this->size);
+    for (unsigned i = 0; i < this->size; i++)
     {
-        out.elements[i] = elements[i] + temp.elements[i];
+        out.elements[i] = this->elements[i] + temp.elements[i];
     }
     return out;
 }
@@ -153,11 +154,11 @@ TMatrix<ValueType> TMatrix<ValueType>::operator+(const TMatrix& temp) const
 template <typename ValueType>
 TMatrix<ValueType>TMatrix<ValueType>::operator-(const TMatrix& temp) const
 {
-    if (size != temp.size) throw "Wrong range";
-    TMatrix<ValueType> out(size);
-    for (i = 0; i < size; i++)
+    if (this->size != temp.size) throw "Wrong range";
+    TMatrix<ValueType> out(this->size);
+    for (unsigned i = 0; i < this->size; i++)
     {
-        out.elements[i] = elements[i] - temp.elements[i];
+        out.elements[i] = this->elements[i] - temp.elements[i];
     }
     return out;
 }
@@ -172,13 +173,13 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix& temp) const
 template <typename ValueType>
 TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp) const
 {
-    if (size != temp.size) throw "Wrong range";
-    TVector<ValueType> out(size);
-    for (i = 0; i < size; i++)
+    if (this->size != temp.size) throw "Wrong range";
+    TVector<ValueType> out(this->size);
+    for (unsigned i = 0; i < this->size; i++)
     {
-        for (j = 0; j < size; j++)
+        for (unsigned j = 0; j < this->size; j++)
         {
-            out[i] += elements[j][i] * temp.elements[j];
+            out[i] += this->elements[j][i] * temp.elements[j];
         }
     }
     return out;
@@ -188,22 +189,25 @@ TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp)
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TMatrix<ValueType>& matrix)
 {
-    for (i = 0; i < size; i++)
+    for (unsigned i = 0; i < this->size; i++)
     {
-        for (j = 0; j < size; j++)
+        for (unsigned j = 0; j < this->size; j++)
         {
-            out << elements[j][i] << ' ';
+            out << this->elements[j][i] << ' ';
         }
         out << std::endl;
     }
+    return out;
 }
 
 template <typename ValueType>
-std::istream& operator>>(std::istream& in, const TMatrix<ValueType>& matrix)
+std::istream& operator>>(std::istream& in, TMatrix<ValueType>& vector)
 {
     //Чтение size?
-    for (i = 0; i < (size * size); i++)
+    for (unsigned i = 0; i < (this->size * this->size); i++)
     {
-        in << elements[j][i];
+        for (unsigned j = 0; j < (this->size * this->size); j++)
+        in >> this->elements[j][i];
     }
+    return in;
 }
