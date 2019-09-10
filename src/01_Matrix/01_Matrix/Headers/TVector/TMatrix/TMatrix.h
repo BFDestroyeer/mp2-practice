@@ -30,6 +30,9 @@ public:
     //Операция умножения на вектор
     TVector<ValueType> operator*(const TVector<ValueType>& temp) const;
 
+    //Операция присваивания
+    TMatrix& operator=(const TMatrix<ValueType>& temp);
+
     //Операции ввода-вывода в поток
     template <typename ValueType>
     friend std::ostream& operator<<(std::ostream& out, const TMatrix& matrix);
@@ -51,11 +54,8 @@ TMatrix<ValueType>::TMatrix(unsigned size_)
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(const TMatrix& temp)
 {
-    if (this->size != temp.size)
-    {
-        delete[] this->elements;
-        this->elements = new TVector<ValueType>(temp.size)[temp.size];
-    }
+    this->size = temp.size;
+    this->elements = new TVector<ValueType>[this->size];
     for (unsigned i = 0; i < this->size; i++)
     {
         this->elements[i] = temp.elements[i];
@@ -65,11 +65,8 @@ TMatrix<ValueType>::TMatrix(const TMatrix& temp)
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
 {
-    if (this->size != temp.size)
-    {
-        delete[] this->elements;
-        this->elements = new TVector<ValueType>(temp.size)[temp.size];
-    }
+    this->size = temp.size;
+    this->elements = new TVector<ValueType>[this->size];
     for (unsigned i = 0; i < this->size; i++)
     {
         this->elements[i] = temp.elements[i];
@@ -79,7 +76,7 @@ TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
 template <typename ValueType>
 TMatrix<ValueType>::~TMatrix()
 {
-    delete[] this->elements;
+    
 }
 
 //Чтение полей
@@ -175,7 +172,17 @@ TMatrix<ValueType>TMatrix<ValueType>::operator-(const TMatrix& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix& temp) const
 {
-
+    if (this->elements == temp.elements) return;
+    if (this->size != temp.size)
+    {
+        delete[] this->elements;
+        this->elements = new TVector<ValueType>[temp.size];
+    }
+    this->size = temp.size;
+    for (unsigned i = 0; i < this->size; i++)
+    {
+        this->elements[i] = temp.elements[i];
+    }
 }
 
 //Операция умножения на вектор
@@ -189,6 +196,26 @@ TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp)
         out[i] = this->elements[i] * temp;
     }
     return out;
+}
+
+//Операция присваивания
+template <typename ValueType>
+TMatrix<ValueType>& TMatrix<ValueType>::operator=(const TMatrix<ValueType>& temp)
+{
+    if (this->elements == temp.elements) return *this;
+    if (this->size != temp.size)
+    {
+        delete[] this->elements;
+        this->size = temp.size;
+        this->elements = new TVector<ValueType>[this->size];
+
+    }
+    this->size = temp.size;
+    for (unsigned i = 0; i < this->size; i++)
+    {
+        this->elements[i] = temp.elements[i];
+    }
+    return *this;
 }
 
 //Операции ввода-вывода в поток
@@ -207,6 +234,7 @@ std::istream& operator>>(std::istream& in, TMatrix<ValueType>& matrix)
 {
     for (unsigned i = 0; i <  matrix.size; i++)
     {
+        
         in >> matrix.elements[i];
     }
     return in;

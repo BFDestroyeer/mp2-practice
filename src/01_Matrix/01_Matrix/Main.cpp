@@ -7,8 +7,10 @@
 
 int main()
 {
-    TVector<double> a(3), b(2, 1);
+    TMatrix<double> a(2), b(2);
+    TVector<double> c(2);
     std::cin >> a >> b;
-    std::cout << (a*b);
+    a = a - b;
+    std::cout << a;
     return 0;
 }

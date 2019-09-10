@@ -194,6 +194,7 @@ TVector<ValueType>& TVector<ValueType>::operator=(const TVector& temp)
     {
         delete[] elements;
         size = temp.size;
+        startIndex = temp.startIndex;
         elements = new ValueType[size];
     }
     startIndex = temp.startIndex;
@@ -220,9 +221,9 @@ ValueType TVector<ValueType>::Length() const
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
 {
-    for (unsigned i = 0; i < vector.size; i++)
+    for (unsigned i = 0; i < (vector.size + vector.startIndex); i++)
     {
-        out << vector.elements[i] << ' ';
+        out << vector[i] << ' ';
     }
     return out;
 }
