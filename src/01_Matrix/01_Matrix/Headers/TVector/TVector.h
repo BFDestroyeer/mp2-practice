@@ -242,7 +242,7 @@ std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 template <typename ValueType>
 ValueType& TVector<ValueType>::operator[](unsigned index)
 {
-    if (index < startIndex) throw "It's triangle matrix";
+    if (index < startIndex) throw 1;
     index -= startIndex;
     if (index >= size) throw "Bad index";
     return elements[index];

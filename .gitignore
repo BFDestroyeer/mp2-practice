@@ -1,5 +1,5 @@
 
-src/01_Matrix/.vs/01_Matrix/v16/.suo
+*.suo
 *.db
 *.ipch
 *.log
@@ -10,3 +10,4 @@ src/01_Matrix/.vs/01_Matrix/v16/.suo
 *.pdb
 *.exe
 *.ilk
+*.opendb

@@ -11,7 +11,7 @@ public:
     ~TMatrix();
 
     //Чтение полей
-    unsigned GetSize();
+    unsigned GetSize() const;
 
     //Операции сравнения
     bool operator==(const TMatrix& temp) const;
@@ -38,6 +38,9 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const TMatrix& matrix);
     template <typename ValueType>
     friend std::istream& operator>>(std::istream& in, TMatrix& matrix);
+
+    //Алгебраические операции
+    ValueType Determinant() const;
 };
 
 template <typename ValueType>
@@ -81,7 +84,7 @@ TMatrix<ValueType>::~TMatrix()
 
 //Чтение полей
 template <typename ValueType>
-unsigned TMatrix<ValueType>::GetSize()
+unsigned TMatrix<ValueType>::GetSize() const
 {
     return this->size;
 }
@@ -170,18 +173,28 @@ TMatrix<ValueType>TMatrix<ValueType>::operator-(const TMatrix& temp) const
 }
 
 template <typename ValueType>
-TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix& temp) const
+TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix<ValueType>& temp) const
 {
     if (this->size != temp.size) throw "Wrong range";
     TMatrix<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
-        for (unsigned j = 0; j < this->size; j++)
+        for (unsigned j = i; j < this->size; j++)
         {
-            ;
+            for (unsigned k = 0; k < this->size; k++)
+            {
+                try
+                {
+                    out[i][j] += (*this)[i][k] * temp[k][j];
+                }
+                catch (int g)
+                {
+                    std::cout << "wrong " << i << " " << j << " " << k <<std::endl;
+                }
+            }
         }
     }
-
+    return out;
 }
 
 //Операция умножения на вектор
@@ -237,4 +250,17 @@ std::istream& operator>>(std::istream& in, TMatrix<ValueType>& matrix)
         in >> matrix.elements[i];
     }
     return in;
+}
+
+//Алгебраические операции
+template <typename ValueType>
+ValueType TMatrix<ValueType>::Determinant() const
+{
+    if (this->size == 0) return 0;
+    ValueType out = 1;
+    for (unsigned i = 0; i < this->size; i++)
+    {
+        out *= (*this)[i][i];
+    }
+    return out;
 }
