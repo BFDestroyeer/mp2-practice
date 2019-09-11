@@ -1,0 +1,12 @@
+
+src/01_Matrix/.vs/01_Matrix/v16/.suo
+*.db
+*.ipch
+*.log
+*.lastbuildstate
+*.tlog
+*.obj
+*.idb
+*.pdb
+*.exe
+*.ilk

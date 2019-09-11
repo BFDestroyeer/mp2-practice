@@ -172,17 +172,16 @@ TMatrix<ValueType>TMatrix<ValueType>::operator-(const TMatrix& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix& temp) const
 {
-    if (this->elements == temp.elements) return;
-    if (this->size != temp.size)
-    {
-        delete[] this->elements;
-        this->elements = new TVector<ValueType>[temp.size];
-    }
-    this->size = temp.size;
+    if (this->size != temp.size) throw "Wrong range";
+    TMatrix<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
-        this->elements[i] = temp.elements[i];
+        for (unsigned j = 0; j < this->size; j++)
+        {
+            ;
+        }
     }
+
 }
 
 //Операция умножения на вектор
