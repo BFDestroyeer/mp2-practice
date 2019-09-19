@@ -57,7 +57,11 @@ TVector<ValueType>::TVector(unsigned size_, unsigned startIndex_)
 {
     size = size_;
     startIndex = startIndex_;
-    if (size) elements = new ValueType[size] else elements = nullptr;
+    if (size)
+    {
+        elements = new ValueType[size];
+    }
+    else elements = nullptr;
     memset(elements, 0, size * sizeof(ValueType));
 }
 
