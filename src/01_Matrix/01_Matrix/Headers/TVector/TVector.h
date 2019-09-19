@@ -57,7 +57,7 @@ TVector<ValueType>::TVector(unsigned size_, unsigned startIndex_)
 {
     size = size_;
     startIndex = startIndex_;
-    elements = new ValueType[size];
+    if (size) elements = new ValueType[size] else elements = nullptr;
     memset(elements, 0, size * sizeof(ValueType));
 }
 
@@ -73,7 +73,10 @@ TVector<ValueType>::TVector(const TVector& temp)
 template <typename ValueType>
 TVector<ValueType>::~TVector()
 {
-    delete[] elements;
+    if (elements != nullptr)
+    {
+        delete[] elements;
+    }
 }
 
 //Чтение полей

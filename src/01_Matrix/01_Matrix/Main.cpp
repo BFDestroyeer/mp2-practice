@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <iostream>
 
@@ -13,31 +13,31 @@ int main()
 
     setlocale(LC_ALL, "Russian");
 
-    std::cout << "Ïðîãðàììà ïðîâåêðêè øàáëîíà âåðõíåé òðåóãîëüíîé ìàòðèöû" << std::endl;
-    std::cout << "2019 ãîä. Âñå ïðàâà çàùèùåíû" << std::endl;
+    std::cout << "ÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð° Ð¿Ñ€Ð¾Ð²ÐµÐºÑ€ÐºÐ¸ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð° Ð²ÐµÑ€Ñ…Ð½ÐµÐ¹ Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" << std::endl;
+    std::cout << "2019 Ð³Ð¾Ð´. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹" << std::endl;
 
-    std::cout << std::endl << "Ââåäèòå ìàòðèèöó A, ðàçìåðà 4" << std::endl;
+    std::cout << std::endl << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ð¸Ñ†Ñƒ A, Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° 4" << std::endl;
     std::cin >> a;
-    std::cout << "Ââåäèòå ìàòðèèöó B, ðàçìåðà 4" << std::endl;
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ð¸Ñ†Ñƒ B, Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° 4" << std::endl;
     std::cin >> b;
-    std::cout << "Ââåäèòå êîíñòàíòó c" << std::endl;
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð½ÑÑ‚Ð°Ð½Ñ‚Ñƒ c" << std::endl;
     std::cin >> c;
-    std::cout << "Ââåäèòå âåêòîð d, ðàçìåðà 4" << std::endl;
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²ÐµÐºÑ‚Ð¾Ñ€ d, Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° 4" << std::endl;
     std::cin >> d;
 
-    std::cout << std::endl << "Ïðîâåðêà êîíñòðóêòîðîâ" << std::endl;
-    std::cout << "Êîíñòðóêòîð ñ ïàðàìåòðàìè" << std::endl;
+    std::cout << std::endl << "ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ð¾Ð²" << std::endl;
+    std::cout << "ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ñ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°Ð¼Ð¸" << std::endl;
     std::cout << TMatrix<double>(4) << std::endl;
-    std::cout << "Êîíñòðóêòîð êîïèðîâàíèÿ" << std::endl;
+    std::cout << "ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ" << std::endl;
     std::cout << TMatrix<double>(a) << std::endl;
-    /*std::cout << "Êîíñòðóêòîð ïðåîáðàçîâàíèÿ òèïà" << std::endl;
+    /*std::cout << "ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ñ Ñ‚Ð¸Ð¿Ð°" << std::endl;
     std::cout << TMatrix<double>(TVector<TVector<double> >(4)) << std::endl;*/
 
-    std::cout << "Îïåðàöèè ñðàâíåíèÿ" << std::endl;
+    std::cout << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ" << std::endl;
     std::cout << "A == B " << (a == b) << std::endl;
     std::cout << "A != B " << (a != b) << std::endl;
 
-    std::cout << std::endl << "Ñêàëÿðíûå îïåðàöèè" << std::endl;
+    std::cout << std::endl << "Ð¡ÐºÐ°Ð»ÑÑ€Ð½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸" << std::endl;
     std::cout << "A + c" << std::endl;
     std::cout << (a + c) << std::endl;
     std::cout << "A - c" << std::endl;
@@ -45,7 +45,7 @@ int main()
     std::cout << "A * c" << std::endl;
     std::cout << (a * c) << std::endl;
 
-    std::cout << "Ìàòðè÷íûå îïåðàöèè" << std::endl;
+    std::cout << "ÐœÐ°Ñ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸" << std::endl;
     std::cout << "A+B" << std::endl;
     std::cout << (a + b) << std::endl;
     std::cout << "A-B" << std::endl;
@@ -53,24 +53,24 @@ int main()
     std::cout << "A*B" << std::endl;
     std::cout << (a * b) << std::endl;
 
-    std::cout << "Îïåðàöèÿ óìíîæåíèÿ íà âåêòîð" << std::endl;
+    std::cout << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ñ ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð½Ð° Ð²ÐµÐºÑ‚Ð¾Ñ€" << std::endl;
     std::cout << "A*d" << std::endl;
     std::cout << (a * d) << std::endl;
 
-    std::cout << std::endl << "Îïåðàöèÿ ïðèñâàèâàíèÿ" << std::endl;
+    std::cout << std::endl << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ñ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ñ" << std::endl;
     std::cout << (TMatrix<double>() = a) << std::endl;
 
-    std::cout << "Íàõîæäåíèå îïðåäåëèòåëÿ" << std::endl;
+    std::cout << "ÐÐ°Ñ…Ð¾Ð¶Ð´ÐµÐ½Ð¸Ðµ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ñ‚ÐµÐ»Ñ" << std::endl;
     std::cout << a.Determinant() << std::endl;
 
-    std::cout << std::endl << "Ïðîâåðêà èñêëþ÷åíèé" << std::endl;
+    std::cout << std::endl << "ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸ÑÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ð¹" << std::endl;
     try
     {
         a * TMatrix<double>(5);
     }
     catch (TException testException)
     {
-        std::cout << "BadSize áðîøåí óñïåøíî" << std::endl;
+        std::cout << "BadSize Ð±Ñ€Ð¾ÑˆÐµÐ½ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾" << std::endl;
     }
     try
     {
@@ -78,7 +78,7 @@ int main()
     }
     catch (TException testException)
     {
-        std::cout << "BadIndex áðîøåí óñïåøíî" << std::endl;
+        std::cout << "BadIndex Ð±Ñ€Ð¾ÑˆÐµÐ½ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾" << std::endl;
     }
     try
     {
@@ -86,6 +86,6 @@ int main()
     }
     catch (TException testException)
     {
-        std::cout << "WriteOnReadOnly áðîøåí óñïåøíî" << std::endl;
+        std::cout << "WriteOnReadOnly Ð±Ñ€Ð¾ÑˆÐµÐ½ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾" << std::endl;
     }
 }
