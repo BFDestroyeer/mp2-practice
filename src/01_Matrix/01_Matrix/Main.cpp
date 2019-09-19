@@ -7,9 +7,85 @@
 
 int main()
 {
-    TMatrix<double> a(3), b(3);
-    TVector<double> c(3);
-    std::cin >> a /*>> b*/;
-    std::cout << a.Determinant();
-    return 0;
+    TMatrix<double> a(4), b(4);
+    double c;
+    TVector<double> d(4);
+
+    setlocale(LC_ALL, "Russian");
+
+    std::cout << "Программа провекрки шаблона верхней треугольной матрицы" << std::endl;
+    std::cout << "2019 год. Все права защищены" << std::endl;
+
+    std::cout << std::endl << "Введите матриицу A, размера 4" << std::endl;
+    std::cin >> a;
+    std::cout << "Введите матриицу B, размера 4" << std::endl;
+    std::cin >> b;
+    std::cout << "Введите константу c" << std::endl;
+    std::cin >> c;
+    std::cout << "Введите вектор d, размера 4" << std::endl;
+    std::cin >> d;
+
+    std::cout << std::endl << "Проверка конструкторов" << std::endl;
+    std::cout << "Конструктор с параметрами" << std::endl;
+    std::cout << TMatrix<double>(4) << std::endl;
+    std::cout << "Конструктор копирования" << std::endl;
+    std::cout << TMatrix<double>(a) << std::endl;
+    /*std::cout << "Конструктор преобразования типа" << std::endl;
+    std::cout << TMatrix<double>(TVector<TVector<double> >(4)) << std::endl;*/
+
+    std::cout << "Операции сравнения" << std::endl;
+    std::cout << "A == B " << (a == b) << std::endl;
+    std::cout << "A != B " << (a != b) << std::endl;
+
+    std::cout << std::endl << "Скалярные операции" << std::endl;
+    std::cout << "A + c" << std::endl;
+    std::cout << (a + c) << std::endl;
+    std::cout << "A - c" << std::endl;
+    std::cout << (a - c) << std::endl;
+    std::cout << "A * c" << std::endl;
+    std::cout << (a * c) << std::endl;
+
+    std::cout << "Матричные операции" << std::endl;
+    std::cout << "A+B" << std::endl;
+    std::cout << (a + b) << std::endl;
+    std::cout << "A-B" << std::endl;
+    std::cout << (a - b) << std::endl;
+    std::cout << "A*B" << std::endl;
+    std::cout << (a * b) << std::endl;
+
+    std::cout << "Операция умножения на вектор" << std::endl;
+    std::cout << "A*d" << std::endl;
+    std::cout << (a * d) << std::endl;
+
+    std::cout << std::endl << "Операция присваивания" << std::endl;
+    std::cout << (TMatrix<double>() = a) << std::endl;
+
+    std::cout << "Нахождение определителя" << std::endl;
+    std::cout << a.Determinant() << std::endl;
+
+    std::cout << std::endl << "Проверка исключений" << std::endl;
+    try
+    {
+        a * TMatrix<double>(5);
+    }
+    catch (TException testException)
+    {
+        std::cout << "BadSize брошен успешно" << std::endl;
+    }
+    try
+    {
+        a[10];
+    }
+    catch (TException testException)
+    {
+        std::cout << "BadIndex брошен успешно" << std::endl;
+    }
+    try
+    {
+        a[3][0] = 1;
+    }
+    catch (TException testException)
+    {
+        std::cout << "WriteOnReadOnly брошен успешно" << std::endl;
+    }
 }

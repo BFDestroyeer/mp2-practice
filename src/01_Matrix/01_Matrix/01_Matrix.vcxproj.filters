@@ -19,6 +19,9 @@
     <Filter Include="Файлы заголовков\TVector\TMatrix">
       <UniqueIdentifier>{f34ecf99-a0da-4f29-9340-6e3035fe7d87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\TException">
+      <UniqueIdentifier>{a07a0fb7-d522-408b-9dfa-94bf8552ee0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\TVector\TVector.h">
@@ -26,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="Headers\TVector\TMatrix\TMatrix.h">
       <Filter>Файлы заголовков\TVector\TMatrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\TException\TExcepntion.h">
+      <Filter>Файлы заголовков\TException</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

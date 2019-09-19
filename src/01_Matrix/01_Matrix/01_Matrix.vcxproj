@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\TException\TExcepntion.h" />
     <ClInclude Include="Headers\TVector\TMatrix\TMatrix.h" />
     <ClInclude Include="Headers\TVector\TVector.h" />
   </ItemGroup>

@@ -5,7 +5,7 @@ template <typename ValueType>
 class TMatrix : public TVector<TVector<ValueType> >
 {
 public:
-    TMatrix(unsigned size_ = 10);
+    explicit TMatrix(unsigned size_ = 10);
     TMatrix(const TMatrix& temp);
     TMatrix(const TVector<TVector<ValueType> > temp);
     ~TMatrix();
@@ -68,11 +68,11 @@ TMatrix<ValueType>::TMatrix(const TMatrix& temp)
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
 {
-    this->size = temp.size;
+    this->size = temp.GetSize();
     this->elements = new TVector<ValueType>[this->size];
     for (unsigned i = 0; i < this->size; i++)
     {
-        this->elements[i] = temp.elements[i];
+        this->elements[i] = temp[i];
     }
 }
 
@@ -151,7 +151,7 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const ValueType& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator+(const TMatrix& temp) const
 {
-    if (this->size != temp.size) throw "Wrong range";
+    if (this->size != temp.size) throw TException(BadSize);
     TMatrix<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
@@ -163,7 +163,7 @@ TMatrix<ValueType> TMatrix<ValueType>::operator+(const TMatrix& temp) const
 template <typename ValueType>
 TMatrix<ValueType>TMatrix<ValueType>::operator-(const TMatrix& temp) const
 {
-    if (this->size != temp.size) throw "Wrong range";
+    if (this->size != temp.size) throw TException(BadSize);
     TMatrix<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
@@ -175,7 +175,7 @@ TMatrix<ValueType>TMatrix<ValueType>::operator-(const TMatrix& temp) const
 template <typename ValueType>
 TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix<ValueType>& temp) const
 {
-    if (this->size != temp.size) throw "Wrong range";
+    if (this->size != temp.size) throw TException(BadSize);
     TMatrix<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
@@ -183,14 +183,7 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix<ValueType>& temp)
         {
             for (unsigned k = 0; k < this->size; k++)
             {
-                try
-                {
-                    out[i][j] += (*this)[i][k] * temp[k][j];
-                }
-                catch (int g)
-                {
-                    std::cout << "wrong " << i << " " << j << " " << k <<std::endl;
-                }
+                out[i][j] += (*this)[i][k] * temp[k][j];
             }
         }
     }
@@ -201,7 +194,7 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix<ValueType>& temp)
 template <typename ValueType>
 TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp) const
 {
-    if (this->size != temp.size) throw "Wrong range";
+    if (this->size != temp.GetSize()) throw TException(BadSize);
     TVector<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
@@ -234,9 +227,9 @@ TMatrix<ValueType>& TMatrix<ValueType>::operator=(const TMatrix<ValueType>& temp
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TMatrix<ValueType>& matrix)
 {
-    for (unsigned i = 0; i < matrix.size; i++)
+    for (unsigned i = 0; i < matrix.GetSize(); i++)
     {
-        out << matrix.elements[i] << std::endl;
+        out << matrix[i] << std::endl;
     }
     return out;
 }
@@ -244,10 +237,10 @@ std::ostream& operator<<(std::ostream& out, const TMatrix<ValueType>& matrix)
 template <typename ValueType>
 std::istream& operator>>(std::istream& in, TMatrix<ValueType>& matrix)
 {
-    for (unsigned i = 0; i <  matrix.size; i++)
+    for (unsigned i = 0; i <  matrix.GetSize(); i++)
     {
         
-        in >> matrix.elements[i];
+        in >> matrix[i];
     }
     return in;
 }

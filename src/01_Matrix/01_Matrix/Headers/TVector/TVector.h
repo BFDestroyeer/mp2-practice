@@ -1,11 +1,12 @@
 ﻿#pragma once
 #include <iostream>
 
+#include "../TException/TExcepntion.h"
+
 template <typename ValueType>
 class TVector
 {
-//protected:
-public:
+protected:
     unsigned size;          //Размер вектора
     ValueType* elements;    //Данные
     unsigned startIndex;    //Начальный индекс 
@@ -16,8 +17,8 @@ public:
     ~TVector();
 
     //Чтение полей
-    unsigned GetSize();
-    unsigned GetStartIndex();
+    unsigned GetSize() const;
+    unsigned GetStartIndex() const;
 
     //Операции сравнения
     bool operator==(const TVector& temp) const;
@@ -47,7 +48,7 @@ public:
 
     //Операции индексации
     ValueType& operator[](unsigned index);
-    ValueType operator[](unsigned index) const;
+    const ValueType operator[](unsigned index) const;
 };
 
 
@@ -77,13 +78,13 @@ TVector<ValueType>::~TVector()
 
 //Чтение полей
 template <typename ValueType>
-unsigned TVector<ValueType>::GetSize()
+unsigned TVector<ValueType>::GetSize() const
 {
     return size;
 }
 
 template <typename ValueType>
-unsigned TVector<ValueType>::GetStartIndex()
+unsigned TVector<ValueType>::GetStartIndex() const
 {
     return startIndex;
 }
@@ -151,7 +152,7 @@ TVector<ValueType> TVector<ValueType>::operator*(const ValueType& temp) const
 template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator+(const TVector& temp) const
 {
-    if (size != temp.size) throw "Wrong range";
+    if (size != temp.size) throw TException(BadSize);
     TVector<ValueType> out(size, startIndex);
     for (unsigned i = 0; i < size; i++)
     {
@@ -163,7 +164,7 @@ TVector<ValueType> TVector<ValueType>::operator+(const TVector& temp) const
 template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 {
-    if (size != temp.size) throw "Wrong range";
+    if (size != temp.size) throw TException(BadSize);
     TVector<ValueType> out(size, startIndex);
     for (unsigned i = 0; i < size; i++)
     {
@@ -175,7 +176,7 @@ TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 template <typename ValueType>
 ValueType TVector<ValueType>::operator*(const TVector& temp) const
 {
-    if ((size + startIndex) != (temp.size + temp.startIndex)) throw "Wrong range";
+    if ((size + startIndex) != (temp.size + temp.startIndex)) throw TException(BadSize);
     ValueType out;
     out = 0;
     for (unsigned i = 0; i < (size + startIndex); i++)
@@ -242,17 +243,17 @@ std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 template <typename ValueType>
 ValueType& TVector<ValueType>::operator[](unsigned index)
 {
-    if (index < startIndex) throw 1;
+    if (index < startIndex) throw TException(WriteOnReadOnly);
     index -= startIndex;
-    if (index >= size) throw "Bad index";
+    if (index >= size) throw TException(BadIndex);
     return elements[index];
 }
 
 template <typename ValueType>
-ValueType TVector<ValueType>::operator[](unsigned index) const
+const ValueType TVector<ValueType>::operator[](unsigned index) const
 {
     if (index < startIndex) return 0;
     index -= startIndex;
-    if (index >= size) throw "Bad index";
+    if (index >= size) throw TException(BadIndex);
     return elements[index];
 }
