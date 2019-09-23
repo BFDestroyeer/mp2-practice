@@ -19,6 +19,9 @@
     <Filter Include="Файлы заголовков\Application">
       <UniqueIdentifier>{9e392420-dcf3-4696-9529-d989e0037c19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Functions">
+      <UniqueIdentifier>{6496c930-c9f2-495a-9188-76b54671ae9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Stack\Stack.h">
@@ -27,10 +30,16 @@
     <ClInclude Include="Headers\Application\Application.h">
       <Filter>Файлы заголовков\Application</Filter>
     </ClInclude>
+    <ClInclude Include="Functions\Functions.h">
+      <Filter>Functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions\Functions.cpp">
+      <Filter>Functions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

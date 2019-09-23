@@ -6,6 +6,9 @@
 
 int main()
 {
+    setlocale(LC_ALL, "Russian");
     Application<double> a;
-    std::cout << a.dictionary.count('h');
+    a.Read();
+    a.ReadDictionary();
+    std::cout << a.Calculate();
 }

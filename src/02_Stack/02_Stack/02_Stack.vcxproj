@@ -123,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Functions\Functions.h" />
     <ClInclude Include="Headers\Application\Application.h" />
     <ClInclude Include="Headers\Stack\Stack.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Functions\Functions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

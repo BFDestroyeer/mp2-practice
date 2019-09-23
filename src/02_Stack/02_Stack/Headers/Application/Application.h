@@ -3,6 +3,9 @@
 #include <map>
 #include <string>
 
+#include "../Stack/Stack.h"
+#include "../../Functions/Functions.h"
+
 template <typename ValueType>
 class Application
 {
@@ -47,13 +50,61 @@ Application<ValueType>::~Application()
 template <typename ValueType>
 void Application<ValueType>::Read()
 {
+    Stack<char> operators;
+    std::string input;
+    std::cout << "Введите выражение" << std::endl;
+    //std::cin >> input;
+    std::getline(std::cin, input);
 
+    for (int i = 0; i < input.size(); i++)
+    {
+        if (input[i] == ' ')
+        {
+            ;
+        }
+        else if ((input[i] != '+') && (input[i] != '-') && (input[i] != '*') && (input[i] != '/') && (input[i] != '(') && (input[i] != ')'))
+        {
+            expression.push_back(input[i]);
+        }
+        else if (input[i] == '(')
+        {
+            operators.Push(input[i]);
+        }
+        else if (input[i] == ')')
+        {
+            while (operators.Top() != '(')
+            {
+                expression.push_back(operators.Pop());
+            }
+            operators.Pop();
+        }
+        else if ((operators.IsEmpty()) || (operators.Top() == '('))
+        {
+            operators.Push(input[i]);
+        }
+        else if (Functions::Priority(input[i]) > Functions::Priority(operators.Top()))
+        {
+            operators.Push(input[i]);
+        }
+        else
+        {
+            while ((!operators.IsEmpty()) &&(operators.Top() != '(') && (Functions::Priority(input[i]) <= Functions::Priority(operators.Top())))
+            {
+                expression.push_back(operators.Pop());
+            }
+            operators.Push(input[i]);
+        }
+    }
+    while (!operators.IsEmpty())
+    {
+        expression.push_back(operators.Pop());
+    }
 }
 
 template <typename ValueType>
 void Application<ValueType>::ReadDictionary()
 {
-    for (unsigned i = 0; i < expression.size; i++)
+    for (unsigned i = 0; i < expression.size(); i++)
     {
         if ((expression[i] != '+') && (expression[i] != '-') && (expression[i] != '*') && (expression[i] != '/'))
         {
@@ -61,7 +112,7 @@ void Application<ValueType>::ReadDictionary()
             {
                 ValueType input;
                 std::cout << "Введите значение переменной " << expression[i] << " ";
-                std::cin << input;
+                std::cin >> input;
                 dictionary.insert(std::pair<char, ValueType>(expression[i], input));
             }
         }
@@ -71,5 +122,38 @@ void Application<ValueType>::ReadDictionary()
 template <typename ValueType>
 ValueType Application<ValueType>::Calculate()
 {
-    return 0;
+    Stack<ValueType> result;
+    for (unsigned i = 0; i < expression.size(); i++)
+    {
+        if ((expression[i] != '+') && (expression[i] != '-') && (expression[i] != '*') && (expression[i] != '/'))
+        {
+            result.Push(dictionary[expression[i]]);
+        }
+        else if (expression[i] == '+')
+        {
+            ValueType b = result.Pop();
+            ValueType a = result.Pop();
+            result.Push(a + b);
+        }
+        else if (expression[i] == '-')
+        {
+            ValueType b = result.Pop();
+            ValueType a = result.Pop();
+            result.Push(a - b);
+        }
+        else if (expression[i] == '*')
+        {
+            ValueType b = result.Pop();
+            ValueType a = result.Pop();
+            result.Push(a * b);
+        }
+        else if (expression[i] == '/')
+        {
+            ValueType b = result.Pop();
+            ValueType a = result.Pop();
+            if (b == 0) throw "Divizion by zero";
+            result.Push(a / b);
+        }
+    }
+    return result.Top();
 }
