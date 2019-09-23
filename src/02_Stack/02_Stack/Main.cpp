@@ -7,5 +7,5 @@
 int main()
 {
     Application<double> a;
-    std::cout << a.dictionary['3'];
+    std::cout << a.dictionary.count('h');
 }

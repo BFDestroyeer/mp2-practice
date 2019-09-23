@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 
 template<typename ValueType>
@@ -14,9 +14,9 @@ public:
     Stack(const Stack& temp);
     ~Stack();
 
-    void Push(ValueType element);   //Вставить элемент
-    ValueType Top();                //Вернуть первый элемент
-    ValueType Pop();                //Вынуть первый элемент
+    void Push(ValueType element);   //Р’СЃС‚Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚
+    ValueType Top();                //Р’РµСЂРЅСѓС‚СЊ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
+    ValueType Pop();                //Р’С‹РЅСѓС‚СЊ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
 
     bool IsEmpty();
     bool IsFull();

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <map>
 #include <string>
@@ -8,17 +8,17 @@ class Application
 {
 public:
 //protected:
-    std::map<char, ValueType> dictionary;    //Словарь соответсвия переменных и чисел
-    std::string expression;                  //Математическое выражение
+    std::map<char, ValueType> dictionary;    //РЎР»РѕРІР°СЂСЊ СЃРѕРѕС‚РІРµС‚СЃРІРёСЏ РїРµСЂРµРјРµРЅРЅС‹С… Рё С‡РёСЃРµР»
+    std::string expression;                  //РњР°С‚РµРјР°С‚РёС‡РµСЃРєРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ
 
 public:
     Application();
     Application(const Application& temp);
     ~Application();
 
-    void Read();              //Чтение выражения
-    void ReadDictionary();    //Чтение словаря
-    ValueType Calculate();    //Вычисление значения
+    void Read();              //Р§С‚РµРЅРёРµ РІС‹СЂР°Р¶РµРЅРёСЏ
+    void ReadDictionary();    //Р§С‚РµРЅРёРµ СЃР»РѕРІР°СЂСЏ
+    ValueType Calculate();    //Р’С‹С‡РёСЃР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ
 };
 
 template <typename ValueType>
@@ -26,7 +26,7 @@ Application<ValueType>::Application()
 {
     for (int i = 0; i < 10; i++)
     {
-        dictionary.insert(std::pair<char, ValueType>((char) 30 + i, i));
+        dictionary.insert(std::pair<char, ValueType>((char) 48 + i, i));
     }
 }
 
@@ -59,7 +59,10 @@ void Application<ValueType>::ReadDictionary()
         {
             if (dictionary.count(expression[i]) == 0)
             {
-
+                ValueType input;
+                std::cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ " << expression[i] << " ";
+                std::cin << input;
+                dictionary.insert(std::pair<char, ValueType>(expression[i], input));
             }
         }
     }
