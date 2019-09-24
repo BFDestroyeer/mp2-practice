@@ -9,8 +9,7 @@
 template <typename ValueType>
 class Application
 {
-public:
-//protected:
+protected:
     std::map<char, ValueType> dictionary;    //Словарь соответсвия переменных и чисел
     std::string expression;                  //Математическое выражение
 
@@ -53,7 +52,6 @@ void Application<ValueType>::Read()
     Stack<char> operators;
     std::string input;
     std::cout << "Введите выражение" << std::endl;
-    //std::cin >> input;
     std::getline(std::cin, input);
 
     for (int i = 0; i < input.size(); i++)
