@@ -68,7 +68,7 @@ int main()
     {
         a * TMatrix<double>(5);
     }
-    catch (TException testException)
+    catch (TException)
     {
         std::cout << "BadSize брошен успешно" << std::endl;
     }
@@ -76,7 +76,7 @@ int main()
     {
         a[10];
     }
-    catch (TException testException)
+    catch (TException)
     {
         std::cout << "BadIndex брошен успешно" << std::endl;
     }
@@ -84,7 +84,7 @@ int main()
     {
         a[3][0] = 1;
     }
-    catch (TException testException)
+    catch (TException)
     {
         std::cout << "WriteOnReadOnly брошен успешно" << std::endl;
     }

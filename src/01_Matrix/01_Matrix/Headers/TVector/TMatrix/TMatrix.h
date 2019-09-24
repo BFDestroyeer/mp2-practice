@@ -44,7 +44,7 @@ public:
 };
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(unsigned size_)
+TMatrix<ValueType>::TMatrix(unsigned size_) 
 {
     this->size = size_;
     this->elements = new TVector<ValueType>[this->size];
@@ -72,7 +72,11 @@ TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
     this->elements = new TVector<ValueType>[this->size];
     for (unsigned i = 0; i < this->size; i++)
     {
-        this->elements[i] = temp[i];
+        this->elements[i] = TVector<ValueType>(this->size - i, i);
+        for (unsigned j = i; j < this->size; j++)
+        {
+            (*this)[i][j] = temp[i][j];
+        }
     }
 }
 
