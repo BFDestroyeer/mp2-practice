@@ -71,7 +71,10 @@ TVector<ValueType>::TVector(const TVector& temp)
     size = temp.size;
     startIndex = temp.startIndex;
     elements = new ValueType[size];
-    memcpy(elements, temp.elements, size * sizeof(ValueType));
+    for (unsigned i = 0; i < size; i++) //НИКАКИХ memcpy!!!
+    {
+        elements[i] = temp.elements[i];
+    }
 }
 
 template <typename ValueType>
@@ -81,6 +84,7 @@ TVector<ValueType>::~TVector()
     {
         delete[] elements;
     }
+    elements = nullptr;
 }
 
 //Чтение полей
@@ -263,4 +267,24 @@ const ValueType TVector<ValueType>::operator[](unsigned index) const
     index -= startIndex;
     if (index >= size) throw TException(BadIndex);
     return elements[index];
+}
+
+namespace Generate
+{
+    TVector<TVector<double>> VectorOfVectors(const unsigned size_)
+    {
+        TVector<TVector<double>> out(size_);
+        for (unsigned i = 0; i < size_; i++)
+        {
+            out[i] = TVector<double>(size_);
+        }
+        for (unsigned i = 0; i < size_; i++)
+        {
+            for (unsigned j = 0; j < size_; j++)
+            {
+                out[i][j] = rand() % 10;
+            }
+        }
+        return out;
+    }
 }

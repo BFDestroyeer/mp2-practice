@@ -9,7 +9,7 @@ enum Exception_Type
 
 struct TException
 {
-     Exception_Type type;
+    Exception_Type type;
 
     TException(Exception_Type type_)
     {

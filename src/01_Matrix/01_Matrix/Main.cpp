@@ -7,31 +7,36 @@
 
 int main()
 {
-    TMatrix<double> a(4), b(4);
-    double c;
-    TVector<double> d(4);
+    unsigned size;
 
     setlocale(LC_ALL, "Russian");
 
     std::cout << "Программа провекрки шаблона верхней треугольной матрицы" << std::endl;
     std::cout << "2019 год. Все права защищены" << std::endl;
 
-    std::cout << std::endl << "Введите матриицу A, размера 4" << std::endl;
+    std::cout << std::endl << "Введите размер матриц ";
+    std::cin >> size;
+
+    TMatrix<double> a(size), b(size);
+    double c;
+    TVector<double> d(size);
+
+    std::cout << "Введите матриицу A, размера " << size <<std::endl;
     std::cin >> a;
-    std::cout << "Введите матриицу B, размера 4" << std::endl;
+    std::cout << "Введите матриицу B, размера " << size <<std::endl;
     std::cin >> b;
     std::cout << "Введите константу c" << std::endl;
     std::cin >> c;
-    std::cout << "Введите вектор d, размера 4" << std::endl;
+    std::cout << "Введите вектор d, размера " << size << std::endl;
     std::cin >> d;
 
     std::cout << std::endl << "Проверка конструкторов" << std::endl;
     std::cout << "Конструктор с параметрами" << std::endl;
-    std::cout << TMatrix<double>(4) << std::endl;
+    std::cout << TMatrix<double>(size) << std::endl;
     std::cout << "Конструктор копирования" << std::endl;
     std::cout << TMatrix<double>(a) << std::endl;
-    /*std::cout << "Конструктор преобразования типа" << std::endl;
-    std::cout << TMatrix<double>(TVector<TVector<double> >(4)) << std::endl;*/
+    std::cout << "Конструктор преобразования типа" << std::endl;
+    std::cout << TMatrix<double>(Generate::VectorOfVectors(size)) << std::endl;
 
     std::cout << "Операции сравнения" << std::endl;
     std::cout << "A == B " << (a == b) << std::endl;
