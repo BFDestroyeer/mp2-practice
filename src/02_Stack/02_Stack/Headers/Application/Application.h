@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
 #include "../Stack/Stack.h"
 #include "../../Functions/Functions.h"
@@ -10,8 +11,8 @@ template <typename ValueType>
 class Application
 {
 protected:
-    std::map<char, ValueType> dictionary;    //Словарь соответсвия переменных и чисел
-    std::string expression;                  //Математическое выражение
+    std::map<std::string, ValueType> dictionary;    //Словарь соответсвия переменных и чисел
+    std::vector<std::string> expression;                  //Математическое выражение
 
 public:
     Application();
@@ -26,10 +27,7 @@ public:
 template <typename ValueType>
 Application<ValueType>::Application()
 {
-    for (int i = 0; i < 10; i++)
-    {
-        dictionary.insert(std::pair<char, ValueType>((char) 48 + i, i));
-    }
+
 }
 
 template <typename ValueType>
@@ -51,51 +49,93 @@ void Application<ValueType>::Read()
 {
     Stack<char> operators;
     std::string input;
+    std::string bufer;
     std::cout << "Введите выражение" << std::endl;
     std::getline(std::cin, input);
 
     for (int i = 0; i < input.size(); i++)
     {
+        
         if (input[i] == ' ')
         {
-            ;
+            if (bufer.length() != 0)
+            {
+                expression.push_back(bufer);
+                bufer.clear();
+            }
         }
         else if ((input[i] != '+') && (input[i] != '-') && (input[i] != '*') && (input[i] != '/') && (input[i] != '(') && (input[i] != ')'))
         {
-            expression.push_back(input[i]);
+            bufer.push_back(input[i]);
         }
         else if (input[i] == '(')
         {
+            if (bufer.length() != 0)
+            {
+                expression.push_back(bufer);
+                bufer.clear();
+            }
             operators.Push(input[i]);
         }
         else if (input[i] == ')')
         {
+            if (bufer.length() != 0)
+            {
+                expression.push_back(bufer);
+                bufer.clear();
+            }
             while (operators.Top() != '(')
             {
-                expression.push_back(operators.Pop());
+                std::string temp;
+                temp.push_back(operators.Pop());
+                expression.push_back(temp);
             }
             operators.Pop();
         }
         else if ((operators.IsEmpty()) || (operators.Top() == '('))
         {
+            if (bufer.length() != 0)
+            {
+                expression.push_back(bufer);
+                bufer.clear();
+            }
             operators.Push(input[i]);
         }
         else if (Functions::Priority(input[i]) > Functions::Priority(operators.Top()))
         {
+            if (bufer.length() != 0)
+            {
+                expression.push_back(bufer);
+                bufer.clear();
+            }
             operators.Push(input[i]);
         }
         else
         {
+            if (bufer.length() != 0)
+            {
+                expression.push_back(bufer);
+                bufer.clear();
+            }
             while ((!operators.IsEmpty()) &&(operators.Top() != '(') && (Functions::Priority(input[i]) <= Functions::Priority(operators.Top())))
             {
-                expression.push_back(operators.Pop());
+                std::string temp;
+                temp.push_back(operators.Pop());
+                expression.push_back(temp);
             }
             operators.Push(input[i]);
         }
     }
+    if (bufer.length() != 0)
+    {
+        expression.push_back(bufer);
+        bufer.clear();
+    }
     while (!operators.IsEmpty())
     {
-        expression.push_back(operators.Pop());
+        std::string temp;
+        temp.push_back(operators.Pop());
+        expression.push_back(temp);
     }
 }
 
@@ -104,14 +144,33 @@ void Application<ValueType>::ReadDictionary()
 {
     for (unsigned i = 0; i < expression.size(); i++)
     {
-        if ((expression[i] != '+') && (expression[i] != '-') && (expression[i] != '*') && (expression[i] != '/'))
+        if ((expression[i] != "+") && (expression[i] != "-") && (expression[i] != "*") && (expression[i] != "/"))
         {
             if (dictionary.count(expression[i]) == 0)
             {
-                ValueType input;
-                std::cout << "Введите значение переменной " << expression[i] << " ";
-                std::cin >> input;
-                dictionary.insert(std::pair<char, ValueType>(expression[i], input));
+                bool isNumeric = true;
+                for (unsigned j = 0; j < expression[i].length(); j++)
+                {
+                    if ((expression[i][j] < 48) || (expression[i][j] > 57)) isNumeric = false;
+                }
+                if (isNumeric)
+                {
+                    unsigned multiply = 1;
+                    ValueType value = 0;
+                    for (unsigned j = 0; j < expression[i].length(); j++)
+                    {
+                        value += (expression[i][expression[i].length() - 1 - j] - 48) * multiply;
+                        multiply *= 10;
+                    }
+                    dictionary.insert(std::pair<std::string, ValueType>(expression[i], value));
+                }
+                else
+                {
+                    ValueType input;
+                    std::cout << "Введите значение переменной " << expression[i] << " ";
+                    std::cin >> input;
+                    dictionary.insert(std::pair<std::string, ValueType>(expression[i], input));
+                }
             }
         }
     }
@@ -123,29 +182,29 @@ ValueType Application<ValueType>::Calculate()
     Stack<ValueType> result;
     for (unsigned i = 0; i < expression.size(); i++)
     {
-        if ((expression[i] != '+') && (expression[i] != '-') && (expression[i] != '*') && (expression[i] != '/'))
+        if ((expression[i] != "+") && (expression[i] != "-") && (expression[i] != "*") && (expression[i] != "/"))
         {
             result.Push(dictionary[expression[i]]);
         }
-        else if (expression[i] == '+')
+        else if (expression[i] == "+")
         {
             ValueType b = result.Pop();
             ValueType a = result.Pop();
             result.Push(a + b);
         }
-        else if (expression[i] == '-')
+        else if (expression[i] == "-")
         {
             ValueType b = result.Pop();
             ValueType a = result.Pop();
             result.Push(a - b);
         }
-        else if (expression[i] == '*')
+        else if (expression[i] == "*")
         {
             ValueType b = result.Pop();
             ValueType a = result.Pop();
             result.Push(a * b);
         }
-        else if (expression[i] == '/')
+        else if (expression[i] == "/")
         {
             ValueType b = result.Pop();
             ValueType a = result.Pop();
