@@ -140,7 +140,7 @@ void Application<ValueType>::Read()
     }
 
     //Великая процедура по превращению стека в вектор
-    Stack<std::string> temp;
+    Stack<std::string> temp(input.length());
     while (!out.IsEmpty())
     {
         temp.Push(out.Pop());
