@@ -47,11 +47,12 @@ Application<ValueType>::~Application()
 template <typename ValueType>
 void Application<ValueType>::Read()
 {
-    Stack<char> operators;
     std::string input;
     std::string bufer;
     std::cout << "Введите выражение" << std::endl;
     std::getline(std::cin, input);
+    Stack<char> operators(input.length());
+    Stack<std::string> out(input.length());
 
     for (int i = 0; i < input.size(); i++)
     {
@@ -60,7 +61,7 @@ void Application<ValueType>::Read()
         {
             if (bufer.length() != 0)
             {
-                expression.push_back(bufer);
+                out.Push(bufer);
                 bufer.clear();
             }
         }
@@ -72,7 +73,7 @@ void Application<ValueType>::Read()
         {
             if (bufer.length() != 0)
             {
-                expression.push_back(bufer);
+                out.Push(bufer);
                 bufer.clear();
             }
             operators.Push(input[i]);
@@ -81,14 +82,14 @@ void Application<ValueType>::Read()
         {
             if (bufer.length() != 0)
             {
-                expression.push_back(bufer);
+                out.Push(bufer);
                 bufer.clear();
             }
             while (operators.Top() != '(')
             {
                 std::string temp;
                 temp.push_back(operators.Pop());
-                expression.push_back(temp);
+                out.Push(temp);
             }
             operators.Pop();
         }
@@ -96,7 +97,7 @@ void Application<ValueType>::Read()
         {
             if (bufer.length() != 0)
             {
-                expression.push_back(bufer);
+                out.Push(bufer);
                 bufer.clear();
             }
             operators.Push(input[i]);
@@ -105,7 +106,7 @@ void Application<ValueType>::Read()
         {
             if (bufer.length() != 0)
             {
-                expression.push_back(bufer);
+                out.Push(bufer);
                 bufer.clear();
             }
             operators.Push(input[i]);
@@ -114,28 +115,39 @@ void Application<ValueType>::Read()
         {
             if (bufer.length() != 0)
             {
-                expression.push_back(bufer);
+                out.Push(bufer);
                 bufer.clear();
             }
             while ((!operators.IsEmpty()) &&(operators.Top() != '(') && (Functions::Priority(input[i]) <= Functions::Priority(operators.Top())))
             {
                 std::string temp;
                 temp.push_back(operators.Pop());
-                expression.push_back(temp);
+                out.Push(temp);
             }
             operators.Push(input[i]);
         }
     }
     if (bufer.length() != 0)
     {
-        expression.push_back(bufer);
+        out.Push(bufer);
         bufer.clear();
     }
     while (!operators.IsEmpty())
     {
         std::string temp;
         temp.push_back(operators.Pop());
-        expression.push_back(temp);
+        out.Push(temp);
+    }
+
+    //Великая процедура по превращению стека в вектор
+    Stack<std::string> temp;
+    while (!out.IsEmpty())
+    {
+        temp.Push(out.Pop());
+    }
+    while (!temp.IsEmpty())
+    {
+        expression.push_back(temp.Pop());
     }
 }
 
