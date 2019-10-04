@@ -21,7 +21,10 @@ void Calculator::ReadExpression(std::string input)
             }
         }
 
-        if (input[i] == ' ');
+        if (input[i] == ' ')
+        {
+
+        }
         else if ((input[i] != '+') && (input[i] != '-') && (input[i] != '*') && (input[i] != '/') && (input[i] != '(') && (input[i] != ')'))
         {
             buffer.push_back(input[i]);
@@ -105,4 +108,44 @@ void Calculator::ReadDictionary()
         }
         temp.Pop();
     }
+}
+
+double Calculator::Calculate()
+{
+    Stack<double> result;
+
+    while (!expression.IsEmpty())
+    {
+        if ((expression.Top() != "+") && (expression.Top() != "-") && (expression.Top() != "*") && (expression.Top() != "/"))
+        {
+            result.Push(variables[expression.Top()]);
+        }
+        else if (expression.Top() == "+")
+        {
+            double b = result.Pop();
+            double a = result.Pop();
+            result.Push(a + b);
+        }
+        else if (expression.Top() == "-")
+        {
+            double b = result.Pop();
+            double a = result.Pop();
+            result.Push(a - b);
+        }
+        else if (expression.Top() == "*")
+        {
+            double b = result.Pop();
+            double a = result.Pop();
+            result.Push(a * b);
+        }
+        else if (expression.Top() == "/")
+        {
+            double b = result.Pop();
+            double a = result.Pop();
+            if (b == 0) throw "Divizion by zero";
+            result.Push(a / b);
+        }
+        expression.Pop();
+    }
+    return result.Top();
 }

@@ -125,10 +125,9 @@
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="Exception.h" />
     <ClInclude Include="Functions\Functions.h" />
-    <ClInclude Include="Headers\Application\Application.h" />
-    <ClInclude Include="Headers\Excpeption\Exception.h" />
-    <ClInclude Include="Headers\Stack\Stack.h" />
+    <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Calculator.cpp" />

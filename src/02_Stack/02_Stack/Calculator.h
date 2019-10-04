@@ -3,7 +3,7 @@
 #include <string>
 
 #include "Dictionary.h"
-#include "Headers/Stack/Stack.h"
+#include "Stack.h"
 #include "Functions/Functions.h"
 
 class Calculator
