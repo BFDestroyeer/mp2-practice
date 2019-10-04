@@ -20,14 +20,17 @@ public:
 
     bool IsEmpty();
     bool IsFull();
+
+    Stack& operator=(const Stack& temp);
 };
 
 template<typename ValueType>
 Stack<ValueType>::Stack(unsigned size_)
 {
+    if (size_ == 0) throw "Cant create";
     size = size_;
     head = 0;
-    elements = new ValueType[size_];
+    elements = new ValueType[size];
 }
 
 template<typename ValueType>
@@ -35,15 +38,10 @@ Stack<ValueType>::Stack(const Stack& temp)
 {
     size = temp.size;
     head = temp.head;
-    delete[] elements;
-    if (size != 0)
+    elements = new ValueType[size];
+    for (unsigned i = 0; i < head; i++)
     {
-        elements = new ValueType[size];
-        std::memcpy(elements, temp.elements, size * sizeof(ValueType));
-    }
-    else
-    {
-        elements = 0;
+        elements[i] = temp.elements[i];
     }
 }
 
@@ -86,4 +84,18 @@ bool Stack<ValueType>::IsFull()
 {
     if (head == size) return true;
     return false;
+}
+
+template<typename ValueType>
+Stack<ValueType>& Stack<ValueType>::operator=(const Stack<ValueType>& temp)
+{
+    if (size != temp.size) delete[] elements;
+    size = temp.size;
+    head = temp.head;
+    elements = new ValueType[size];
+    for (unsigned i = 0; i < head; i++)
+    {
+        elements[i] = temp.elements[i];
+    }
+    return *this;
 }

@@ -1,6 +1,6 @@
 #include "Functions.h"
 
-const unsigned Functions::Priority(const char opr)
+const unsigned Priority(const char opr)
 {
     if ((opr == '*') || (opr == '/')) return 3;
     if ((opr == '+') || (opr == '-')) return 2;
