@@ -1,3 +1,4 @@
+#pragma once
 #include "TVector.h"
 
 namespace Generate
