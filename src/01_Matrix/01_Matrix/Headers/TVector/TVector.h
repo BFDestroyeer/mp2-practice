@@ -56,17 +56,16 @@ public:
 template <typename ValueType>
 TVector<ValueType>::TVector(unsigned size_, unsigned startIndex_)
 {
-    if (size_ == 0) throw Exception(CantCreateEmpty);
+    if (size_ == 0) throw TException(CantCreateEmpty);
     size = size_;
     startIndex = startIndex_;
     elements = new ValueType[size];
-    //memset(elements, 0, size * sizeof(ValueType));
 }
 
 template <typename ValueType>
 TVector<ValueType>::TVector(unsigned size_, ValueType* elements_)
 {
-    if (size_ == 0) throw Exception(CantCreateEmpty);
+    if (size_ == 0) throw TException(CantCreateEmpty);
     size = size_;
     startIndex = 0;
     elements = new ValueType[size];
@@ -115,7 +114,6 @@ unsigned TVector<ValueType>::GetStartIndex() const
 template <typename ValueType>
 bool TVector<ValueType>::operator==(const TVector& temp) const
 {
-    if (*this == temp) return true;
     if (startIndex != temp.startIndex) return false;
     if (size != temp.size) return false;
     for (unsigned i = 0; i < size; i++)
@@ -245,7 +243,7 @@ std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
     {
         out << "  ";
     }
-    for (unsigned i = 0; i < vector.size; i++)
+    for (unsigned i = vector.startIndex; i < vector.size + vector.startIndex; i++)
     {
         out << vector[i] << ' ';
     }
@@ -266,18 +264,18 @@ std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 template <typename ValueType>
 ValueType& TVector<ValueType>::operator[](unsigned index)
 {
-    if ((index < startIndex) ||(index >= size)) throw TException(BadIndex);
+    if ((index < startIndex) ||(index - startIndex >= size)) throw TException(BadIndex);
     return elements[index - startIndex];
 }
 
 template <typename ValueType>
 const ValueType TVector<ValueType>::operator[](unsigned index) const
 {
-    if ((index < startIndex) || (index >= size)) throw TException(BadIndex);
+    if ((index < startIndex) || (index - startIndex >= size)) throw TException(BadIndex);
     return elements[index - startIndex];
 }
 
-namespace Generate
+/*namespace Generate
 {
     TVector<TVector<double>> VectorOfVectors(const unsigned size_)
     {
@@ -295,4 +293,4 @@ namespace Generate
         }
         return out;
     }
-}
+}*/

@@ -44,10 +44,8 @@ public:
 };
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(unsigned size_)
+TMatrix<ValueType>::TMatrix(unsigned size_) : TVector<TVector<ValueType> >(size_)
 {
-    this->size = size_;
-    this->elements = new TVector<ValueType>[this->size];
     for (unsigned i = 0; i < this->size; i++)
     {
         this->elements[i] = TVector<ValueType>(this->size - i, i);
@@ -66,17 +64,11 @@ TMatrix<ValueType>::TMatrix(const TMatrix& temp)
 }
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp)
+TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp) : TVector<TVector<ValueType> >(temp)
 {
-    this->size = temp.GetSize();
-    this->elements = new TVector<ValueType>[this->size];
     for (unsigned i = 0; i < this->size; i++)
     {
-        this->elements[i] = TVector<ValueType>(this->size - i, i);
-        for (unsigned j = i; j < this->size; j++)
-        {
-            (*this)[i][j] = temp[i][j];
-        }
+        if ((temp[i].GetSize() != this->size - i) || (temp[i].GetStartIndex() != i)) throw TException(CantConvert);
     }
 }
 
@@ -179,9 +171,15 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix<ValueType>& temp)
     {
         for (unsigned j = i; j < this->size; j++)
         {
-            for (unsigned k = 0; k < this->size; k++)
+            for (unsigned k = i; k <= /*this->size - */j; k++)
             {
-                out[i][j] += (*this)[i][k] * temp[k][j];
+                try {
+                    out[i][j] += (*this)[i][k] * temp[k][j];
+                }
+                catch (TException temp)
+                {
+                    std::cout << i << j << k << "HI" << std::endl;
+                }
             }
         }
     }

@@ -35,8 +35,8 @@ int main()
     std::cout << TMatrix<double>(size) << std::endl;
     std::cout << "Конструктор копирования" << std::endl;
     std::cout << TMatrix<double>(a) << std::endl;
-    std::cout << "Конструктор преобразования типа" << std::endl;
-    std::cout << TMatrix<double>(Generate::VectorOfVectors(size)) << std::endl;
+    /*std::cout << "Конструктор преобразования типа" << std::endl;
+    std::cout << TMatrix<double>(Generate::VectorOfVectors(size)) << std::endl;*/
 
     std::cout << "Операции сравнения" << std::endl;
     std::cout << "A == B " << (a == b) << std::endl;
