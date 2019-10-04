@@ -6,6 +6,7 @@
 
 #include "../Stack/Stack.h"
 #include "../../Functions/Functions.h"
+#include "../Excpeption/Exception.h"
 
 template <typename ValueType>
 class Application
@@ -139,7 +140,6 @@ void Application<ValueType>::Read()
         out.Push(temp);
     }
 
-    //Великая процедура по превращению стека в вектор
     Stack<std::string> temp(input.length());
     while (!out.IsEmpty())
     {
@@ -148,6 +148,12 @@ void Application<ValueType>::Read()
     while (!temp.IsEmpty())
     {
         expression.push_back(temp.Pop());
+    }
+
+    //Проверка на неправилные скобки
+    for (unsigned i = 0; i < expression.size(); i++)
+    {
+        if (expression[i] == "(") throw Exception(BadExpression);
     }
 }
 
@@ -220,7 +226,7 @@ ValueType Application<ValueType>::Calculate()
         {
             ValueType b = result.Pop();
             ValueType a = result.Pop();
-            if (b == 0) throw "Divizion by zero";
+            if (b == 0) throw Exception(DivizionByZero);
             result.Push(a / b);
         }
     }

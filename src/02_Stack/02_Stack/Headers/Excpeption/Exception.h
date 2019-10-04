@@ -2,16 +2,15 @@
 
 enum Exception_Type
 {
-    BadSize,        //Неправльный размер матрицы или вектора
-    BadIndex,       //Неправильный индекс
-    WriteOnReadOnly //Попытка записи в ячейку доступную только для чтения
+    BadExpression,  //Неправильное выражение  
+    DivizionByZero  //Деление на 0
 };
 
-struct TException
+struct Exception
 {
     Exception_Type type;
 
-    TException(Exception_Type type_)
+    Exception(Exception_Type type_)
     {
         type = type_;
     }
