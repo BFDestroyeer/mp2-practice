@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 
-#include "../TException/TExcepntion.h"
+#include "TExcepntion.h"
 
 template <typename ValueType>
 class TVector
@@ -239,14 +239,19 @@ ValueType TVector<ValueType>::Length() const
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
 {
+    out << '|';
     for (unsigned i = 0; i < vector.startIndex; i++)
     {
-        out << "  ";
+        out << "      ";
     }
     for (unsigned i = vector.startIndex; i < vector.size + vector.startIndex; i++)
     {
+        std::cout.fill(' ');
+        std::cout.width(5);
+        std::cout.precision(3);
         out << vector[i] << ' ';
     }
+    out << '|';
     return out;
 }
 
@@ -274,23 +279,3 @@ const ValueType TVector<ValueType>::operator[](unsigned index) const
     if ((index < startIndex) || (index - startIndex >= size)) throw TException(BadIndex);
     return elements[index - startIndex];
 }
-
-/*namespace Generate
-{
-    TVector<TVector<double>> VectorOfVectors(const unsigned size_)
-    {
-        TVector<TVector<double>> out(size_);
-        for (unsigned i = 0; i < size_; i++)
-        {
-            out[i] = TVector<double>(size_);
-        }
-        for (unsigned i = 0; i < size_; i++)
-        {
-            for (unsigned j = 0; j < size_; j++)
-            {
-                out[i][j] = i + j;
-            }
-        }
-        return out;
-    }
-}*/

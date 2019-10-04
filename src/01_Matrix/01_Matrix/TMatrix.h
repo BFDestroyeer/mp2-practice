@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "..//TVector.h"
+#include "TVector.h"
 
 template <typename ValueType>
 class TMatrix : public TVector<TVector<ValueType> >
@@ -171,15 +171,10 @@ TMatrix<ValueType> TMatrix<ValueType>::operator*(const TMatrix<ValueType>& temp)
     {
         for (unsigned j = i; j < this->size; j++)
         {
+            out[i][j] = 0;
             for (unsigned k = i; k <= /*this->size - */j; k++)
             {
-                try {
                     out[i][j] += (*this)[i][k] * temp[k][j];
-                }
-                catch (TException temp)
-                {
-                    std::cout << i << j << k << "HI" << std::endl;
-                }
             }
         }
     }
@@ -194,7 +189,11 @@ TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp)
     TVector<ValueType> out(this->size);
     for (unsigned i = 0; i < this->size; i++)
     {
-        out[i] = this->elements[i] * temp;
+        out[i] = 0;
+        for (unsigned j = i; j < this->size; j++)
+        {
+            out[i] += (*this)[i][j] * temp[j];
+        }
     }
     return out;
 }

@@ -1,9 +1,11 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <locale>
 
-#include "Headers/TVector/TVector.h"
-#include "Headers/TVector/TMatrix/TMatrix.h"
+#include "TVector.h"
+#include "TMatrix.h"
+#include "Generate.h"
 
 int main()
 {
@@ -31,12 +33,12 @@ int main()
     std::cin >> d;
 
     std::cout << std::endl << "Проверка конструкторов" << std::endl;
-    std::cout << "Конструктор с параметрами" << std::endl;
-    std::cout << TMatrix<double>(size) << std::endl;
+    /*std::cout << "Конструктор с параметрами" << std::endl;
+    std::cout << TMatrix<double>(size) << std::endl;*/
     std::cout << "Конструктор копирования" << std::endl;
     std::cout << TMatrix<double>(a) << std::endl;
-    /*std::cout << "Конструктор преобразования типа" << std::endl;
-    std::cout << TMatrix<double>(Generate::VectorOfVectors(size)) << std::endl;*/
+    std::cout << "Конструктор преобразования типа" << std::endl;
+    std::cout << TMatrix<double>(Generate::VectorOfVectors(size)) << std::endl;
 
     std::cout << "Операции сравнения" << std::endl;
     std::cout << "A == B " << (a == b) << std::endl;

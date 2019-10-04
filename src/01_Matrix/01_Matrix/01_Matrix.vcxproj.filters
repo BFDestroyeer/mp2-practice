@@ -13,30 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\TVector">
-      <UniqueIdentifier>{ef0265e3-bdd1-4230-b3e3-ea37a003e171}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\TVector\TMatrix">
-      <UniqueIdentifier>{f34ecf99-a0da-4f29-9340-6e3035fe7d87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\TException">
-      <UniqueIdentifier>{a07a0fb7-d522-408b-9dfa-94bf8552ee0c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Headers\TVector\TVector.h">
-      <Filter>Файлы заголовков\TVector</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\TVector\TMatrix\TMatrix.h">
-      <Filter>Файлы заголовков\TVector\TMatrix</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\TException\TExcepntion.h">
-      <Filter>Файлы заголовков\TException</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Generate.cpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TMatrix.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TVector.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TExcepntion.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
