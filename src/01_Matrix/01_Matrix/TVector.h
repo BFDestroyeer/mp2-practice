@@ -228,7 +228,7 @@ template <typename ValueType>
 ValueType TVector<ValueType>::Length() const
 {
     ValueType out = 0;
-    out = (*this) * (*this)
+    out = (*this) * (*this);
     return sqrt(out);
 }
 

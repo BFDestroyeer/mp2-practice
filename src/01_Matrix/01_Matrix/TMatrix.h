@@ -53,14 +53,9 @@ TMatrix<ValueType>::TMatrix(unsigned size_) : TVector<TVector<ValueType> >(size_
 }
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(const TMatrix& temp)
+TMatrix<ValueType>::TMatrix(const TMatrix& temp) : TVector<TVector<ValueType> >(temp)
 {
-    this->size = temp.size;
-    this->elements = new TVector<ValueType>[this->size];
-    for (unsigned i = 0; i < this->size; i++)
-    {
-        this->elements[i] = temp.elements[i];
-    }
+
 }
 
 template <typename ValueType>
