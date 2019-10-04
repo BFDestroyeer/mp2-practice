@@ -12,7 +12,8 @@ protected:
     unsigned startIndex;    //Начальный индекс 
 
 public:
-    TVector(unsigned size_ = 0, unsigned startIndex_ = 0);
+    TVector(unsigned size_ = 1, unsigned startIndex_ = 0);
+    TVector(unsigned size_, ValueType* elements_);
     TVector(const TVector& temp);
     ~TVector();
 
@@ -37,7 +38,7 @@ public:
     //Операция присваивания
     TVector& operator=(const TVector& temp);
 
-    //Получение длинны(не размера) вектора
+    //Получение длины(не размера) вектора
     ValueType Length() const;
 
     //Операции ввода-вывода в поток
@@ -55,14 +56,24 @@ public:
 template <typename ValueType>
 TVector<ValueType>::TVector(unsigned size_, unsigned startIndex_)
 {
+    if (size_ == 0) throw Exception(CantCreateEmpty);
     size = size_;
     startIndex = startIndex_;
-    if (size)
+    elements = new ValueType[size];
+    //memset(elements, 0, size * sizeof(ValueType));
+}
+
+template <typename ValueType>
+TVector<ValueType>::TVector(unsigned size_, ValueType* elements_)
+{
+    if (size_ == 0) throw Exception(CantCreateEmpty);
+    size = size_;
+    startIndex = 0;
+    elements = new ValueType[size];
+    for (unsigned i = 0; i < size; i++)
     {
-        elements = new ValueType[size];
+        elements[i] = elements_[i];
     }
-    else elements = nullptr;
-    memset(elements, 0, size * sizeof(ValueType));
 }
 
 template <typename ValueType>
@@ -71,7 +82,7 @@ TVector<ValueType>::TVector(const TVector& temp)
     size = temp.size;
     startIndex = temp.startIndex;
     elements = new ValueType[size];
-    for (unsigned i = 0; i < size; i++) //НИКАКИХ memcpy!!!
+    for (unsigned i = 0; i < size; i++)
     {
         elements[i] = temp.elements[i];
     }
@@ -104,7 +115,8 @@ unsigned TVector<ValueType>::GetStartIndex() const
 template <typename ValueType>
 bool TVector<ValueType>::operator==(const TVector& temp) const
 {
-    if (elements == temp.elements) return true;
+    if (*this == temp) return true;
+    if (startIndex != temp.startIndex) return false;
     if (size != temp.size) return false;
     for (unsigned i = 0; i < size; i++)
     {
@@ -116,13 +128,7 @@ bool TVector<ValueType>::operator==(const TVector& temp) const
 template <typename ValueType>
 bool TVector<ValueType>::operator!=(const TVector& temp) const
 {
-    if (elements == temp.elements) return false;
-    if (size != temp.size) return true;
-    for (unsigned i = 0; i < size; i++)
-    {
-        if (elements[i] != temp.elements[i]) return true;
-    }
-    return false;
+    return (!(*this == temp));
 }
 
 //Скалярные операции
@@ -164,6 +170,7 @@ template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator+(const TVector& temp) const
 {
     if (size != temp.size) throw TException(BadSize);
+    if (startIndex != temp.startIndex) throw TException(BadSize);
     TVector<ValueType> out(size, startIndex);
     for (unsigned i = 0; i < size; i++)
     {
@@ -176,6 +183,7 @@ template <typename ValueType>
 TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 {
     if (size != temp.size) throw TException(BadSize);
+    if (startIndex != temp.startIndex) throw TException(BadSize);
     TVector<ValueType> out(size, startIndex);
     for (unsigned i = 0; i < size; i++)
     {
@@ -187,10 +195,11 @@ TVector<ValueType> TVector<ValueType>::operator-(const TVector& temp) const
 template <typename ValueType>
 ValueType TVector<ValueType>::operator*(const TVector& temp) const
 {
-    if ((size + startIndex) != (temp.size + temp.startIndex)) throw TException(BadSize);
+    if (size != temp.size) throw TException(BadSize);
+    if (startIndex != temp.startIndex) throw TException(BadSize);
     ValueType out;
     out = 0;
-    for (unsigned i = 0; i < (size + startIndex); i++)
+    for (unsigned i = 0; i < size; i++)
     {
         out += (*this)[i] * temp[i];
     }
@@ -201,12 +210,11 @@ ValueType TVector<ValueType>::operator*(const TVector& temp) const
 template <typename ValueType>
 TVector<ValueType>& TVector<ValueType>::operator=(const TVector& temp)
 {
-    if (elements == temp.elements) return *this;
+    if (*this == temp) return *this;
     if (size != temp.size)
     {
         delete[] elements;
         size = temp.size;
-        startIndex = temp.startIndex;
         elements = new ValueType[size];
     }
     startIndex = temp.startIndex;
@@ -217,7 +225,7 @@ TVector<ValueType>& TVector<ValueType>::operator=(const TVector& temp)
     return *this;
 }
 
-//Получение длинны(не размера) вектора
+//Получение длины(не размера) вектора
 template <typename ValueType>
 ValueType TVector<ValueType>::Length() const
 {
@@ -233,7 +241,11 @@ ValueType TVector<ValueType>::Length() const
 template <typename ValueType>
 std::ostream& operator<<(std::ostream& out, const TVector<ValueType>& vector)
 {
-    for (unsigned i = 0; i < (vector.size + vector.startIndex); i++)
+    for (unsigned i = 0; i < vector.startIndex; i++)
+    {
+        out << "  ";
+    }
+    for (unsigned i = 0; i < vector.size; i++)
     {
         out << vector[i] << ' ';
     }
@@ -254,19 +266,15 @@ std::istream& operator>>(std::istream& in, TVector<ValueType>& vector)
 template <typename ValueType>
 ValueType& TVector<ValueType>::operator[](unsigned index)
 {
-    if (index < startIndex) throw TException(WriteOnReadOnly);
-    index -= startIndex;
-    if (index >= size) throw TException(BadIndex);
-    return elements[index];
+    if ((index < startIndex) ||(index >= size)) throw TException(BadIndex);
+    return elements[index - startIndex];
 }
 
 template <typename ValueType>
 const ValueType TVector<ValueType>::operator[](unsigned index) const
 {
-    if (index < startIndex) return 0;
-    index -= startIndex;
-    if (index >= size) throw TException(BadIndex);
-    return elements[index];
+    if ((index < startIndex) || (index >= size)) throw TException(BadIndex);
+    return elements[index - startIndex];
 }
 
 namespace Generate
@@ -282,7 +290,7 @@ namespace Generate
         {
             for (unsigned j = 0; j < size_; j++)
             {
-                out[i][j] = rand() % 10;
+                out[i][j] = i + j;
             }
         }
         return out;

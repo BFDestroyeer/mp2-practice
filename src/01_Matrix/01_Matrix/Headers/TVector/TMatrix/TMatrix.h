@@ -44,7 +44,7 @@ public:
 };
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(unsigned size_) 
+TMatrix<ValueType>::TMatrix(unsigned size_)
 {
     this->size = size_;
     this->elements = new TVector<ValueType>[this->size];
@@ -109,13 +109,7 @@ bool TMatrix<ValueType>::operator==(const TMatrix& temp) const
 template <typename ValueType>
 bool TMatrix<ValueType>::operator!=(const TMatrix& temp) const
 {
-    if (this->elements == temp.elements) return false;
-    if (this->size != temp.size) return true;
-    for (unsigned i = 0; i < this->size; i++)
-    {
-        if (this->elements[i] != temp.elements[i]) return true;
-    }
-    return false;
+    return (!(*this == temp));
 }
 
 //Скалярные операции
