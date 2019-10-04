@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Functions\Functions.h" />
     <ClInclude Include="Headers\Application\Application.h" />
+    <ClInclude Include="Headers\Excpeption\Exception.h" />
     <ClInclude Include="Headers\Stack\Stack.h" />
   </ItemGroup>
   <ItemGroup>
