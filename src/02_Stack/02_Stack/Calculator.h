@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 
@@ -6,14 +6,12 @@
 #include "Stack.h"
 #include "Functions/Functions.h"
 
-class Calculator
+namespace Calculator
 {
-protected:
-    Stack<std::string> expression;
-    Dictionary variables;
-
-public:
-    void ReadExpression(std::string input);
-    void ReadDictionary();
-    double Calculate();
+    //Пробразовать к префиксонй форме
+    std::string ReadExpression(const std::string& input);
+    //Запросить у пользователя значения пермеенных
+    Dictionary ReadDictionary(const std::string& input);
+    //Вычислить выражение
+    double Calculate(const std::string& input, const Dictionary variables);
 };

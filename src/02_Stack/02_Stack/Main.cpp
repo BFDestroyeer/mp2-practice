@@ -8,10 +8,11 @@
 
 int main()
 {
-    Calculator temp;
     std::string input;
+    std::string prefix;
+    Dictionary dict;
     std::getline(std::cin, input);
-    temp.ReadExpression(input);
-    temp.ReadDictionary();
-    std::cout << temp.Calculate();
+    prefix = Calculator::ReadExpression(input);
+    dict = Calculator::ReadDictionary(prefix);
+    std::cout << Calculator::Calculate(prefix, dict);
 }
