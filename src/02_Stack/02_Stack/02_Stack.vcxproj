@@ -126,13 +126,13 @@
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Exception.h" />
-    <ClInclude Include="Functions\Functions.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Dictionary.cpp" />
-    <ClCompile Include="Functions\Functions.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

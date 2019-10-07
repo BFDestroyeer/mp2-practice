@@ -2,6 +2,9 @@
 
 enum Exception_Type
 {
+    Empty,
+    Full,
+    CantCreate,
     BadExpression,  //Неправильное выражение  
     DivizionByZero  //Деление на 0
 };

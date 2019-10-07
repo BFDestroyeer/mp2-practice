@@ -8,6 +8,9 @@ std::string Calculator::ReadExpression(const std::string& input)
     Stack<char> operators(input.length());  //Первый стек
     Stack<std::string> out(input.length()); //Второй стек
 
+    //Переменные контроля корректности ввода
+    int cOperand = -1, cOperator = -1, cLeftBraket = -1, cRightBracket = -1, cLastInputType = -1;
+
     for (int i = 0; i < input.size(); i++)
     {
         if (buffer.length() != 0)
@@ -16,6 +19,9 @@ std::string Calculator::ReadExpression(const std::string& input)
             {
                 out.Push(buffer);
                 buffer.clear();
+                cOperand++;
+                if (cLastInputType == 0) throw Exception(BadExpression);
+                cLastInputType = 0;
             }
         }
 
@@ -30,24 +36,37 @@ std::string Calculator::ReadExpression(const std::string& input)
         else if (input[i] == '(')
         {
             operators.Push(input[i]);
+            cLeftBraket++;
+            if ((cLastInputType == 0) || (cLastInputType == 3)) throw Exception(BadExpression);
+            cLastInputType = 2;
         }
         else if (input[i] == ')')
         {
-            while (operators.Top() != '(')
+            while (operators.Top() != '(') 
             {
+                //Может прийти исключение, что стек пуст -> ошибочный ввод
                 std::string temp;
                 temp.push_back(operators.Pop());
                 out.Push(temp);
             }
             operators.Pop();
+            cRightBracket++;
+            if (cLastInputType == 1) throw Exception(BadExpression);
+            cLastInputType = 3;
         }
         else if (operators.IsEmpty())
         {
             operators.Push(input[i]);
+            cOperator++;
+            if ((cLastInputType == 1) || (cLastInputType == 2)) throw Exception(BadExpression);
+            cLastInputType = 1;
         }
         else if (Priority(input[i]) > Priority(operators.Top()))
         {
             operators.Push(input[i]);
+            cOperator++;
+            if ((cLastInputType == 1) || (cLastInputType == 2)) throw Exception(BadExpression);
+            cLastInputType = 1;
         }
         else
         {
@@ -58,6 +77,9 @@ std::string Calculator::ReadExpression(const std::string& input)
                 out.Push(temp);
             }
             operators.Push(input[i]);
+            cOperator++;
+            if ((cLastInputType == 1) || (cLastInputType == 2)) throw Exception(BadExpression);
+            cLastInputType = 1;
         }
     }
 
@@ -65,7 +87,11 @@ std::string Calculator::ReadExpression(const std::string& input)
     {
         out.Push(buffer);
         buffer.clear();
+        cOperand++;
+        cLastInputType = 0;
     }
+
+    if ((cOperand != cOperator + 1) || (cLeftBraket != cRightBracket)) throw Exception(BadExpression);
 
     while (!operators.IsEmpty())
     {
@@ -86,7 +112,7 @@ std::string Calculator::ReadExpression(const std::string& input)
 Dictionary Calculator::ReadDictionary(const std::string& input)
 {
     std::string buffer;
-    Dictionary out(100);
+    Dictionary out;
 
     for (unsigned i = 0; i < input.size(); i++)
     {
@@ -120,7 +146,7 @@ Dictionary Calculator::ReadDictionary(const std::string& input)
 
 double Calculator::Calculate(const std::string& input, const Dictionary variables)
 {
-    Stack<double> result(100);
+    Stack<double> result(input.length());
     std::string buffer;
 
     for (unsigned i = 0; i < input.size(); i++)
@@ -158,7 +184,7 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
             {
                 double b = result.Pop();
                 double a = result.Pop();
-                if (b == 0) throw "Divizion by zero";
+                if (b == 0) throw Exception(DivizionByZero);
                 result.Push(a / b);
             }
             buffer.clear();

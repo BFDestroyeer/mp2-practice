@@ -4,7 +4,8 @@
 
 #include "Dictionary.h"
 #include "Stack.h"
-#include "Functions/Functions.h"
+#include "Exception.h"
+#include "Functions.h"
 
 namespace Calculator
 {

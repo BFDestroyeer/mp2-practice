@@ -27,7 +27,17 @@ Dictionary::~Dictionary()
 
 void Dictionary::Push(const std::string& key_, double value_)
 {
-    if (head == size) return;
+    if (head == size)
+    {
+        Element* temp = new Element[size + 10];
+        for (size_t i = 0; i < size; i++)
+        {
+            temp[i] = values[i];
+        }
+        delete[] values;
+        values = temp;
+        size += 10;
+    }
     values[head].key = key_;
     values[head].value = value_;
     head++;

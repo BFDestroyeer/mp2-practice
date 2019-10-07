@@ -9,17 +9,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Functions">
-      <UniqueIdentifier>{6496c930-c9f2-495a-9188-76b54671ae9a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков">
       <UniqueIdentifier>{79bbbb31-489c-4923-8b97-1e141b2a03a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Functions\Functions.h">
-      <Filter>Functions</Filter>
-    </ClInclude>
     <ClInclude Include="Stack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -32,18 +26,21 @@
     <ClInclude Include="Calculator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\Functions.cpp">
-      <Filter>Functions</Filter>
-    </ClCompile>
     <ClCompile Include="Dictionary.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Calculator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
