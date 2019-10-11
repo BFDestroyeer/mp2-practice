@@ -7,7 +7,7 @@ class TMatrix : public TVector<TVector<ValueType> >
 public:
     explicit TMatrix(unsigned size_ = 10);
     TMatrix(const TMatrix& temp);
-    TMatrix(const TVector<TVector<ValueType> > temp);
+    TMatrix(const TVector<TVector<ValueType> > &temp);
     ~TMatrix();
 
     //Чтение полей
@@ -59,12 +59,8 @@ TMatrix<ValueType>::TMatrix(const TMatrix& temp) : TVector<TVector<ValueType> >(
 }
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > temp) : TVector<TVector<ValueType> >(temp)
+TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType> > &temp) : TVector<TVector<ValueType> >(temp)
 {
-    for (unsigned i = 0; i < this->size; i++)
-    {
-        if ((temp[i].GetSize() != this->size - i) || (temp[i].GetStartIndex() != i)) throw TException(CantConvert);
-    }
 }
 
 template <typename ValueType>
@@ -84,7 +80,6 @@ unsigned TMatrix<ValueType>::GetSize() const
 template <typename ValueType>
 bool TMatrix<ValueType>::operator==(const TMatrix& temp) const
 {
-    if (this->elements == temp.elements) return true;
     if (this->size != temp.size) return false;
     for (unsigned i = 0; i < this->size; i++)
     {
@@ -197,7 +192,7 @@ TVector<ValueType> TMatrix<ValueType>::operator*(const TVector<ValueType>& temp)
 template <typename ValueType>
 TMatrix<ValueType>& TMatrix<ValueType>::operator=(const TMatrix<ValueType>& temp)
 {
-    if (this->elements == temp.elements) return *this;
+    if (*this == temp) return *this;
     if (this->size != temp.size)
     {
         delete[] this->elements;
