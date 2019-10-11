@@ -7,12 +7,15 @@
 #include "Exception.h"
 #include "Functions.h"
 
-namespace Calculator
+static class Calculator
 {
+	static unsigned Priority(const char opr);
+
+public:
     //Пробразовать к префиксонй форме
-    std::string ReadExpression(const std::string& input);
+    static std::string ReadExpression(const std::string& input);
     //Запросить у пользователя значения пермеенных
-    Dictionary ReadDictionary(const std::string& input);
+    static Dictionary ReadDictionary(const std::string& input);
     //Вычислить выражение
-    double Calculate(const std::string& input, const Dictionary variables);
+	static double  Calculate(const std::string& input, const Dictionary variables);
 };

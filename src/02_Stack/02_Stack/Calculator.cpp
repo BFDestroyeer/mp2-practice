@@ -2,6 +2,14 @@
 
 #include "Calculator.h"
 
+unsigned Calculator::Priority(const char opr)
+{
+	if ((opr == '*') || (opr == '/')) return 3;
+	if ((opr == '+') || (opr == '-')) return 2;
+	if (opr == ')') return 1;
+	return 0;
+}
+
 std::string Calculator::ReadExpression(const std::string& input)
 {
     std::string buffer; //Буфер ввода пермененной
@@ -46,7 +54,8 @@ std::string Calculator::ReadExpression(const std::string& input)
             {
                 //Может прийти исключение, что стек пуст -> ошибочный ввод
                 std::string temp;
-                temp.push_back(operators.Pop());
+                temp.push_back(operators.Top());
+				operators.Pop();
                 out.Push(temp);
             }
             operators.Pop();
@@ -73,7 +82,8 @@ std::string Calculator::ReadExpression(const std::string& input)
             while ((!operators.IsEmpty()) && (operators.Top() != '(') && (Priority(input[i]) <= Priority(operators.Top())))
             {
                 std::string temp;
-                temp.push_back(operators.Pop());
+                temp.push_back(operators.Top());
+				operators.Pop();
                 out.Push(temp);
             }
             operators.Push(input[i]);
@@ -96,7 +106,8 @@ std::string Calculator::ReadExpression(const std::string& input)
     while (!operators.IsEmpty())
     {
         std::string temp;
-        temp.push_back(operators.Pop());
+        temp.push_back(operators.Top());
+		operators.Pop();
         out.Push(temp);
     }
 
@@ -104,7 +115,8 @@ std::string Calculator::ReadExpression(const std::string& input)
     while (!out.IsEmpty())
     {
         expression.insert(0, " ");
-        expression.insert(0, out.Pop());
+        expression.insert(0, out.Top());
+		out.Pop();
     }
     return expression;
 }
@@ -164,26 +176,34 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
             }
             else if (buffer == "+")
             {
-                double b = result.Pop();
-                double a = result.Pop();
+                double b = result.Top();
+				result.Pop();
+                double a = result.Top();
+				result.Pop();
                 result.Push(a + b);
             }
             else if (buffer == "-")
             {
-                double b = result.Pop();
-                double a = result.Pop();
+                double b = result.Top();
+				result.Pop();
+                double a = result.Top();
+				result.Pop();
                 result.Push(a - b);
             }
             else if (buffer == "*")
             {
-                double b = result.Pop();
-                double a = result.Pop();
+                double b = result.Top();
+				result.Pop();
+                double a = result.Top();
+				result.Pop();
                 result.Push(a * b);
             }
             else if (buffer == "/")
             {
-                double b = result.Pop();
-                double a = result.Pop();
+                double b = result.Top();
+				result.Pop();
+                double a = result.Top();
+				result.Pop();
                 if (b == 0) throw Exception(DivizionByZero);
                 result.Push(a / b);
             }

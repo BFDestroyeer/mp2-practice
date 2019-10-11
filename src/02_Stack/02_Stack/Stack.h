@@ -17,11 +17,11 @@ public:
     ~Stack();
 
     void Push(ValueType element);   //Вставить элемент
-    ValueType Top();                //Вернуть первый элемент
-    ValueType Pop();                //Вынуть первый элемент
+    ValueType Top() const;                //Вернуть первый элемент
+    void Pop();                //Вынуть первый элемент
 
-    bool IsEmpty();
-    bool IsFull();
+    bool IsEmpty() const;
+    bool IsFull() const;
 
     Stack& operator=(const Stack& temp);
 };
@@ -61,28 +61,28 @@ void Stack<ValueType>::Push(ValueType element)
 }
 
 template<typename ValueType>
-ValueType Stack<ValueType>::Top()
+ValueType Stack<ValueType>::Top() const
 {
     if (IsEmpty()) throw Exception(Empty);
     return elements[head-1];
 }
 
 template<typename ValueType>
-ValueType Stack<ValueType>::Pop()
+void Stack<ValueType>::Pop()
 {
     if (IsEmpty()) throw Exception(Empty);
-    return elements[--head];
+	head--;
 }
 
 template<typename ValueType>
-bool Stack<ValueType>::IsEmpty()
+bool Stack<ValueType>::IsEmpty() const
 {
     if (head == 0) return true;
     return false;
 }
 
 template<typename ValueType>
-bool Stack<ValueType>::IsFull()
+bool Stack<ValueType>::IsFull() const
 {
     if (head == size) return true;
     return false;
