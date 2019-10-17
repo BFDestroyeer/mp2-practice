@@ -52,14 +52,14 @@ std::string Calculator::ReadExpression(const std::string& input)
         {
             while (operators.Top() != '(') 
             {
-                //Может прийти исключение, что стек пуст -> ошибочный ввод
+				cRightBracket++;
+				if (cRightBracket != cLeftBraket) throw Exception(BadExpression);
                 std::string temp;
                 temp.push_back(operators.Top());
 				operators.Pop();
                 out.Push(temp);
             }
             operators.Pop();
-            cRightBracket++;
             if (cLastInputType == 1) throw Exception(BadExpression);
             cLastInputType = 3;
         }
