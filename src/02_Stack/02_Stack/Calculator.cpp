@@ -17,7 +17,7 @@ std::string Calculator::ReadExpression(const std::string& input)
     Stack<std::string> out(input.length()); //Второй стек
 
     //Переменные контроля корректности ввода
-    int cOperand = -1, cOperator = -1, cLeftBraket = -1, cRightBracket = -1, cLastInputType = -1;
+    int cOperand = 0, cOperator = 0, cLeftBraket = 0, cRightBracket = 0, cLastInputType = -1;
 
     for (int i = 0; i < input.size(); i++)
     {
@@ -50,10 +50,10 @@ std::string Calculator::ReadExpression(const std::string& input)
         }
         else if (input[i] == ')')
         {
+			cRightBracket++;
+			if (cRightBracket > cLeftBraket) throw Exception(BadExpression);
             while (operators.Top() != '(') 
             {
-				cRightBracket++;
-				if (cRightBracket != cLeftBraket) throw Exception(BadExpression);
                 std::string temp;
                 temp.push_back(operators.Top());
 				operators.Pop();
