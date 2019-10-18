@@ -36,7 +36,7 @@ Stack<ValueType>::Stack(unsigned size_)
 }
 
 template<typename ValueType>
-Stack<ValueType>::Stack(const Stack& temp)
+Stack<ValueType>::Stack(const Stack<ValueType>& temp)
 {
     size = temp.size;
     head = temp.head;
@@ -91,6 +91,10 @@ bool Stack<ValueType>::IsFull() const
 template<typename ValueType>
 Stack<ValueType>& Stack<ValueType>::operator=(const Stack<ValueType>& temp)
 {
+	if (*this == temp)
+	{
+		return *this;
+	}
     if (size != temp.size) delete[] elements;
     size = temp.size;
     head = temp.head;

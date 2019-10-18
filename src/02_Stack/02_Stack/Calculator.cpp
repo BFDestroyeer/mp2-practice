@@ -132,6 +132,10 @@ Dictionary Calculator::ReadDictionary(const std::string& input)
         {
             buffer.push_back(input[i]);
         }
+		else if (out.Count(buffer) != 0)
+		{
+			buffer.clear();
+		}
         else if (buffer.size() != 0)
         {
             bool isNumeric = true;
@@ -145,10 +149,10 @@ Dictionary Calculator::ReadDictionary(const std::string& input)
             }
             else
             {
-                double inputVariable;
-                std::cout << "Input " << buffer << " ";
-                std::cin >> inputVariable;
-                out.Push(buffer, inputVariable);
+					double inputVariable;
+					std::cout << "Input " << buffer << " ";
+					std::cin >> inputVariable;
+					out.Push(buffer, inputVariable);
             }
             buffer.clear();
         }
