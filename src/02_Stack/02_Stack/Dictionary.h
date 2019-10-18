@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "Exception.h"
+
 class Dictionary
 {
     struct Element

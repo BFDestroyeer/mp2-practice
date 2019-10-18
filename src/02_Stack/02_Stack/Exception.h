@@ -2,11 +2,12 @@
 
 enum Exception_Type
 {
-    Empty,
-    Full,
-    CantCreate,
-    BadExpression,  //Неправильное выражение  
-    DivizionByZero  //Деление на 0
+	Empty,
+	Full,
+	CantCreate,
+	BadExpression,  //Неправильное выражение  
+	DivizionByZero,  //Деление на 0
+	CantFind
 };
 
 struct Exception

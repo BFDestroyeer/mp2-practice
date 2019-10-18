@@ -4,6 +4,7 @@
 
 Dictionary::Dictionary(size_t size_)
 {
+	if (size_ = 0) throw Exception(CantCreate);
     size = size_;
     head = 0;
     values = new Element[size];
@@ -59,7 +60,7 @@ const double Dictionary::operator[](const std::string& key_) const
     {
         if (values[i].key == key_) return values[i].value;
     }
-    throw "NotFind";
+    throw Exception(CantFind);
 }
 
 const Dictionary& Dictionary::operator=(const Dictionary& temp)
