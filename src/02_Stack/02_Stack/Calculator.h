@@ -5,7 +5,6 @@
 #include "Dictionary.h"
 #include "Stack.h"
 #include "Exception.h"
-#include "Functions.h"
 
 static class Calculator
 {

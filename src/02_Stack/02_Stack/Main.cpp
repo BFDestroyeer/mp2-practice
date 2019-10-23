@@ -18,17 +18,18 @@ int main()
         prefix = Calculator::ReadExpression(input);
         std::cout << "Your expression in prefix form:" << std::endl  << prefix << std::endl;
         dict = Calculator::ReadDictionary(prefix);
-        std::cout << "Result: "<< Calculator::Calculate(prefix, dict);
+		std::cout << "Result: " << Calculator::Calculate(prefix, dict) << std::endl;
     }
     catch (Exception exp)
     {
         if (exp.type == DivizionByZero)
         {
-            std::cout << "Can't divide by zero";
+            std::cout << "Can't divide by zero" << std::endl;
         }
         else
         {
-            std::cout << "Bad expression";
+            std::cout << "Bad expression" << std::endl;
         }
     }
+	system("pause");
 }
