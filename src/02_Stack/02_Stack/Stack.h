@@ -17,13 +17,11 @@ public:
     ~Stack();
 
     void Push(ValueType element);   //Вставить элемент
-    ValueType Top() const;                //Вернуть первый элемент
-    void Pop();                //Вынуть первый элемент
+    ValueType Top() const;          //Вернуть первый элемент
+    void Pop();						//Вынуть первый элемент
 
     bool IsEmpty() const;
     bool IsFull() const;
-
-    Stack& operator=(const Stack& temp);
 };
 
 template<typename ValueType>
@@ -86,22 +84,4 @@ bool Stack<ValueType>::IsFull() const
 {
     if (head == size) return true;
     return false;
-}
-
-template<typename ValueType>
-Stack<ValueType>& Stack<ValueType>::operator=(const Stack<ValueType>& temp)
-{
-	if (*this == temp)
-	{
-		return *this;
-	}
-    if (size != temp.size) delete[] elements;
-    size = temp.size;
-    head = temp.head;
-    elements = new ValueType[size];
-    for (unsigned i = 0; i < head; i++)
-    {
-        elements[i] = temp.elements[i];
-    }
-    return *this;
 }
