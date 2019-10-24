@@ -16,5 +16,5 @@ public:
     //Запросить у пользователя значения пермеенных
     static Dictionary ReadDictionary(const std::string& input);
     //Вычислить выражение
-	static double  Calculate(const std::string& input, const Dictionary variables);
+    static double Calculate(const std::string& input, const Dictionary variables);
 };
