@@ -7,12 +7,12 @@ template<typename ValueType>
 class Stack
 {
 protected:
-    unsigned size;
-    unsigned head;
+    size_t size;
+    size_t head;
     ValueType* elements;
 
 public:
-    Stack(unsigned size_ = 10);
+    Stack(size_t size = 10);
     Stack(const Stack& temp);
     ~Stack();
 
@@ -25,7 +25,7 @@ public:
 };
 
 template<typename ValueType>
-Stack<ValueType>::Stack(unsigned size_)
+Stack<ValueType>::Stack(size_t size_)
 {
     if (size_ == 0) throw Exception(CantCreate);
     size = size_;

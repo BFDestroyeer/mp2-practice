@@ -4,7 +4,7 @@
 
 Dictionary::Dictionary(size_t size_)
 {
-	if (size_ = 0) throw Exception(CantCreate);
+	if (size_ == 0) throw Exception(CantCreate);
     size = size_;
     head = 0;
     values = new Element[size];

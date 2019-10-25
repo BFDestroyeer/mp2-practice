@@ -168,17 +168,18 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
     for (unsigned i = 0; i < input.size(); i++)
     {
         
-        if (input[i] != ' ')
+        if ((input[i] != ' ') && (input[i] != '+') && (input[i] != '-') && (input[i] != '*') && (input[i] != '/'))
         {
             buffer.push_back(input[i]);
         }
         else
         {
-            if ((buffer != "+") && (buffer != "-") && (buffer != "*") && (buffer != "/"))
+            if (buffer.size() != 0)
             {
                 result.Push(variables[buffer]);
+				buffer.clear();
             }
-            else if (buffer == "+")
+            if (input[i] == '+')
             {
                 double b = result.Top();
 				result.Pop();
@@ -186,7 +187,7 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
 				result.Pop();
                 result.Push(a + b);
             }
-            else if (buffer == "-")
+            else if (input[i] == '-')
             {
                 double b = result.Top();
 				result.Pop();
@@ -194,7 +195,7 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
 				result.Pop();
                 result.Push(a - b);
             }
-            else if (buffer == "*")
+            else if (input[i] == '*')
             {
                 double b = result.Top();
 				result.Pop();
@@ -202,7 +203,7 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
 				result.Pop();
                 result.Push(a * b);
             }
-            else if (buffer == "/")
+            else if (input[i] == '/')
             {
                 double b = result.Top();
 				result.Pop();
@@ -211,7 +212,6 @@ double Calculator::Calculate(const std::string& input, const Dictionary variable
                 if (b == 0) throw Exception(DivizionByZero);
                 result.Push(a / b);
             }
-            buffer.clear();
         }
     }
     return result.Top();
