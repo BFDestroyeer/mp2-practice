@@ -28,7 +28,7 @@ public:
 
 	void Reset();
 	bool IsEnded() const;
-	void Next();
+	TNode<TKey, TData>* Next();
 };
 
 template <typename TKey, typename TData>
@@ -158,6 +158,7 @@ void TList<TKey, TData>::Remove(TKey key_)
 	if (pFirst->key == key_)
 	{
 		TNode<TKey, TData>* next_node = pFirst->pNext;
+		if (pCurrent == pFirst) pCurrent = nullptr; //!!!
 		delete pFirst;
 		pFirst = next_node;
 		return;
@@ -169,6 +170,39 @@ void TList<TKey, TData>::Remove(TKey key_)
 	}
 	if (prev_node->pNext == nullptr) throw "Can't find";
 	TNode<TKey, TData>* next_node = prev_node->pNext->pNext;
+	if (pCurrent == prev_node->pNext) pCurrent = nullptr; //!!!
 	delete prev_node->pNext;
 	prev_node->pNext = next_node;
+}
+
+template <typename TKey, typename TData>
+void TList<TKey, TData>::Reset()
+{
+	pCurrent = pFirst;
+	pPrevious = nullptr;
+	pNext = pFirst->pNext;
+}
+
+template <typename TKey, typename TData>
+bool TList<TKey, TData>::IsEnded() const
+{
+	if (pNext == nullptr) return true;
+	return false;
+}
+
+template <typename TKey, typename TData>
+TNode<TKey, TData>* TList<TKey, TData>::Next()
+{
+	if (IsEnded() == true) throw "It's END";
+	if (pCurrent != nullptr)
+	{
+		pPrevious = pCurrent;
+		pCurrent = pNext;
+		pNext = pNext->pNext;
+	}
+	else
+	{
+		pCurrent = pNext;
+		pNext = pNext->pNext;
+	}
 }
