@@ -5,12 +5,12 @@ int main()
 	TList<int, int> test;
 	int* a = new int;
 	*a = 100;
-	test.InsertBackward(20, a);
-	test.InsertBackward(10, a);
-	test.InsertAfter(10, 5, a);
+	test.InsertBackward(1, a);
+	test.InsertBackward(2, a);
+	test.InsertBackward(3, a);
 	test.Reset();
 	test.Next();
-	test.Remove(10);
-	test.Next();
+	test.Remove(1);
+	test.Remove(3);
 	return 0;
 }

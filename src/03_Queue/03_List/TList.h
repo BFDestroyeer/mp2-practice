@@ -159,6 +159,7 @@ void TList<TKey, TData>::Remove(TKey key_)
 	{
 		TNode<TKey, TData>* next_node = pFirst->pNext;
 		if (pCurrent == pFirst) pCurrent = nullptr; //!!!
+		if (pPrevious == pFirst) pPrevious = nullptr;
 		delete pFirst;
 		pFirst = next_node;
 		return;
@@ -171,6 +172,8 @@ void TList<TKey, TData>::Remove(TKey key_)
 	if (prev_node->pNext == nullptr) throw "Can't find";
 	TNode<TKey, TData>* next_node = prev_node->pNext->pNext;
 	if (pCurrent == prev_node->pNext) pCurrent = nullptr; //!!!
+	if (pNext == prev_node->pNext) pNext = prev_node->pNext->pNext; //!!!
+	if (pPrevious == prev_node) pPrevious = prev_node;
 	delete prev_node->pNext;
 	prev_node->pNext = next_node;
 }
