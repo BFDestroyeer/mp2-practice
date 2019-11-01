@@ -34,7 +34,7 @@ TNode<TKey, TData>::TNode(const TNode<TKey, TData>& temp)
 {
 	key = temp.key;
 	pData = new TData;
-	*pData = *(temp.pData_);
+	*pData = *(temp.pData);
 	pNext = nullptr;
 }
 

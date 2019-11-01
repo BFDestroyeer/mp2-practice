@@ -44,7 +44,7 @@ template <typename TKey, typename TData>
 TList<TKey, TData>::TList(const TList& temp)
 {
 	pFirst = new TNode<TKey, TData>(*(temp.pFirst));
-	TNode<TKey, TData>* node_ = pFirst, node_temp = temp.pFirst;
+	TNode<TKey, TData> *node_ = pFirst, *node_temp = temp.pFirst;
 	while (node_temp->pNext != nullptr)
 	{
 		node_->pNext = new TNode<TKey, TData>(*(node_temp->pNext));
@@ -52,7 +52,7 @@ TList<TKey, TData>::TList(const TList& temp)
 		node_temp = node_temp->pNext;
 	}
 	pPrevious = nullptr;
-	pNext = nullptr;
+	if (pFirst != nullptr) pNext = pFirst->pNext;
 	pCurrent = pFirst;
 }
 
@@ -154,14 +154,14 @@ void TList<TKey, TData>::InsertAfter(TKey key_a, TKey key_, TData* pData_)
 
 }
 
-template <typename TKey, typename TData> //Поправить итератор
+template <typename TKey, typename TData>
 void TList<TKey, TData>::Remove(TKey key_)
 {
 	if (pFirst == nullptr) return;
 	if (pFirst->key == key_)
 	{
 		TNode<TKey, TData>* next_node = pFirst->pNext;
-		if (pCurrent == pFirst) pCurrent = nullptr; //!!!
+		if (pCurrent == pFirst) pCurrent = nullptr;
 		if (pPrevious == pFirst) pPrevious = nullptr;
 		delete pFirst;
 		pFirst = next_node;
@@ -174,8 +174,8 @@ void TList<TKey, TData>::Remove(TKey key_)
 	}
 	if (prev_node->pNext == nullptr) throw "Can't find";
 	TNode<TKey, TData>* next_node = prev_node->pNext->pNext;
-	if (pCurrent == prev_node->pNext) pCurrent = nullptr; //!!!
-	if (pNext == prev_node->pNext) pNext = prev_node->pNext->pNext; //!!!
+	if (pCurrent == prev_node->pNext) pCurrent = nullptr;
+	if (pNext == prev_node->pNext) pNext = prev_node->pNext->pNext;
 	if (pPrevious == prev_node) pPrevious = prev_node;
 	delete prev_node->pNext;
 	prev_node->pNext = next_node;
@@ -186,7 +186,7 @@ void TList<TKey, TData>::Reset()
 {
 	pCurrent = pFirst;
 	pPrevious = nullptr;
-	pNext = pFirst->pNext;
+	if (pFirst != nullptr) pNext = pFirst->pNext;
 }
 
 template <typename TKey, typename TData>
