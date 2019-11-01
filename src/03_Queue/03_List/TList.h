@@ -28,7 +28,7 @@ public:
 
 	void Reset();
 	bool IsEnded() const;
-	TNode<TKey, TData>* Next();
+	void Next();
 };
 
 template <typename TKey, typename TData>
@@ -57,9 +57,12 @@ TList<TKey, TData>::TList(const TList& temp)
 }
 
 template <typename TKey, typename TData>
-TList<TKey, TData>::TList(const TNode<TKey, TData > * node_)
+TList<TKey, TData>::TList(const TNode<TKey, TData >* node_)
 {
-	
+	pFirst = new TNode<TKey, TData>(*node_);
+	pPrevious = nullptr;
+	pNext = nullptr;
+	pCurrent = pFirst;
 }
 
 template <typename TKey, typename TData>
@@ -194,7 +197,7 @@ bool TList<TKey, TData>::IsEnded() const
 }
 
 template <typename TKey, typename TData>
-TNode<TKey, TData>* TList<TKey, TData>::Next()
+void TList<TKey, TData>::Next()
 {
 	if (IsEnded() == true) throw "It's END";
 	if (pCurrent != nullptr)
