@@ -132,6 +132,7 @@
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="ArrayStack.h" />
+    <ClInclude Include="ListStack.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="TList.h" />
     <ClInclude Include="TNode.h" />

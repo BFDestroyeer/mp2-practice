@@ -6,6 +6,7 @@
 #include "Dictionary.h"
 #include "Stack.h"
 #include "ArrayStack.h"
+#include "ListStack.h"
 #include "Exception.h"
 
 class Calculator
@@ -16,7 +17,7 @@ class Calculator
 	Stack<double>* result;
 
 public:
-	Calculator(int mode = 0);
+	Calculator(bool isListStack = false);
 	~Calculator();
 
 private:

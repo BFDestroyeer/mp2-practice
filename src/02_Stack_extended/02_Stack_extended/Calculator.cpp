@@ -2,11 +2,18 @@
 
 #include "Calculator.h"
 
-Calculator::Calculator(int mode)
+Calculator::Calculator(bool isListStack)
 {
-	operators = new ArrayStack<char>(1024);
-	out = new ArrayStack<std::string>(1024);
-	result = new ArrayStack<double>(1024);
+	if (isListStack)
+	{
+
+	}
+	else
+	{
+		operators = new ArrayStack<char>(1024);
+		out = new ArrayStack<std::string>(1024);
+		result = new ArrayStack<double>(1024);
+	}
 }
 
 Calculator::~Calculator()
