@@ -6,7 +6,9 @@ Calculator::Calculator(bool isListStack)
 {
 	if (isListStack)
 	{
-
+		operators = new ListStack<char>();
+		out = new ListStack<std::string>();
+		result = new ListStack<double>();
 	}
 	else
 	{

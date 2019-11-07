@@ -5,8 +5,7 @@
 template <typename TKey, typename TData>
 class TList
 {
-	friend class ListStack;
-private:
+public:
 	TNode<TKey, TData>* pFirst;
 	TNode<TKey, TData>* pPrevious;
 	TNode<TKey, TData>* pNext;

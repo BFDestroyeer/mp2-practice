@@ -20,19 +20,19 @@ public:
 	void Pop();						//Вынуть первый элемент
 
 	bool IsEmpty() const;
-	bool IsFull() const;*/
+	bool IsFull() const;
 };
 
-/*template<typename ValueType>
+template<typename ValueType>
 ListStack<ValueType>::ListStack()
 {
-	list = new TList<ValueType>
+	list = new TList<int ,ValueType>;
 }
 
 template<typename ValueType>
 ListStack<ValueType>::ListStack(const ListStack& temp)
 {
-	list = new TList<ValueType>(*(temp->list));
+	list = new TList<int, ValueType>(*(temp->list));
 }
 
 template<typename ValueType>
@@ -50,5 +50,24 @@ void ListStack<ValueType>::Push(ValueType element)
 template<typename ValueType>
 ValueType ListStack<ValueType>::Top() const
 {
-	return list->pFirst
-}*/
+	return *(list->pFirst->pData);
+}
+
+template<typename ValueType>
+void ListStack<ValueType>::Pop()
+{
+	list->Remove(list->pFirst->key);
+}
+
+template<typename ValueType>
+bool ListStack<ValueType>::IsEmpty() const
+{
+	if (list->pFirst == nullptr) return true;
+	return false;
+}
+
+template<typename ValueType>
+bool ListStack<ValueType>::IsFull() const
+{
+	return false;
+}

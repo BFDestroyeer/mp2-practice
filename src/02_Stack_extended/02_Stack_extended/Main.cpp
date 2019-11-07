@@ -11,7 +11,7 @@ int main()
     std::string input;
     std::string prefix;
     Dictionary dict;
-	Calculator calulator;
+	Calculator calulator(true);
     std::cout << "Please, input expression" << std::endl;
     std::getline(std::cin, input);
     try
