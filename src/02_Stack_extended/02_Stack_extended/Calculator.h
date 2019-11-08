@@ -17,7 +17,7 @@ class Calculator
 	Stack<double>* result;
 
 public:
-	Calculator(bool isListStack = false);
+	Calculator(int mode = 0);
 	~Calculator();
 
 private:

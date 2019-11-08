@@ -50,20 +50,21 @@ void ListStack<ValueType>::Push(ValueType element)
 template<typename ValueType>
 ValueType ListStack<ValueType>::Top() const
 {
-	return *(list->pFirst->pData);
+	list->Reset();
+	return list->GetCurrentData();
 }
 
 template<typename ValueType>
 void ListStack<ValueType>::Pop()
 {
-	list->Remove(list->pFirst->key);
+	list->Reset();
+	list->Remove(list->GetCurrentKey());
 }
 
 template<typename ValueType>
 bool ListStack<ValueType>::IsEmpty() const
 {
-	if (list->pFirst == nullptr) return true;
-	return false;
+	return list->IsEmpty();
 }
 
 template<typename ValueType>

@@ -11,7 +11,14 @@ int main()
     std::string input;
     std::string prefix;
     Dictionary dict;
-	Calculator calulator(true);
+	int mode;
+	std::cout << "Which stack use?" << std::endl;
+	std::cout << "0 ArrayStack" << std::endl;
+	std::cout << "1 ListStack" << std::endl;
+	std::cin >> mode;
+	Calculator calulator(mode);
+	getchar();
+	system("cls");
     std::cout << "Please, input expression" << std::endl;
     std::getline(std::cin, input);
     try

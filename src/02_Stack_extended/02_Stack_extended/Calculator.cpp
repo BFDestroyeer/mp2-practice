@@ -2,9 +2,9 @@
 
 #include "Calculator.h"
 
-Calculator::Calculator(bool isListStack)
+Calculator::Calculator(int mode)
 {
-	if (isListStack)
+	if (mode != 0)
 	{
 		operators = new ListStack<char>();
 		out = new ListStack<std::string>();

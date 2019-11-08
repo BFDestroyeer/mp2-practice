@@ -5,7 +5,7 @@
 template <typename TKey, typename TData>
 class TList
 {
-public:
+protected:
 	TNode<TKey, TData>* pFirst;
 	TNode<TKey, TData>* pPrevious;
 	TNode<TKey, TData>* pNext;
@@ -17,6 +17,9 @@ public:
 	TList(const TNode<TKey, TData>* node_);
 	~TList();
 
+	TData GetCurrentData() const;
+	TKey GetCurrentKey() const;
+
 	void InsertForward(TKey key_, TData* pData_);
 	void InsertBackward(TKey key_, TData* pData_);
 	void InsertBefore(TKey key_b, TKey key_, TData* pData_);
@@ -26,6 +29,7 @@ public:
 
 	void Reset();
 	bool IsEnded() const;
+	bool IsEmpty() const;
 	void Next();
 };
 
@@ -74,6 +78,20 @@ TList<TKey, TData>::~TList()
 		del = next;
 		
 	}
+}
+
+template <typename TKey, typename TData>
+TData TList<TKey, TData>::GetCurrentData() const
+{
+	if (pCurrent == nullptr) throw "Cant";
+	return *(pCurrent->pData);
+}
+
+template <typename TKey, typename TData>
+TKey TList<TKey, TData>::GetCurrentKey() const
+{
+	if (pCurrent == nullptr) throw "Cant";
+	return pCurrent->key;
 }
 
 template <typename TKey, typename TData>
@@ -191,6 +209,13 @@ template <typename TKey, typename TData>
 bool TList<TKey, TData>::IsEnded() const
 {
 	if (pNext == nullptr) return true;
+	return false;
+}
+
+template <typename TKey, typename TData>
+bool TList<TKey, TData>::IsEmpty() const
+{
+	if (pFirst == nullptr) return true;
 	return false;
 }
 
