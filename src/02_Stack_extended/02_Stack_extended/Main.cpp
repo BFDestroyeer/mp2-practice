@@ -6,8 +6,12 @@
 #include "Dictionary.h"
 #include "Calculator.h"
 
+#include "TestTList.h"
+
 int main()
 {
+	TestTList();
+
     std::string input;
     std::string prefix;
     Dictionary dict;

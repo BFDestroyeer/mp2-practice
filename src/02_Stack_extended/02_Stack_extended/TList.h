@@ -31,6 +31,9 @@ public:
 	bool IsEnded() const;
 	bool IsEmpty() const;
 	void Next();
+
+	template <typename TKey, typename TData>
+	friend std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list);
 };
 
 template <typename TKey, typename TData>
@@ -208,14 +211,14 @@ void TList<TKey, TData>::Reset()
 template <typename TKey, typename TData>
 bool TList<TKey, TData>::IsEnded() const
 {
-	if (pNext == nullptr) return true;
+	if (pCurrent == nullptr) return true;
 	return false;
 }
 
 template <typename TKey, typename TData>
 bool TList<TKey, TData>::IsEmpty() const
 {
-	if (pFirst == nullptr) return true;
+	if ((pCurrent == nullptr) && (pNext == nullptr)) return true;
 	return false;
 }
 
@@ -227,11 +230,29 @@ void TList<TKey, TData>::Next()
 	{
 		pPrevious = pCurrent;
 		pCurrent = pNext;
-		pNext = pNext->pNext;
 	}
 	else
 	{
 		pCurrent = pNext;
+	}
+	if (pNext != nullptr)
+	{
 		pNext = pNext->pNext;
 	}
+	else
+	{
+		pNext = nullptr;
+	}
+}
+
+template <typename TKey, typename TData>
+std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list)
+{
+	TNode<TKey, TData> *node = list.pFirst;
+	while (node != nullptr)
+	{
+		out << *(node) << std::endl;
+		node = node->pNext;
+	}
+	return out;
 }
