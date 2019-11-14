@@ -182,6 +182,7 @@ void TList<TKey, TData>::Remove(TKey key_)
 		TNode<TKey, TData>* next_node = pFirst->pNext;
 		if (pCurrent == pFirst) pCurrent = nullptr;
 		if (pPrevious == pFirst) pPrevious = nullptr;
+		if (pNext == pFirst) pNext = pNext->pNext;
 		delete pFirst;
 		pFirst = next_node;
 		return;

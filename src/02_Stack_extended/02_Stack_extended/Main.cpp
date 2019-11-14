@@ -10,7 +10,9 @@
 
 int main()
 {
-	TestTList();
+	std::cout << "Want to run list tests? ";
+	if(getchar() == 'y')
+		TestTList();
 
     std::string input;
     std::string prefix;
