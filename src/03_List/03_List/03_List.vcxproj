@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{E0D1AC36-FC74-4329-AE5E-855789764675}</ProjectGuid>
+    <ProjectGuid>{9D66D6DD-2FAD-4611-9028-9EA1406A30FC}</ProjectGuid>
     <RootNamespace>My03List</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -123,6 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="TList.h" />
+    <ClInclude Include="TNode.h" />
+    <ClInclude Include="TPolynom.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="TPolynom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
