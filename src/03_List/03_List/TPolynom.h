@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "TList.h"
 
 class TPolynom
@@ -16,4 +16,4 @@ public:
 	TPolynom operator+(const TNode<int, float>& node);
 	TPolynom operator-(const TPolynom& temp);
 	TPolynom operator*(const TPolynom& temp);
-};
+};*/

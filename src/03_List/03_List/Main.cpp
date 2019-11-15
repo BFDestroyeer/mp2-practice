@@ -1,12 +1,10 @@
 #include <iostream>
 
-#include "TPolynom.h"
+#include "TNode.h"
 
 int main()
 {
-	TPolynom a;
-	float b = 10;
-	TNode<int, float> test(3, &b);
-	a + test;
-	std::cout << *(a.list);
+	double b = 10;
+	TNode<int, double> test(3, &b);
+	std::cout << test + test;
 }

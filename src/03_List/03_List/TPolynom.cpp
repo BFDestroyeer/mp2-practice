@@ -1,6 +1,6 @@
 #include "TPolynom.h"
 
-TPolynom::TPolynom()
+/*TPolynom::TPolynom()
 {
 	list = new TList<int, float>;
 }
@@ -30,4 +30,4 @@ TPolynom TPolynom::operator+(const TPolynom& temp)
 TPolynom TPolynom::operator+(const TNode<int, float>& node)
 {
 	return *this;
-}
+}*/

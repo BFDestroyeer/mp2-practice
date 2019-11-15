@@ -14,6 +14,8 @@ struct TNode
 	TNode(const TNode<TKey, TData>& temp);
 	~TNode();
 
+	TNode<TKey, TData>& operator=(const TNode<TKey, TData> temp);
+
 	template <typename TKey, typename TData>
 	friend std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node);
 };
@@ -40,7 +42,7 @@ TNode<TKey, TData>::TNode(const TNode<TKey, TData>& temp)
 	key = temp.key;
 	pData = new TData;
 	*pData = *(temp.pData);
-	pNext = nullptr;
+	pNext = temp.pNext;
 }
 
 template <typename TKey, typename TData>
@@ -50,8 +52,64 @@ TNode<TKey, TData>::~TNode()
 }
 
 template <typename TKey, typename TData>
+TNode<TKey, TData>& TNode<TKey, TData>::operator=(const TNode<TKey, TData> temp)
+{
+	if (this == &temp)
+	{
+		return *this;
+	}
+	key = temp.key;
+	delete pData;
+	*pData = *(temp.pData);
+	pNext = temp.pNext;
+	return *this;
+}
+
+template <typename TKey, typename TData>
 std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node)
 {
 	out << "Key: " << node.key << " Data: " << *(node.pData);
+	return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
+{
+	out << *(node.pData) << "*";
+	if (node.key / 100 != 0)
+		out << "x^" << (node.key / 100);
+	if (node.key /)
+	return out;
+}
+
+//Monom's operators
+TNode<int, double> operator+(TNode<int, double>& a, const TNode<int, double>& b)
+{
+	if (a.key != b.key) throw "Output is not monom";
+	TNode<int, double> out;
+	out.key = a.key;
+	*(out.pData) = *(a.pData) + *(b.pData);
+	out.pNext = nullptr;
+	return out;
+}
+
+TNode<int, double> operator-(TNode<int, double>& a, const TNode<int, double>& b)
+{
+	if (a.key != b.key) throw "Output is not monom";
+	TNode<int, double> out;
+	out.key = b.key;
+	*(out.pData) = *(a.pData) - *(b.pData);
+	out.pNext = nullptr;
+	return out;
+}
+
+TNode<int, double> operator*(TNode<int, double>& a, const TNode<int, double>& b)
+{
+	TNode<int, double> out;
+	if ((a.key + b.key) >= 1000) throw "Not in system";
+	if ((a.key / 100 + b.key / 100) >= 100) throw "Not in system";
+	if ((a.key % 10 + b.key % 10) >= 10) throw "Not in system";
+	out.key = a.key + b.key;
+	*(out.pData) = *(a.pData) * *(b.pData);
+	out.pNext = nullptr;
 	return out;
 }
