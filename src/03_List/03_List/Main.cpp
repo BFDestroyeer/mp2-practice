@@ -1,10 +1,12 @@
 #include <iostream>
 
-#include "TNode.h"
+#include "TList.h"
 
 int main()
 {
 	double b = 10;
-	TNode<int, double> test(3, &b);
-	std::cout << test + test;
+	TList<int, double> tmp;
+	//TNode<int, double> test(434, &b);
+	tmp.InsertForward(111, 10.0);
+	std::cout << tmp;
 }

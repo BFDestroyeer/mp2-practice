@@ -21,10 +21,15 @@ public:
 	TData GetCurrentData() const;
 	TKey GetCurrentKey() const;
 
-	void InsertForward(TKey key_, TData* pData_);
-	void InsertBackward(TKey key_, TData* pData_);
-	void InsertBefore(TKey key_b, TKey key_, TData* pData_);
-	void InsertAfter(TKey key_a ,TKey key_, TData* pData_);
+	void InsertForward(TKey key_, const TData* pData_);
+	void InsertBackward(TKey key_, const TData* pData_);
+	void InsertBefore(TKey key_b, TKey key_, const TData* pData_);
+	void InsertAfter(TKey key_a ,TKey key_, const TData* pData_);
+
+	void InsertForward(TKey key_, const TData& data_);
+	void InsertBackward(TKey key_, const TData& data_);
+	void InsertBefore(TKey key_b, TKey key_, const TData& data_);
+	void InsertAfter(TKey key_a, TKey key_, const TData& data_);
 	
 	void Remove(TKey key_);
 
@@ -99,7 +104,7 @@ TKey TList<TKey, TData>::GetCurrentKey() const
 }
 
 template <typename TKey, typename TData>
-void TList<TKey, TData>::InsertForward(TKey key_, TData* pData_)
+void TList<TKey, TData>::InsertForward(TKey key_, const TData* pData_)
 {
 	if (pFirst == nullptr)
 	{
@@ -114,7 +119,7 @@ void TList<TKey, TData>::InsertForward(TKey key_, TData* pData_)
 }
 
 template <typename TKey, typename TData>
-void TList<TKey, TData>::InsertBackward(TKey key_, TData* pData_)
+void TList<TKey, TData>::InsertBackward(TKey key_, const TData* pData_)
 {
 	if (pFirst == nullptr)
 	{
@@ -133,7 +138,7 @@ void TList<TKey, TData>::InsertBackward(TKey key_, TData* pData_)
 }
 
 template <typename TKey, typename TData>
-void TList<TKey, TData>::InsertBefore(TKey key_b, TKey key_, TData* pData_)
+void TList<TKey, TData>::InsertBefore(TKey key_b, TKey key_, const TData* pData_)
 {
 	if (pFirst == nullptr) return;
 	if (pFirst->key == key_b)
@@ -156,7 +161,7 @@ void TList<TKey, TData>::InsertBefore(TKey key_b, TKey key_, TData* pData_)
 }
 
 template <typename TKey, typename TData>
-void TList<TKey, TData>::InsertAfter(TKey key_a, TKey key_, TData* pData_)
+void TList<TKey, TData>::InsertAfter(TKey key_a, TKey key_, const TData* pData_)
 {
 	if (pFirst == nullptr) return;
 	TNode<TKey, TData>* prev_node = pFirst;
@@ -172,6 +177,30 @@ void TList<TKey, TData>::InsertAfter(TKey key_a, TKey key_, TData* pData_)
 	if (pCurrent == prev_node) pNext = temp;
 	if (pCurrent == next_node) pPrevious = temp;
 
+}
+
+template <typename TKey, typename TData>
+void TList<TKey, TData>::InsertForward(TKey key_, const TData& data_)
+{
+	InsertForward(key_, &data_);
+}
+
+template <typename TKey, typename TData>
+void TList<TKey, TData>::InsertBackward(TKey key_, const TData& data_)
+{
+	InsertBackward(key_, &data_);
+}
+
+template <typename TKey, typename TData>
+void TList<TKey, TData>::InsertBefore(TKey key_b, TKey key_, const TData& data_)
+{
+	InsertBefore(key_b, key_, &data_);
+}
+
+template <typename TKey, typename TData>
+void TList<TKey, TData>::InsertAfter(TKey key_a, TKey key_, const TData& data_)
+{
+	InsertAfter(key_a, key_, &data_);
 }
 
 template <typename TKey, typename TData>

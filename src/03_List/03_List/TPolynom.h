@@ -4,7 +4,7 @@
 class TPolynom
 {
 public:
-	TList<int, float>* list;
+	TList<int, double>* list;
 
 public:
 	TPolynom();
