@@ -15,7 +15,7 @@ struct TNode
 	TNode(const TNode<TKey, TData>& temp);
 	~TNode();
 
-	TNode<TKey, TData>& operator=(const TNode<TKey, TData> temp);
+	TNode<TKey, TData>& operator=(const TNode<TKey, TData>& temp);
 
 	template <typename TKey, typename TData>
 	friend std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node);
@@ -63,16 +63,14 @@ TNode<TKey, TData>::~TNode()
 }
 
 template <typename TKey, typename TData>
-TNode<TKey, TData>& TNode<TKey, TData>::operator=(const TNode<TKey, TData> temp)
+TNode<TKey, TData>& TNode<TKey, TData>::operator=(const TNode<TKey, TData>& temp)
 {
 	if (this == &temp)
 	{
 		return *this;
 	}
 	key = temp.key;
-	delete pData;
 	*pData = *(temp.pData);
-	pNext = temp.pNext;
 	return *this;
 }
 
