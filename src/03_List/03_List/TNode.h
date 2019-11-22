@@ -83,18 +83,6 @@ std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node)
 	return out;
 }
 
-std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
-{
-	out << *(node.pData);
-	if (node.key / 100 != 0)
-		out << "x^" << (node.key / 100);
-	if (node.key % 100 / 10 != 0)
-		out << "y^" << (node.key % 100 / 10);
-	if (node.key % 10 != 0)
-		out << "z^" << (node.key % 10);
-	return out;
-}
-
 //Monom's operators
 TNode<int, double> operator+(TNode<int, double>& a, const TNode<int, double>& b)
 {
@@ -125,5 +113,17 @@ TNode<int, double> operator*(TNode<int, double>& a, const TNode<int, double>& b)
 	out.key = a.key + b.key;
 	*(out.pData) = *(a.pData) * *(b.pData);
 	out.pNext = nullptr;
+	return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
+{
+	out << *(node.pData);
+	if (node.key / 100 != 0)
+		out << "x^" << (node.key / 100);
+	if (node.key % 100 / 10 != 0)
+		out << "y^" << (node.key % 100 / 10);
+	if (node.key % 10 != 0)
+		out << "z^" << (node.key % 10);
 	return out;
 }

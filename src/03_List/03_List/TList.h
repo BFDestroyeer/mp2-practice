@@ -6,6 +6,7 @@ template <typename TKey, typename TData>
 class TList
 {
 	friend class TPolynom;
+
 protected:
 	TNode<TKey, TData>* pFirst;
 	TNode<TKey, TData>* pPrevious;
@@ -40,6 +41,7 @@ public:
 
 	template <typename TKey, typename TData>
 	friend std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list);
+	friend std::ostream& operator<<(std::ostream& out, const TList<int, double>& list);
 };
 
 template <typename TKey, typename TData>
@@ -54,6 +56,14 @@ TList<TKey, TData>::TList()
 template <typename TKey, typename TData>
 TList<TKey, TData>::TList(const TList& temp)
 {
+	if (temp.pFirst == nullptr)
+	{
+		pFirst = nullptr;
+		pPrevious = nullptr;
+		pNext = nullptr;
+		pCurrent = nullptr;
+		return;
+	}
 	pFirst = new TNode<TKey, TData>(*(temp.pFirst));
 	TNode<TKey, TData> *node_ = pFirst, *node_temp = temp.pFirst;
 	while (node_temp->pNext != nullptr)
@@ -283,6 +293,18 @@ std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list)
 	while (node != nullptr)
 	{
 		out << *(node) << std::endl;
+		node = node->pNext;
+	}
+	return out;
+}
+
+//Polynom operators
+std::ostream& operator<<(std::ostream& out, const TList<int, double>& list)
+{
+	TNode<int, double>* node = list.pFirst;
+	while (node != nullptr)
+	{
+		out << *(node) << ' ';
 		node = node->pNext;
 	}
 	return out;
