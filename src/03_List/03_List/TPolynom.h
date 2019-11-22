@@ -52,20 +52,20 @@ TPolynom TPolynom::operator+(const TPolynom& temp)
 TPolynom TPolynom::operator+(const TNode<int, double>& node)
 {
 	TPolynom out(*this);
-	out.list->Reset();
-	while (!out.list->IsEnded())
+	TNode<int, double>* iter = out.list->pFirst;
+	while (iter != nullptr)
 	{
-		if (out.list->GetCurrentKey() == node.key)
+		if (iter->key == node.key)
 		{
-			*(out.list->pCurrent) = *(out.list->pCurrent) + node;
+			*iter = *iter + node;
 			return out;
 		}
-		if (out.list->GetCurrentKey() < node.key)
+		if (iter->key < node.key)
 		{
-			out.list->InsertBefore(out.list->GetCurrentKey(), node.key, node.pData);
+			out.list->InsertBefore(iter->key, node.key, node.pData);
 			return out;
 		}
-		out.list->Next();
+		iter = iter->pNext;
 	}
 	out.list->InsertBackward(node.key, node.pData);
 	return out;
