@@ -47,69 +47,161 @@ TPolynom& TPolynom::operator=(const TPolynom& temp)
 
 TPolynom TPolynom::operator+(const TPolynom& temp)
 {
-	TPolynom out(*this);
-	TNode<int, double>* iter = temp.list->pFirst;
-	while (iter != nullptr)
+	TPolynom out;
+	TNode<int, double>* first = list->pFirst;
+	TNode<int, double>* second = temp.list->pFirst;
+	while (first != nullptr || second != nullptr)
 	{
-		out = out + *iter;
-		iter = iter->pNext;
+		if (first == nullptr)
+		{
+			out.list->InsertBackward(second->key, second->pData);
+			second = second->pNext;
+		}
+		else if (second == nullptr)
+		{
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
+		}
+		else if (first->key > second->key)
+		{
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
+		}
+		else if (first->key < second->key)
+		{
+			out.list->InsertBackward(second->key, second->pData);
+			second = second->pNext;
+		}
+		else
+		{
+			if (*(first->pData) != -*(second->pData))
+			{
+				out.list->InsertBackward(first->key, *(first->pData) + *(second->pData));
+			}
+			first = first->pNext;
+			second = second->pNext;
+		}
 	}
 	return out;
 }
 
 TPolynom TPolynom::operator+(const TNode<int, double>& node)
 {
-	TPolynom out(*this);
-	TNode<int, double>* iter = out.list->pFirst;
-	while (iter != nullptr)
+	TPolynom out;
+	TNode<int, double>* first = list->pFirst;
+	bool isInserted = false;
+	while (first != nullptr || !isInserted)
 	{
-		if (iter->key == node.key)
+		if (first == nullptr)
 		{
-			*iter = *iter + node;
-			return out;
+			out.list->InsertBackward(node.key, node.pData);
+			isInserted = true;
 		}
-		if (iter->key < node.key)
+		else if (first->key > node.key)
 		{
-			out.list->InsertBefore(iter->key, node.key, node.pData);
-			return out;
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
 		}
-		iter = iter->pNext;
+		else if (!isInserted && first->key < node.key)
+		{
+			out.list->InsertBackward(node.key, node.pData);
+			isInserted = true;
+		}
+		else if (!isInserted)
+		{
+			if (*(first->pData) != -*(node.pData))
+			{
+				out.list->InsertBackward(first->key, *(first->pData) + *(node.pData));
+			}
+			first = first->pNext;
+			isInserted = true;
+		}
+		else
+		{
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
+		}
 	}
-	out.list->InsertBackward(node.key, node.pData);
 	return out;
 }
 
 TPolynom TPolynom::operator-(const TPolynom& temp)
 {
-	TPolynom out(*this);
-	TNode<int, double>* iter = temp.list->pFirst;
-	while (iter != nullptr)
+	TPolynom out;
+	TNode<int, double>* first = list->pFirst;
+	TNode<int, double>* second = temp.list->pFirst;
+	while (first != nullptr || second != nullptr)
 	{
-		out = out - *iter;
-		iter = iter->pNext;
+		if (first == nullptr)
+		{
+			out.list->InsertBackward(-second->key, second->pData);
+			second = second->pNext;
+		}
+		else if (second == nullptr)
+		{
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
+		}
+		else if (first->key > second->key)
+		{
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
+		}
+		else if (first->key < second->key)
+		{
+			out.list->InsertBackward(-second->key, second->pData);
+			second = second->pNext;
+		}
+		else
+		{
+			if (*(first->pData) != *(second->pData))
+			{
+				out.list->InsertBackward(first->key, *(first->pData) - *(second->pData));
+			}
+			first = first->pNext;
+			second = second->pNext;
+		}
 	}
 	return out;
 }
 
 TPolynom TPolynom::operator-(const TNode<int, double>& node)
 {
-	TPolynom out(*this);
-	TNode<int, double>* iter = out.list->pFirst;
-	while (iter != nullptr)
+	TPolynom out;
+	TNode<int, double>* first = list->pFirst;
+	bool isInserted = false;
+	while (first != nullptr || !isInserted)
 	{
-		if (iter->key == node.key)
+		if (first == nullptr)
 		{
-			*iter = *iter - node;
-			return out;
+			out.list->InsertBackward(node.key, node.pData);
+			isInserted = true;
 		}
-		if (iter->key < node.key)
+		else if (first->key > node.key)
 		{
-			out.list->InsertBefore(iter->key, node.key, -*node.pData);
-			return out;
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
 		}
-		iter = iter->pNext;
+		else if (!isInserted && first->key < node.key)
+		{
+			out.list->InsertBackward(node.key, node.pData);
+			isInserted = true;
+		}
+		else if (!isInserted)
+		{
+			if (*(first->pData) != *(node.pData))
+			{
+				out.list->InsertBackward(first->key, *(first->pData) - *(node.pData));
+			}
+			first = first->pNext;
+			isInserted = true;
+		}
+		else
+		{
+			out.list->InsertBackward(first->key, first->pData);
+			first = first->pNext;
+		}
 	}
-	out.list->InsertBackward(node.key, -*node.pData);
 	return out;
 }
 

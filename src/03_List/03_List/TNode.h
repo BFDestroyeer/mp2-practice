@@ -82,26 +82,6 @@ std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node)
 }
 
 //Monom's operators
-TNode<int, double> operator+(TNode<int, double>& a, const TNode<int, double>& b)
-{
-	if (a.key != b.key) throw "Output is not monom";
-	TNode<int, double> out;
-	out.key = a.key;
-	*(out.pData) = *(a.pData) + *(b.pData);
-	out.pNext = nullptr;
-	return out;
-}
-
-TNode<int, double> operator-(TNode<int, double>& a, const TNode<int, double>& b)
-{
-	if (a.key != b.key) throw "Output is not monom";
-	TNode<int, double> out;
-	out.key = b.key;
-	*(out.pData) = *(a.pData) - *(b.pData);
-	out.pNext = nullptr;
-	return out;
-}
-
 TNode<int, double> operator*(TNode<int, double>& a, const TNode<int, double>& b)
 {
 	TNode<int, double> out;
