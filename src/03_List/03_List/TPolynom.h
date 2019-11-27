@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TList.h"
+#include "Exception.h"
 
 class TPolynom
 {
@@ -134,7 +135,7 @@ TPolynom TPolynom::operator-(const TPolynom& temp)
 	{
 		if (first == nullptr)
 		{
-			out.list->InsertBackward(-second->key, second->pData);
+			out.list->InsertBackward(second->key, -*(second->pData));
 			second = second->pNext;
 		}
 		else if (second == nullptr)
@@ -149,7 +150,7 @@ TPolynom TPolynom::operator-(const TPolynom& temp)
 		}
 		else if (first->key < second->key)
 		{
-			out.list->InsertBackward(-second->key, second->pData);
+			out.list->InsertBackward(second->key, -*(second->pData));
 			second = second->pNext;
 		}
 		else
@@ -174,7 +175,7 @@ TPolynom TPolynom::operator-(const TNode<int, double>& node)
 	{
 		if (first == nullptr)
 		{
-			out.list->InsertBackward(node.key, node.pData);
+			out.list->InsertBackward(node.key, -*(node.pData));
 			isInserted = true;
 		}
 		else if (first->key > node.key)
@@ -184,7 +185,7 @@ TPolynom TPolynom::operator-(const TNode<int, double>& node)
 		}
 		else if (!isInserted && first->key < node.key)
 		{
-			out.list->InsertBackward(node.key, node.pData);
+			out.list->InsertBackward(node.key, -*(node.pData));
 			isInserted = true;
 		}
 		else if (!isInserted)
@@ -207,25 +208,27 @@ TPolynom TPolynom::operator-(const TNode<int, double>& node)
 
 TPolynom TPolynom::operator*(const TPolynom& temp)
 {
-	TPolynom out(*this);
-	TNode<int, double>* iter = temp.list->pFirst;
-	while (iter != nullptr)
+	TPolynom out;
+	TNode<int, double>* second = temp.list->pFirst;
+	while (second != nullptr)
 	{
-		out = out * *iter;
-		iter = iter->pNext;
+		out = out + *this * *second;
+		second = second->pNext;
 	}
-	return out;
 	return out;
 }
 
 TPolynom TPolynom::operator*(const TNode<int, double>& node)
 {
-	TPolynom out(*this);
-	TNode<int, double>* iter = out.list->pFirst;
-	while (iter != nullptr)
+	TPolynom out;
+	TNode<int, double>* first = list->pFirst;
+	while (first != nullptr)
 	{
-		*iter = *iter * node;
-		iter = iter->pNext;
+		if ((first->key / 100 + node.key / 100) >= 10) throw TException(NotInSystem);
+		if ((first->key % 100 / 10 + node.key % 100 / 10) >= 10) throw TException(NotInSystem);
+		if ((first->key % 10 + node.key % 10) >= 10) throw TException(NotInSystem);
+		out.list->InsertBackward(first->key + node.key, *(first->pData) * *(node.pData));
+		first = first->pNext;
 	}
 	return out;
 }

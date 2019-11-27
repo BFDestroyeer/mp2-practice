@@ -1,20 +1,15 @@
 ﻿#pragma once
 
-enum Exception_Type
+enum TException_Type
 {
-	Empty,
-	Full,
-	CantCreate,
-	BadExpression,  //Неправильное выражение  
-	DivizionByZero,  //Деление на 0
-	CantFind
+	NotInSystem
 };
 
-struct Exception
+struct TException
 {
-    Exception_Type type;
+    TException_Type type;
 
-    Exception(Exception_Type type_)
+    TException(TException_Type type_)
     {
         type = type_;
     }

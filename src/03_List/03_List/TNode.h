@@ -96,7 +96,8 @@ TNode<int, double> operator*(TNode<int, double>& a, const TNode<int, double>& b)
 
 std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
 {
-	out << *(node.pData);
+	if (*(node.pData) != 1)
+		out << *(node.pData);
 	if (node.key / 100 != 0)
 		out << "x^" << (node.key / 100);
 	if (node.key % 100 / 10 != 0)
