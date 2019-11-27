@@ -258,7 +258,7 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			buffer.clear();
 			coef = 0;
 		}
-		else if (line[i] > 47 && line[i] < 58)
+		else if ((line[i] > 47 && line[i] < 58) || (line[i] == '-'))
 		{
 			buffer.push_back(line[i]);
 		}
