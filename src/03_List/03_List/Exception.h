@@ -2,7 +2,8 @@
 
 enum TException_Type
 {
-	NotInSystem
+	NotInSystem,
+	UnexpectedChar
 };
 
 struct TException

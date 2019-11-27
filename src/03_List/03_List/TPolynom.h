@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <iostream>
+
 #include "TList.h"
 #include "Exception.h"
 
@@ -22,6 +25,7 @@ public:
 	TPolynom operator*(const TNode<int, double>& node);
 
 	friend std::ostream& operator<<(std::ostream& out, const TPolynom& polynom);
+	friend std::istream& operator>>(std::istream& in, TPolynom& polynom);
 };
 
 TPolynom::TPolynom()
@@ -237,4 +241,81 @@ std::ostream& operator<<(std::ostream& out, const TPolynom& polynom)
 {
 	out << *(polynom.list);
 	return out;
+}
+
+std::istream& operator>>(std::istream& in, TPolynom& polynom)
+{
+	delete polynom.list;
+	polynom.list = new TList<int, double>;
+	std::string line, buffer;
+	std::getline(in, line);
+	int coef = 0;
+	for (int i = 0; i < line.size(); i++)
+	{
+		if (line[i] == ' ' && !buffer.empty())
+		{
+			polynom = polynom + TNode<int, double>(coef, std::stof(buffer));
+			buffer.clear();
+			coef = 0;
+		}
+		else if (line[i] > 47 && line[i] < 58)
+		{
+			buffer.push_back(line[i]);
+		}
+		else if (line[i] == 'x')
+		{
+			if (line[i + 1] == '^')
+			{
+				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
+				coef += 100 * (line[i + 2] - 48);
+				i = i + 2;
+				continue;
+			}
+			else
+			{
+				coef += 100;
+				i = i++;
+				continue;
+			}
+		}
+		else if (line[i] == 'y')
+		{
+			if (line[i + 1] == '^')
+			{
+				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
+				coef += 10 * (line[i + 2] - 48);
+				i = i + 2;
+				continue;
+			}
+			else
+			{
+				coef += 10;
+				i = i++;
+				continue;
+			}
+		}
+		else if (line[i] == 'z')
+		{
+			if (line[i + 1] == '^')
+			{
+				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
+				coef += (line[i + 2] - 48);
+				i = i + 2;
+				continue;
+			}
+			else
+			{
+				coef += 1;
+				i = i++;
+				continue;
+			}
+		}
+	}
+	if (!buffer.empty())
+	{
+		polynom = polynom + TNode<int, double>(coef, std::stof(buffer));
+		buffer.clear();
+		coef = 0;
+	}
+	return in;
 }
