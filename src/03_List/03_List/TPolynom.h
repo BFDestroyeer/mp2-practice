@@ -249,21 +249,37 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 	polynom.list = new TList<int, double>;
 	std::string line, buffer;
 	std::getline(in, line);
-	int coef = 0;
+	int coef = 0, mul = 1, mode = 0;
 	for (int i = 0; i < line.size(); i++)
 	{
 		if (line[i] == ' ' && !buffer.empty())
 		{
-			polynom = polynom + TNode<int, double>(coef, std::stof(buffer));
+			if (mul == 0) throw UnexpectedChar;
+			polynom = polynom + TNode<int, double>(coef, mul * std::stof(buffer));
 			buffer.clear();
+			mul = 0;
 			coef = 0;
+			mode = 0;
 		}
-		else if ((line[i] > 47 && line[i] < 58) || (line[i] == '-'))
+		else if (line[i] == '+')
+		{
+			if (mode == 1) throw TException(UnexpectedChar);
+			mul = 1;
+		}
+		else if (line[i] == '-')
+		{
+			if (mode == 1) throw TException(UnexpectedChar);
+			mul = -1;
+		}
+		else if (line[i] > 47 && line[i] < 58)
 		{
 			buffer.push_back(line[i]);
+			if (mode == 1) throw TException(UnexpectedChar);
 		}
 		else if (line[i] == 'x')
 		{
+			mode = 1;
+			if (buffer.empty()) buffer = "1";
 			if (line[i + 1] == '^')
 			{
 				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
@@ -274,12 +290,13 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			else
 			{
 				coef += 100;
-				i = i++;
 				continue;
 			}
 		}
 		else if (line[i] == 'y')
 		{
+			mode = 1;
+			if (buffer.empty()) buffer = "1";
 			if (line[i + 1] == '^')
 			{
 				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
@@ -290,12 +307,13 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			else
 			{
 				coef += 10;
-				i = i++;
 				continue;
 			}
 		}
 		else if (line[i] == 'z')
 		{
+			mode = 1;
+			if (buffer.empty()) buffer = "1";
 			if (line[i + 1] == '^')
 			{
 				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
@@ -306,14 +324,13 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			else
 			{
 				coef += 1;
-				i = i++;
 				continue;
 			}
 		}
 	}
 	if (!buffer.empty())
 	{
-		polynom = polynom + TNode<int, double>(coef, std::stof(buffer));
+		polynom = polynom + TNode<int, double>(coef, mul * std::stof(buffer));
 		buffer.clear();
 		coef = 0;
 	}
