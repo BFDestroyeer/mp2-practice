@@ -301,6 +301,11 @@ std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list)
 //Polynom operators
 std::ostream& operator<<(std::ostream& out, const TList<int, double>& list)
 {
+	if (list.pFirst == nullptr)
+	{
+		out << 0;
+		return out;
+	}
 	TNode<int, double>* node = list.pFirst;
 	while (node != nullptr)
 	{
