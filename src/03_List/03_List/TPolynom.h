@@ -255,7 +255,10 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 		if (line[i] == ' ' && !buffer.empty())
 		{
 			if (mul == 0) throw UnexpectedChar;
-			polynom = polynom + TNode<int, double>(coef, mul * std::stof(buffer));
+			if (stof(buffer) != 0)
+			{
+				polynom = polynom + TNode<int, double>(coef, mul * std::stof(buffer));
+			}
 			buffer.clear();
 			mul = 0;
 			coef = 0;

@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
 		out << "+";
 	else
 		out << "-";
-	if (*(node.pData) != 1 && *(node.pData) != -1)
+	if ((*(node.pData) != 1 && *(node.pData) != -1) || node.key == 0)
 		out << abs(*(node.pData));
 	if (node.key / 100 != 0)
 		out << "x^" << (node.key / 100);

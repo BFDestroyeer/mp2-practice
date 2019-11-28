@@ -8,16 +8,33 @@ int main()
 	TPolynom first, second;
 	char input;
 
-	std::cout << "Enter first polynom:" << std::endl;
-	std::cin >> first;
-	std::cout << "Enter second polynom:" << std::endl;
-	std::cin >> second;
+	try
+	{
+		std::cout << "Enter first polynom:" << std::endl;
+		std::cin >> first;
+		std::cout << "Enter second polynom:" << std::endl;
+		std::cin >> second;
+	}
+	catch (TException exept)
+	{
+		if (exept.type == UnexpectedChar)
+			std::cout << "Wrong input form" << std::endl;
+		return -1;
+	}
 
 	std::cout << "Sum:" << std::endl;
 	std::cout << first + second << std::endl;;
 	std::cout << "Substraction" << std::endl;
 	std::cout << first - second << std::endl;;
 	std::cout << "Multiplication" << std::endl;
-	std::cout << first * second << std::endl;
+	try
+	{
+		std::cout << first * second << std::endl;
+	}
+	catch (TException exept)
+	{
+		if (exept.type == NotInSystem)
+			std::cout << "Result is not in system" << std::endl;
+	}
 	system("pause");
 }
