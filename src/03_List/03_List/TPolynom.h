@@ -350,7 +350,7 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 				continue;
 			}
 		}
-		else
+		else if (line[i] != ' ')
 		{
 			throw TException(UnexpectedChar);
 		}
