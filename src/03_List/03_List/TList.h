@@ -17,7 +17,7 @@ protected:
 public:
 	TList();
 	TList(const TList<TKey, TData>& temp);
-	TList(const TNode<TKey, TData>* node_);
+	TList(TNode<TKey, TData>* node_);
 	~TList();
 
 	TData GetCurrentData() const;
@@ -79,11 +79,26 @@ TList<TKey, TData>::TList(const TList& temp)
 }
 
 template <typename TKey, typename TData>
-TList<TKey, TData>::TList(const TNode<TKey, TData >* node_)
+TList<TKey, TData>::TList(TNode<TKey, TData >* node_)
 {
+	if (node_ == nullptr)
+	{
+		pFirst = nullptr;
+		pPrevious = nullptr;
+		pNext = nullptr;
+		pCurrent = nullptr;
+		return;
+	}
 	pFirst = new TNode<TKey, TData>(*node_);
+	TNode<TKey, TData> *node = pFirst, *node_temp = node_;
+	while (node_temp->pNext != nullptr)
+	{
+		node->pNext = new TNode<TKey, TData>(*(node_temp->pNext));
+		node = node->pNext;
+		node_temp = node_temp->pNext;
+	}
 	pPrevious = nullptr;
-	pNext = nullptr;
+	if (pFirst != nullptr) pNext = pFirst->pNext;
 	pCurrent = pFirst;
 }
 

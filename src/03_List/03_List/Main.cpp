@@ -1,12 +1,18 @@
 #include <iostream>
-
 #include "TPolynom.h"
 #include "Exception.h"
 
 int main()
 {
 	TPolynom first, second;
-	char input;
+
+	std::cout << "Constructor from list test" << std::endl;
+	TList<int, double> list;
+	for (int i = 0; i < 6; i++)
+	{
+		list.InsertForward(rand() % 1000, rand() % 100);
+	}
+	std::cout << TPolynom(list) << std::endl;
 
 	try
 	{

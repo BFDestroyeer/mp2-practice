@@ -13,6 +13,7 @@ public:
 
 public:
 	TPolynom();
+	TPolynom(const TList<int, double>& list_);
 	TPolynom(const TPolynom& temp);
 	~TPolynom();
 
@@ -31,6 +32,19 @@ public:
 TPolynom::TPolynom()
 {
 	list = new TList<int, double>;
+}
+
+TPolynom::TPolynom(const TList<int, double>& list_)
+{
+	list = new TList<int, double>;
+	TNode<int, double>* iter = list_.pFirst;
+	while (iter != nullptr)
+	{
+
+		if (iter->key >= 1000) throw TException(NotInSystem);
+		*this = *this + *iter;
+		iter = iter->pNext;
+	}
 }
 
 TPolynom::TPolynom(const TPolynom& temp)
@@ -335,6 +349,10 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 				coef += 1;
 				continue;
 			}
+		}
+		else
+		{
+			throw TException(UnexpectedChar);
 		}
 	}
 	if (!buffer.empty())
