@@ -20,6 +20,7 @@ public:
 	TPolynom& operator=(const TPolynom& temp);
 	TPolynom operator+(const TPolynom& temp);
 	TPolynom operator+(const TNode<int, double>& node);
+	TPolynom operator+=(const TNode<int, double>& node);
 	TPolynom operator-(const TPolynom& temp);
 	TPolynom operator-(const TNode<int, double>& node);
 	TPolynom operator*(const TPolynom& temp);
@@ -142,6 +143,27 @@ TPolynom TPolynom::operator+(const TNode<int, double>& node)
 		}
 	}
 	return out;
+}
+
+TPolynom TPolynom::operator+=(const TNode<int, double>& node)
+{
+	TNode<int, double>* first = list->pFirst;
+	if (first == nullptr || node.key > first->key);
+	{
+		list->InsertForward(node.key, node.pData);
+		return *this;
+	}
+	while ((first->pNext != nullptr) && (first->pNext->key > node.key))
+		first = first->pNext;
+	if ((first->pNext != nullptr) && (first->pNext->key == node.key))
+	{
+		*(first->pNext->pData) += *(node.pData);
+		return *this;
+	}
+	TNode<int, double>* temp = new TNode<int, double>(node);
+	temp->pNext = first->pNext;
+	first->pNext = temp;
+	return *this;
 }
 
 TPolynom TPolynom::operator-(const TPolynom& temp)
