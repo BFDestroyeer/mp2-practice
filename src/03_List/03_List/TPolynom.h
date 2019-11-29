@@ -286,12 +286,14 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			if (line[i + 1] == '^')
 			{
 				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
+				if ((line[i + 2] - 48) + (coef / 100) > 9) throw TException(NotInSystem);
 				coef += 100 * (line[i + 2] - 48);
 				i = i + 2;
 				continue;
 			}
 			else
 			{
+				if (coef / 100 == 9) throw TException(NotInSystem);
 				coef += 100;
 				continue;
 			}
@@ -303,12 +305,14 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			if (line[i + 1] == '^')
 			{
 				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
+				if ((line[i + 2] - 48) + ((coef % 100) / 10) > 9) throw TException(NotInSystem);
 				coef += 10 * (line[i + 2] - 48);
 				i = i + 2;
 				continue;
 			}
 			else
 			{
+				if ((coef % 100) / 10 == 9) throw TException(NotInSystem);
 				coef += 10;
 				continue;
 			}
@@ -320,12 +324,14 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			if (line[i + 1] == '^')
 			{
 				if (line[i + 2] < 48 || line[i + 2] > 57) throw TException(UnexpectedChar);
+				if ((line[i + 2] - 48) + (coef % 10) > 9) throw TException(NotInSystem);
 				coef += (line[i + 2] - 48);
 				i = i + 2;
 				continue;
 			}
 			else
 			{
+				if (coef % 10 == 9) throw TException(NotInSystem);
 				coef += 1;
 				continue;
 			}

@@ -81,19 +81,6 @@ std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node)
 	return out;
 }
 
-//Monom's operators
-TNode<int, double> operator*(TNode<int, double>& a, const TNode<int, double>& b)
-{
-	TNode<int, double> out;
-	if ((a.key / 100 + b.key / 100) >= 10) throw "Not in system";
-	if ((a.key % 100 / 10 + b.key % 100 / 10) >= 10) throw "Not in system";
-	if ((a.key % 10 + b.key % 10) >= 10) throw "Not in system";
-	out.key = a.key + b.key;
-	*(out.pData) = *(a.pData) * *(b.pData);
-	out.pNext = nullptr;
-	return out;
-}
-
 std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
 {
 	if (*(node.pData) > 0)

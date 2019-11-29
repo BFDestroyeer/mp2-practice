@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TNode.h"
+#include "Exception.h"
 
 template <typename TKey, typename TData>
 class TList
@@ -102,14 +103,14 @@ TList<TKey, TData>::~TList()
 template <typename TKey, typename TData>
 TData TList<TKey, TData>::GetCurrentData() const
 {
-	if (pCurrent == nullptr) throw "Cant";
+	if (pCurrent == nullptr) throw TException(CantReturnEmpty);
 	return *(pCurrent->pData);
 }
 
 template <typename TKey, typename TData>
 TKey TList<TKey, TData>::GetCurrentKey() const
 {
-	if (pCurrent == nullptr) throw "Cant";
+	if (pCurrent == nullptr) throw TException(CantReturnEmpty);
 	return pCurrent->key;
 }
 
@@ -161,7 +162,7 @@ void TList<TKey, TData>::InsertBefore(TKey key_b, TKey key_, const TData* pData_
 	{
 		prev_node = prev_node->pNext;
 	}
-	if (prev_node->pNext == nullptr) throw "Can't find";
+	if (prev_node->pNext == nullptr) throw TException(CantFind);
 	TNode<TKey, TData>* next_node = prev_node->pNext;
 	TNode<TKey, TData>* temp = new TNode<TKey, TData>(key_, pData_);
 	prev_node->pNext = temp;
@@ -179,7 +180,7 @@ void TList<TKey, TData>::InsertAfter(TKey key_a, TKey key_, const TData* pData_)
 	{
 		prev_node = prev_node->pNext;
 	}
-	if (prev_node == nullptr) throw "Can't find";
+	if (prev_node == nullptr) throw TException(CantFind);
 	TNode<TKey, TData>* next_node = prev_node->pNext;
 	TNode<TKey, TData>* temp = new TNode<TKey, TData>(key_, pData_);
 	prev_node->pNext = temp;
@@ -232,7 +233,7 @@ void TList<TKey, TData>::Remove(TKey key_)
 	{
 		prev_node = prev_node->pNext;
 	}
-	if (prev_node->pNext == nullptr) throw "Can't find";
+	if (prev_node->pNext == nullptr) throw TException(CantFind);
 	TNode<TKey, TData>* next_node = prev_node->pNext->pNext;
 	if (pCurrent == prev_node->pNext) pCurrent = nullptr;
 	if (pNext == prev_node->pNext) pNext = prev_node->pNext->pNext;
@@ -266,7 +267,7 @@ bool TList<TKey, TData>::IsEmpty() const
 template <typename TKey, typename TData>
 void TList<TKey, TData>::Next()
 {
-	if (IsEnded() == true) throw "It's END";
+	if (IsEnded() == true) throw TException(ListIsEnded);
 	if (pCurrent != nullptr)
 	{
 		pPrevious = pCurrent;

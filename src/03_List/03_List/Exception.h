@@ -3,7 +3,10 @@
 enum TException_Type
 {
 	NotInSystem,
-	UnexpectedChar
+	UnexpectedChar,
+	CantReturnEmpty,
+	CantFind,
+	ListIsEnded
 };
 
 struct TException

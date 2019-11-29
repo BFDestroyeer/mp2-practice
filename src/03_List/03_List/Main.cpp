@@ -19,6 +19,8 @@ int main()
 	{
 		if (exept.type == UnexpectedChar)
 			std::cout << "Wrong input form" << std::endl;
+		if (exept.type == NotInSystem)
+			std::cout << "Result is not in system" << std::endl;
 		return -1;
 	}
 
