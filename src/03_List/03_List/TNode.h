@@ -53,7 +53,7 @@ TNode<TKey, TData>::TNode(const TNode<TKey, TData>& temp)
 	key = temp.key;
 	pData = new TData;
 	*pData = *(temp.pData);
-	pNext = temp.pNext;
+	pNext = nullptr;
 }
 
 template <typename TKey, typename TData>
