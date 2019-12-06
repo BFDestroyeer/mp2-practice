@@ -63,6 +63,7 @@ TPolynom::~TPolynom()
 
 TPolynom& TPolynom::operator=(const TPolynom& temp)
 {
+	/////////////
 	delete list;
 	list = new TList<unsigned, double>(*(temp.list));
 	return *this;
