@@ -42,7 +42,7 @@ public:
 
 	template <typename TKey, typename TData>
 	friend std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list);
-	friend std::ostream& operator<<(std::ostream& out, const TList<int, double>& list);
+	friend std::ostream& operator<<(std::ostream& out, const TList<unsigned, double>& list);
 };
 
 template <typename TKey, typename TData>
@@ -315,14 +315,14 @@ std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list)
 }
 
 //Polynom operators
-std::ostream& operator<<(std::ostream& out, const TList<int, double>& list)
+std::ostream& operator<<(std::ostream& out, const TList<unsigned, double>& list)
 {
 	if (list.pFirst == nullptr)
 	{
 		out << 0;
 		return out;
 	}
-	TNode<int, double>* node = list.pFirst;
+	TNode<unsigned, double>* node = list.pFirst;
 	while (node != nullptr)
 	{
 		out << *(node) << ' ';

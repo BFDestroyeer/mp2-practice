@@ -81,7 +81,7 @@ std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node)
 	return out;
 }
 
-std::ostream& operator<<(std::ostream& out, const TNode<int, double>& node)
+std::ostream& operator<<(std::ostream& out, const TNode<unsigned, double>& node)
 {
 	if (*(node.pData) > 0)
 		out << "+";

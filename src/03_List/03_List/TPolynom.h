@@ -9,26 +9,25 @@
 class TPolynom
 {
 public:
-	TList<int, double>* list;
+	TList<unsigned, double>* list;
 
 public:
 	TPolynom();
-	TPolynom(const TList<int, double>& list_);
+	TPolynom(const TList<unsigned, double>& list_);
 	TPolynom(const TPolynom& temp);
 	~TPolynom();
 
 	TPolynom& operator=(const TPolynom& temp);
 	TPolynom operator+(const TPolynom& temp);
 	TPolynom& operator+=(const TPolynom& temp);
-	TPolynom operator+(const TNode<int, double>& node);
-	TPolynom& operator+=(const TNode<int, double>& node);
+	TPolynom operator+(const TNode<unsigned, double>& node);
+	TPolynom& operator+=(const TNode<unsigned, double>& node);
 	TPolynom operator-(const TPolynom& temp);
-	//TPolynom& operator-=(const TPolynom& temp);
-	TPolynom operator-(const TNode<int, double>& node);
-	TPolynom& operator-=(const TNode<int, double>& node);
+	TPolynom operator-(const TNode<unsigned, double>& node);
+	TPolynom& operator-=(const TNode<unsigned, double>& node);
 	TPolynom operator*(const TPolynom& temp);
-	TPolynom operator*(const TNode<int, double>& node);
-	TPolynom& operator*=(const TNode<int, double>& node);
+	TPolynom operator*(const TNode<unsigned, double>& node);
+	TPolynom& operator*=(const TNode<unsigned, double>& node);
 
 	friend std::ostream& operator<<(std::ostream& out, const TPolynom& polynom);
 	friend std::istream& operator>>(std::istream& in, TPolynom& polynom);
@@ -36,13 +35,13 @@ public:
 
 TPolynom::TPolynom()
 {
-	list = new TList<int, double>;
+	list = new TList<unsigned, double>;
 }
 
-TPolynom::TPolynom(const TList<int, double>& list_)
+TPolynom::TPolynom(const TList<unsigned, double>& list_)
 {
-	list = new TList<int, double>;
-	TNode<int, double>* iter = list_.pFirst;
+	list = new TList<unsigned, double>;
+	TNode<unsigned, double>* iter = list_.pFirst;
 	while (iter != nullptr)
 	{
 
@@ -54,7 +53,7 @@ TPolynom::TPolynom(const TList<int, double>& list_)
 
 TPolynom::TPolynom(const TPolynom& temp)
 {
-	list = new TList<int, double>(*(temp.list));
+	list = new TList<unsigned, double>(*(temp.list));
 }
 
 TPolynom::~TPolynom()
@@ -65,15 +64,15 @@ TPolynom::~TPolynom()
 TPolynom& TPolynom::operator=(const TPolynom& temp)
 {
 	delete list;
-	list = new TList<int, double>(*(temp.list));
+	list = new TList<unsigned, double>(*(temp.list));
 	return *this;
 }
 
 TPolynom TPolynom::operator+(const TPolynom& temp)
 {
 	TPolynom out;
-	TNode<int, double>* first = list->pFirst;
-	TNode<int, double>* second = temp.list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
+	TNode<unsigned, double>* second = temp.list->pFirst;
 	while (first != nullptr || second != nullptr)
 	{
 		if (first == nullptr)
@@ -111,12 +110,12 @@ TPolynom TPolynom::operator+(const TPolynom& temp)
 
 TPolynom& TPolynom::operator+=(const TPolynom& temp)
 {
-	TNode<int, double>* first = list->pFirst;
-	TNode<int, double>* second = temp.list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
+	TNode<unsigned, double>* second = temp.list->pFirst;
 	if (first == nullptr)
 	{
 		delete list;
-		list = new TList<int, double>(*(temp.list));
+		list = new TList<unsigned, double>(*(temp.list));
 		return *this;
 	}
 	if (second == nullptr)
@@ -133,7 +132,7 @@ TPolynom& TPolynom::operator+=(const TPolynom& temp)
 	{
 		if (first->pNext == nullptr)
 		{
-			first->pNext = new TNode<int, double>(*(second));
+			first->pNext = new TNode<unsigned, double>(*(second));
 			first = first->pNext;
 			second = second->pNext;
 		}
@@ -143,7 +142,7 @@ TPolynom& TPolynom::operator+=(const TPolynom& temp)
 		}
 		else if (first->pNext->key < second->key)
 		{
-			TNode<int, double>* temp = new TNode<int, double>(*(second));
+			TNode<unsigned, double>* temp = new TNode<unsigned, double>(*(second));
 			temp->pNext = first->pNext;
 			first->pNext = temp;
 			first = first->pNext;
@@ -158,10 +157,10 @@ TPolynom& TPolynom::operator+=(const TPolynom& temp)
 	return *this;
 }
 
-TPolynom TPolynom::operator+(const TNode<int, double>& node)
+TPolynom TPolynom::operator+(const TNode<unsigned, double>& node)
 {
 	TPolynom out;
-	TNode<int, double>* first = list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
 	bool isInserted = false;
 	while (first != nullptr || !isInserted)
 	{
@@ -198,9 +197,9 @@ TPolynom TPolynom::operator+(const TNode<int, double>& node)
 	return out;
 }
 
-TPolynom& TPolynom::operator+=(const TNode<int, double>& node)
+TPolynom& TPolynom::operator+=(const TNode<unsigned, double>& node)
 {
-	TNode<int, double>* first = list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
 	if (first == nullptr || node.key > first->key)
 	{
 		list->InsertForward(node.key, node.pData);
@@ -213,7 +212,7 @@ TPolynom& TPolynom::operator+=(const TNode<int, double>& node)
 		*(first->pNext->pData) += *(node.pData);
 		return *this;
 	}
-	TNode<int, double>* temp = new TNode<int, double>(node);
+	TNode<unsigned, double>* temp = new TNode<unsigned, double>(node);
 	temp->pNext = first->pNext;
 	first->pNext = temp;
 	return *this;
@@ -222,8 +221,8 @@ TPolynom& TPolynom::operator+=(const TNode<int, double>& node)
 TPolynom TPolynom::operator-(const TPolynom& temp)
 {
 	TPolynom out;
-	TNode<int, double>* first = list->pFirst;
-	TNode<int, double>* second = temp.list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
+	TNode<unsigned, double>* second = temp.list->pFirst;
 	while (first != nullptr || second != nullptr)
 	{
 		if (first == nullptr)
@@ -259,10 +258,10 @@ TPolynom TPolynom::operator-(const TPolynom& temp)
 	return out;
 }
 
-TPolynom TPolynom::operator-(const TNode<int, double>& node)
+TPolynom TPolynom::operator-(const TNode<unsigned, double>& node)
 {
 	TPolynom out;
-	TNode<int, double>* first = list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
 	bool isInserted = false;
 	while (first != nullptr || !isInserted)
 	{
@@ -299,9 +298,9 @@ TPolynom TPolynom::operator-(const TNode<int, double>& node)
 	return out;
 }
 
-TPolynom& TPolynom::operator-=(const TNode<int, double>& node)
+TPolynom& TPolynom::operator-=(const TNode<unsigned, double>& node)
 {
-	TNode<int, double>* first = list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
 	if (first == nullptr || node.key > first->key)
 	{
 		list->InsertForward(node.key, -*(node.pData));
@@ -314,7 +313,7 @@ TPolynom& TPolynom::operator-=(const TNode<int, double>& node)
 		*(first->pNext->pData) -= *(node.pData);
 		return *this;
 	}
-	TNode<int, double>* temp = new TNode<int, double>(node.key, -*(node.pData));
+	TNode<unsigned, double>* temp = new TNode<unsigned, double>(node.key, -*(node.pData));
 	temp->pNext = first->pNext;
 	first->pNext = temp;
 	return *this;
@@ -323,7 +322,7 @@ TPolynom& TPolynom::operator-=(const TNode<int, double>& node)
 TPolynom TPolynom::operator*(const TPolynom& temp)
 {
 	TPolynom out;
-	TNode<int, double>* second = temp.list->pFirst;
+	TNode<unsigned, double>* second = temp.list->pFirst;
 	while (second != nullptr)
 	{
 		out += *this * *second;
@@ -332,10 +331,10 @@ TPolynom TPolynom::operator*(const TPolynom& temp)
 	return out;
 }
 
-TPolynom TPolynom::operator*(const TNode<int, double>& node)
+TPolynom TPolynom::operator*(const TNode<unsigned, double>& node)
 {
 	TPolynom out;
-	TNode<int, double>* first = list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
 	while (first != nullptr)
 	{
 		if ((first->key / 100 + node.key / 100) >= 10) throw TException(NotInSystem);
@@ -347,9 +346,9 @@ TPolynom TPolynom::operator*(const TNode<int, double>& node)
 	return out;
 }
 
-TPolynom& TPolynom::operator*=(const TNode<int, double>& node)
+TPolynom& TPolynom::operator*=(const TNode<unsigned, double>& node)
 {
-	TNode<int, double>* first = list->pFirst;
+	TNode<unsigned, double>* first = list->pFirst;
 	while (first != nullptr)
 	{
 		if ((first->key / 100 + node.key / 100) >= 10) throw TException(NotInSystem);
@@ -371,7 +370,7 @@ std::ostream& operator<<(std::ostream& out, const TPolynom& polynom)
 std::istream& operator>>(std::istream& in, TPolynom& polynom)
 {
 	delete polynom.list;
-	polynom.list = new TList<int, double>;
+	polynom.list = new TList<unsigned, double>;
 	std::string line, buffer;
 	std::getline(in, line);
 	int coef = 0, mul = 1, mode = 0;
@@ -382,7 +381,7 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			if (mul == 0) throw UnexpectedChar;
 			if (stof(buffer) != 0)
 			{
-				polynom += TNode<int, double>(coef, mul * std::stof(buffer));
+				polynom += TNode<unsigned, double>(coef, mul * std::stof(buffer));
 			}
 			buffer.clear();
 			mul = 0;
@@ -468,7 +467,7 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 	}
 	if (!buffer.empty())
 	{
-		polynom += TNode<int, double>(coef, mul * std::stof(buffer));
+		polynom += TNode<unsigned, double>(coef, mul * std::stof(buffer));
 		buffer.clear();
 		coef = 0;
 	}
