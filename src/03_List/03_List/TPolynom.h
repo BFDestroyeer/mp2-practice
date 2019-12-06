@@ -150,7 +150,10 @@ TPolynom& TPolynom::operator+=(const TPolynom& temp)
 		}
 		else
 		{
-			*(first->pNext->pData) += *(second->pData);
+			if (*(first->pNext->pData) != -*(second->pData))
+				*(first->pNext->pData) += *(second->pData);
+			else
+				list->Remove(first->pNext->key);
 			second = second->pNext;
 		}
 	}
@@ -209,7 +212,10 @@ TPolynom& TPolynom::operator+=(const TNode<unsigned, double>& node)
 		first = first->pNext;
 	if ((first->pNext != nullptr) && (first->pNext->key == node.key))
 	{
-		*(first->pNext->pData) += *(node.pData);
+		if (*(first->pNext->pData) != -*(node.pData))
+			*(first->pNext->pData) += *(node.pData);
+		else
+			list->Remove(first->pNext->key);
 		return *this;
 	}
 	TNode<unsigned, double>* temp = new TNode<unsigned, double>(node);
@@ -310,8 +316,10 @@ TPolynom& TPolynom::operator-=(const TNode<unsigned, double>& node)
 		first = first->pNext;
 	if ((first->pNext != nullptr) && (first->pNext->key == node.key))
 	{
-		*(first->pNext->pData) -= *(node.pData);
-		return *this;
+		if (*(first->pNext->pData) != *(node.pData))
+			*(first->pNext->pData) -= *(node.pData);
+		else
+			list->Remove(first->pNext->key);
 	}
 	TNode<unsigned, double>* temp = new TNode<unsigned, double>(node.key, -*(node.pData));
 	temp->pNext = first->pNext;
