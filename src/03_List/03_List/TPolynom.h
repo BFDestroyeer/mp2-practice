@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "TList.h"
+#include "TMonom.h"
 #include "TException.h"
 
 class TPolynom

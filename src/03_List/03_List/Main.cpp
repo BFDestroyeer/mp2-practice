@@ -1,4 +1,7 @@
 #include <iostream>
+#include <random>
+#include <time.h>
+
 #include "TPolynom.h"
 #include "TException.h"
 
@@ -6,6 +9,7 @@ int main()
 {
 	TPolynom first, second;
 
+	srand(time(0));
 	std::cout << "Constructor from list test" << std::endl;
 	TList<unsigned, double> list;
 	for (int i = 0; i < 6; i++)
@@ -13,6 +17,9 @@ int main()
 		list.InsertForward(rand() % 1000, rand() % 100);
 	}
 	std::cout << TPolynom(list) << std::endl;
+
+	TNode<unsigned, double> ts(10, 20);
+	TMonom td(ts);
 
 	try
 	{
