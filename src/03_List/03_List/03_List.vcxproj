@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Exception.h" />
     <ClInclude Include="TList.h" />
+    <ClInclude Include="TMonom.h" />
     <ClInclude Include="TNode.h" />
     <ClInclude Include="TPolynom.h" />
   </ItemGroup>
