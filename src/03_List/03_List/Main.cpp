@@ -18,9 +18,6 @@ int main()
 	}
 	std::cout << TPolynom(list) << std::endl;
 
-	TNode<unsigned, double> ts(10, 20);
-	TMonom td(ts);
-
 	try
 	{
 		std::cout << "Enter first polynom:" << std::endl;
