@@ -43,6 +43,8 @@ public:
 	template <typename TKey, typename TData>
 	friend std::ostream& operator<<(std::ostream& out, const TList<TKey, TData>& list);
 	friend std::ostream& operator<<(std::ostream& out, const TList<unsigned, double>& list);
+
+	friend TPolynom operator-(TPolynom temp);
 };
 
 template <typename TKey, typename TData>

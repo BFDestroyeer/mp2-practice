@@ -23,6 +23,7 @@ public:
 	TPolynom operator+(const TNode<unsigned, double>& node);
 	TPolynom& operator+=(const TNode<unsigned, double>& node);
 	TPolynom operator-(const TPolynom& temp);
+	TPolynom& operator-=(const TPolynom& temp);
 	TPolynom operator-(const TNode<unsigned, double>& node);
 	TPolynom& operator-=(const TNode<unsigned, double>& node);
 	TPolynom operator*(const TPolynom& temp);
@@ -31,6 +32,8 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const TPolynom& polynom);
 	friend std::istream& operator>>(std::istream& in, TPolynom& polynom);
+
+	friend TPolynom operator-(TPolynom temp);
 };
 
 TPolynom::TPolynom()
@@ -227,42 +230,12 @@ TPolynom& TPolynom::operator+=(const TNode<unsigned, double>& node)
 
 TPolynom TPolynom::operator-(const TPolynom& temp)
 {
-	TPolynom out;
-	TNode<unsigned, double>* first = list->pFirst;
-	TNode<unsigned, double>* second = temp.list->pFirst;
-	while (first != nullptr || second != nullptr)
-	{
-		if (first == nullptr)
-		{
-			out.list->InsertBackward(second->key, -*(second->pData));
-			second = second->pNext;
-		}
-		else if (second == nullptr)
-		{
-			out.list->InsertBackward(first->key, first->pData);
-			first = first->pNext;
-		}
-		else if (first->key > second->key)
-		{
-			out.list->InsertBackward(first->key, first->pData);
-			first = first->pNext;
-		}
-		else if (first->key < second->key)
-		{
-			out.list->InsertBackward(second->key, -*(second->pData));
-			second = second->pNext;
-		}
-		else
-		{
-			if (*(first->pData) != *(second->pData))
-			{
-				out.list->InsertBackward(first->key, *(first->pData) - *(second->pData));
-			}
-			first = first->pNext;
-			second = second->pNext;
-		}
-	}
-	return out;
+	return *this + (-temp);
+}
+
+TPolynom& TPolynom::operator-=(const TPolynom& temp)
+{
+	return *this += (-temp);
 }
 
 TPolynom TPolynom::operator-(const TNode<unsigned, double>& node)
@@ -481,4 +454,16 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 		coef = 0;
 	}
 	return in;
+}
+
+TPolynom operator-(TPolynom temp)
+{
+	TPolynom out(temp);
+	TNode<unsigned, double>* iter = out.list->pFirst;
+	while (iter != nullptr)
+	{
+		*(iter->pData) *= -1;
+		iter = iter->pNext;
+	}
+	return out;
 }
