@@ -14,7 +14,7 @@ int main()
 	TList<unsigned, double> list;
 	for (int i = 0; i < 6; i++)
 	{
-		list.InsertForward(rand() % 1000, rand() % 100);
+		list.InsertForward(rand() % 1000, 1 + rand() % 100);
 	}
 	std::cout << TPolynom(list) << std::endl;
 

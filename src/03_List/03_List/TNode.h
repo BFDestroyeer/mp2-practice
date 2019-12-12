@@ -80,20 +80,3 @@ std::ostream& operator<<(std::ostream& out, const TNode<TKey, TData>& node)
 	out << "Key: " << node.key << " Data: " << *(node.pData);
 	return out;
 }
-
-std::ostream& operator<<(std::ostream& out, const TNode<unsigned, double>& node)
-{
-	if (*(node.pData) > 0)
-		out << "+";
-	else
-		out << "-";
-	if ((*(node.pData) != 1 && *(node.pData) != -1) || node.key == 0)
-		out << abs(*(node.pData));
-	if (node.key / 100 != 0)
-		out << "x^" << (node.key / 100);
-	if (node.key % 100 / 10 != 0)
-		out << "y^" << (node.key % 100 / 10);
-	if (node.key % 10 != 0)
-		out << "z^" << (node.key % 10);
-	return out;
-}

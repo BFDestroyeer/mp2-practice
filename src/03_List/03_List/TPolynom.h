@@ -241,65 +241,12 @@ TPolynom& TPolynom::operator-=(const TPolynom& temp)
 
 TPolynom TPolynom::operator-(const TMonom& node)
 {
-	TPolynom out;
-	TNode<unsigned, double>* first = list->pFirst;
-	bool isInserted = false;
-	while (first != nullptr || !isInserted)
-	{
-		if (first == nullptr)
-		{
-			out.list->InsertBackward(node.key, -*(node.pData));
-			isInserted = true;
-		}
-		else if (first->key > node.key)
-		{
-			out.list->InsertBackward(first->key, first->pData);
-			first = first->pNext;
-		}
-		else if (!isInserted && first->key < node.key)
-		{
-			out.list->InsertBackward(node.key, -*(node.pData));
-			isInserted = true;
-		}
-		else if (!isInserted)
-		{
-			if (*(first->pData) != *(node.pData))
-			{
-				out.list->InsertBackward(first->key, *(first->pData) - *(node.pData));
-			}
-			first = first->pNext;
-			isInserted = true;
-		}
-		else
-		{
-			out.list->InsertBackward(first->key, first->pData);
-			first = first->pNext;
-		}
-	}
-	return out;
+	return *this + (-node);
 }
 
 TPolynom& TPolynom::operator-=(const TMonom& node)
 {
-	TNode<unsigned, double>* first = list->pFirst;
-	if (first == nullptr || node.key > first->key)
-	{
-		list->InsertForward(node.key, -*(node.pData));
-		return *this;
-	}
-	while ((first->pNext != nullptr) && (first->pNext->key > node.key))
-		first = first->pNext;
-	if ((first->pNext != nullptr) && (first->pNext->key == node.key))
-	{
-		if (*(first->pNext->pData) != *(node.pData))
-			*(first->pNext->pData) -= *(node.pData);
-		else
-			list->Remove(first->pNext->key);
-	}
-	TNode<unsigned, double>* temp = new TMonom(node.key, -*(node.pData));
-	temp->pNext = first->pNext;
-	first->pNext = temp;
-	return *this;
+	return *this += (-node);
 }
 
 TPolynom TPolynom::operator*(const TPolynom& temp)
@@ -339,7 +286,17 @@ TPolynom& TPolynom::operator*=(const TMonom& node)
 
 std::ostream& operator<<(std::ostream& out, const TPolynom& polynom)
 {
-	out << *(polynom.list);
+	TNode<unsigned, double>* iter = polynom.list->pFirst;
+	if (iter == nullptr)
+	{
+		out << "0";
+		return out;
+	}
+	while (iter != nullptr)
+	{
+		out << (TMonom)*iter << ' ';
+		iter = iter->pNext;
+	}
 	return out;
 }
 
