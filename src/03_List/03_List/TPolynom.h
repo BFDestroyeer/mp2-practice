@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "TList.h"
-#include "TMonom.h"
 #include "TException.h"
 
 class TPolynom
@@ -21,8 +20,8 @@ public:
 	TPolynom& operator=(const TPolynom& temp);
 	TPolynom operator+(const TPolynom& temp);
 	TPolynom& operator+=(const TPolynom& temp);
-	TPolynom operator+(const TMonom& node);
-	TPolynom& operator+=(const TMonom& node);
+	TPolynom operator+(const TNode<unsigned, double>& node);
+	TPolynom& operator+=(const TNode<unsigned, double>& node);
 	TPolynom operator-(const TPolynom& temp);
 	TPolynom operator-(const TNode<unsigned, double>& node);
 	TPolynom& operator-=(const TNode<unsigned, double>& node);
@@ -162,7 +161,7 @@ TPolynom& TPolynom::operator+=(const TPolynom& temp)
 	return *this;
 }
 
-TPolynom TPolynom::operator+(const TMonom& node)
+TPolynom TPolynom::operator+(const TNode<unsigned, double>& node)
 {
 	TPolynom out;
 	TNode<unsigned, double>* first = list->pFirst;
@@ -202,7 +201,7 @@ TPolynom TPolynom::operator+(const TMonom& node)
 	return out;
 }
 
-TPolynom& TPolynom::operator+=(const TMonom& node)
+TPolynom& TPolynom::operator+=(const TNode<unsigned, double>& node)
 {
 	TNode<unsigned, double>* first = list->pFirst;
 	if (first == nullptr || node.key > first->key)
