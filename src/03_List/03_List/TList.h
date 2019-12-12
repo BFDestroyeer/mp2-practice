@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TNode.h"
-#include "Exception.h"
+#include "TException.h"
 
 template <typename TKey, typename TData>
 class TList

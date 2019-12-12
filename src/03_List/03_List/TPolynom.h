@@ -4,7 +4,8 @@
 #include <iostream>
 
 #include "TList.h"
-#include "Exception.h"
+#include "TMonom.h"
+#include "TException.h"
 
 class TPolynom
 {
@@ -20,8 +21,8 @@ public:
 	TPolynom& operator=(const TPolynom& temp);
 	TPolynom operator+(const TPolynom& temp);
 	TPolynom& operator+=(const TPolynom& temp);
-	TPolynom operator+(const TNode<unsigned, double>& node);
-	TPolynom& operator+=(const TNode<unsigned, double>& node);
+	TPolynom operator+(const TMonom& node);
+	TPolynom& operator+=(const TMonom& node);
 	TPolynom operator-(const TPolynom& temp);
 	TPolynom operator-(const TNode<unsigned, double>& node);
 	TPolynom& operator-=(const TNode<unsigned, double>& node);
@@ -63,7 +64,7 @@ TPolynom::~TPolynom()
 
 TPolynom& TPolynom::operator=(const TPolynom& temp)
 {
-	/////////////
+	if (this == &temp) return *this;
 	delete list;
 	list = new TList<unsigned, double>(*(temp.list));
 	return *this;
@@ -161,7 +162,7 @@ TPolynom& TPolynom::operator+=(const TPolynom& temp)
 	return *this;
 }
 
-TPolynom TPolynom::operator+(const TNode<unsigned, double>& node)
+TPolynom TPolynom::operator+(const TMonom& node)
 {
 	TPolynom out;
 	TNode<unsigned, double>* first = list->pFirst;
@@ -201,7 +202,7 @@ TPolynom TPolynom::operator+(const TNode<unsigned, double>& node)
 	return out;
 }
 
-TPolynom& TPolynom::operator+=(const TNode<unsigned, double>& node)
+TPolynom& TPolynom::operator+=(const TMonom& node)
 {
 	TNode<unsigned, double>* first = list->pFirst;
 	if (first == nullptr || node.key > first->key)

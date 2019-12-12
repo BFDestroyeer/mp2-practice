@@ -1,6 +1,6 @@
 #include <iostream>
 #include "TPolynom.h"
-#include "Exception.h"
+#include "TException.h"
 
 int main()
 {
