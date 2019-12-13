@@ -269,7 +269,7 @@ TPolynom TPolynom::operator*(const TMonom& node)
 	TNode<unsigned, double>* first = out.list->pFirst;
 	while (first != nullptr)
 	{
-		*first = (TMonom)*first * node;
+		*first = (TMonom)(*first) * node;
 		first = first->pNext;
 	}
 	return out;
