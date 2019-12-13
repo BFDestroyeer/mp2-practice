@@ -333,7 +333,7 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			if (mode == 1) throw TException(UnexpectedChar);
 			mul = -1;
 		}
-		else if (line[i] > 47 && line[i] < 58)
+		else if ((line[i] > 47 && line[i] < 58) || line[i] == '.')
 		{
 			buffer.push_back(line[i]);
 			if (mode == 1) throw TException(UnexpectedChar);

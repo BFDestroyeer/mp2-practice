@@ -9,7 +9,7 @@ int main()
 {
 	TPolynom first, second;
 
-	srand(time(0));
+	srand((unsigned) time(0));
 	std::cout << "Constructor from list test" << std::endl;
 	TList<unsigned, double> list;
 	for (int i = 0; i < 6; i++)

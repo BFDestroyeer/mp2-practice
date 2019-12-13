@@ -14,7 +14,7 @@ public:
 	TMonom(const TNode<unsigned, double>& temp);
 	~TMonom();
 
-	TNode<unsigned, double> operator*(const TMonom& temp);
+	TMonom operator*(const TMonom& temp);
 	//TNode<unsigned, double> operator+(const TMonom& temp);
 
 	friend std::ostream& operator<<(std::ostream& out, const TMonom& monom);
@@ -47,12 +47,12 @@ TMonom::~TMonom()
 
 }
 
-TNode<unsigned, double> TMonom::operator*(const TMonom& temp)
+TMonom TMonom::operator*(const TMonom& temp)
 {
 	if ((key / 100 + temp.key / 100) >= 10) throw TException(NotInSystem);
 	if ((key % 100 / 10 + temp.key % 100 / 10) >= 10) throw TException(NotInSystem);
 	if ((key % 10 + temp.key % 10) >= 10) throw TException(NotInSystem);
-	TNode<unsigned, double> out(key + temp.key, *pData * *(temp.pData));
+	TMonom out(key + temp.key, *pData * *(temp.pData));
 	return out;
 }
 
