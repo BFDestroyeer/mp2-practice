@@ -15,6 +15,7 @@ public:
 	~TMonom();
 
 	TNode<unsigned, double> operator*(const TMonom& temp);
+	//TNode<unsigned, double> operator+(const TMonom& temp);
 
 	friend std::ostream& operator<<(std::ostream& out, const TMonom& monom);
 
@@ -23,23 +24,22 @@ public:
 
 TMonom::TMonom(unsigned key_, const double* pData_) : TNode<unsigned, double>(key_, pData_)
 {
-	if (key > 999) throw TException(NotInSystem);
+	if (key > 999 || *pData == 0) throw TException(NotInSystem);
 }
 
 TMonom::TMonom(unsigned key_, const double& data) : TNode<unsigned, double>(key_, data)
 {
-	if (key > 999) throw TException(NotInSystem);
+	if (key > 999 || *pData == 0) throw TException(NotInSystem);
 }
-
 
 TMonom::TMonom(const TMonom& temp) : TNode<unsigned, double>(temp)
 {
-
+	if (key > 999 || *pData == 0) throw TException(NotInSystem);
 }
 
 TMonom::TMonom(const TNode<unsigned, double>& temp) : TNode<unsigned, double>(temp)
 {
-
+	if (key > 999 || *pData == 0) throw TException(NotInSystem);
 }
 
 TMonom::~TMonom()
@@ -55,6 +55,12 @@ TNode<unsigned, double> TMonom::operator*(const TMonom& temp)
 	TNode<unsigned, double> out(key + temp.key, *pData * *(temp.pData));
 	return out;
 }
+
+/*TNode<unsigned, double> TMonom::operator+(const TMonom& temp)
+{
+	TNode<unsigned, double> out(key, *pData + *(temp.pData));
+	return out;
+}*/
 
 std::ostream& operator<<(std::ostream& out, const TMonom& monom)
 {
