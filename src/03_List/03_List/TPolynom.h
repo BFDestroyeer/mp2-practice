@@ -48,9 +48,7 @@ TPolynom::TPolynom(const TList<unsigned, double>& list_)
 	TNode<unsigned, double>* iter = list_.pFirst;
 	while (iter != nullptr)
 	{
-
-		if (iter->key >= 1000) throw TException(NotInSystem);
-		*this += *iter;
+		*this += (TMonom)*iter;
 		iter = iter->pNext;
 	}
 }
@@ -223,7 +221,7 @@ TPolynom& TPolynom::operator+=(const TMonom& node)
 			list->Remove(first->pNext->key);
 		return *this;
 	}
-	TNode<unsigned, double>* temp = new TMonom(node);
+	TNode<unsigned, double>* temp = new TNode<unsigned, double>(node);
 	temp->pNext = first->pNext;
 	first->pNext = temp;
 	return *this;
@@ -253,6 +251,10 @@ TPolynom TPolynom::operator*(const TPolynom& temp)
 {
 	TPolynom out;
 	TNode<unsigned, double>* second = temp.list->pFirst;
+	if (second == nullptr)
+	{
+		return out;
+	}
 	while (second != nullptr)
 	{
 		out += *this * *second;
@@ -267,7 +269,7 @@ TPolynom TPolynom::operator*(const TMonom& node)
 	TNode<unsigned, double>* first = out.list->pFirst;
 	while (first != nullptr)
 	{
-		*first = (TMonom)*first * node;
+		*first = (TMonom)(*first) * node;
 		first = first->pNext;
 	}
 	return out;
@@ -331,7 +333,7 @@ std::istream& operator>>(std::istream& in, TPolynom& polynom)
 			if (mode == 1) throw TException(UnexpectedChar);
 			mul = -1;
 		}
-		else if (line[i] > 47 && line[i] < 58)
+		else if ((line[i] > 47 && line[i] < 58) || line[i] == '.')
 		{
 			buffer.push_back(line[i]);
 			if (mode == 1) throw TException(UnexpectedChar);
