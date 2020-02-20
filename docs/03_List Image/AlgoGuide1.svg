@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.6, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 800 200" style="enable-background:new 0 0 800 200;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#000000;stroke-miterlimit:10;}
+	.st2{stroke:#000000;stroke-width:0.5;stroke-miterlimit:10;}
+	.st3{font-family:'MyriadPro-Regular';}
+	.st4{font-size:14px;}
+	.st5{font-size:12px;}
+</style>
+<rect x="60" y="70" class="st0" width="120" height="60"/>
+<rect x="140" y="70" class="st0" width="40" height="60"/>
+<line class="st1" x1="180" y1="100" x2="220" y2="100"/>
+<polyline class="st1" points="620,120 620,100 580,100 "/>
+<polygon class="st2" points="622.5,119 620,123 617.5,119 "/>
+<polygon class="st2" points="216,97.5 220,100 216,102.5 "/>
+<text transform="matrix(1 0 0 1 86.2732 104.1089)" class="st3 st4">Data</text>
+<text transform="matrix(0 -1 1 0 164.1091 117.6538)" class="st3 st4">pNext</text>
+<rect x="20" y="70" class="st0" width="40" height="60"/>
+<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 43.5222 109.0835)" class="st3 st5">Key</text>
+<rect x="260" y="70" class="st0" width="120" height="60"/>
+<rect x="340" y="70" class="st0" width="40" height="60"/>
+<line class="st1" x1="380" y1="100" x2="420" y2="100"/>
+<polygon class="st2" points="416,97.5 420,100 416,102.5 "/>
+<text transform="matrix(1 0 0 1 286.2732 104.1089)" class="st3 st4">Data</text>
+<text transform="matrix(0 -1 1 0 364.1091 117.6538)" class="st3 st4">pNext</text>
+<rect x="220" y="70" class="st0" width="40" height="60"/>
+<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 243.5222 109.0835)" class="st3 st5">Key</text>
+<rect x="460" y="70" class="st0" width="120" height="60"/>
+<rect x="540" y="70" class="st0" width="40" height="60"/>
+<text transform="matrix(1 0 0 1 486.2732 104.1089)" class="st3 st4">Data</text>
+<text transform="matrix(0 -1 1 0 564.1091 119.6348)" class="st3 st4">nullptr</text>
+<rect x="420" y="70" class="st0" width="40" height="60"/>
+<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 443.5222 109.0835)" class="st3 st5">Key</text>
+</svg>
