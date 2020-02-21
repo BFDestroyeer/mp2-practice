@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="THeap.cpp" />
     <ClCompile Include="TSet.cpp" />
   </ItemGroup>
   <ItemGroup>
