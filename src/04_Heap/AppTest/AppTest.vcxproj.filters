@@ -21,7 +21,7 @@
     <ClCompile Include="TSet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="THeap.cpp">
+    <ClCompile Include="TGraph.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -30,6 +30,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="TSet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TGraph.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="pyramidSort.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

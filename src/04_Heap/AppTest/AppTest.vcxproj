@@ -116,10 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="THeap.cpp" />
+    <ClCompile Include="TGraph.cpp" />
     <ClCompile Include="TSet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="pyramidSort.h" />
+    <ClInclude Include="TGraph.h" />
     <ClInclude Include="THeap.h" />
     <ClInclude Include="TSet.h" />
   </ItemGroup>

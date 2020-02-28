@@ -3,7 +3,7 @@
 class TSet
 {
     size_t size;
-    int* array;
+    int* keys;
 
 public:
     TSet(size_t size_ = 10);
