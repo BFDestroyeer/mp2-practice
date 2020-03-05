@@ -24,6 +24,9 @@
     <ClCompile Include="TGraph.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="TKruskalsAlgorithm.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="THeap.h">
@@ -36,6 +39,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="pyramidSort.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TKruskalsAlgorithm.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

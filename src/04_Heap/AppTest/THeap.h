@@ -17,7 +17,7 @@ public:
     void moveUp(size_t id);
     void moveDown(size_t id);
 
-    int getMinKey();
+    Type getMinKey();
     void removeMinKey();
 
     size_t getMinChild(size_t id);
@@ -42,7 +42,7 @@ THeap<Type>::THeap(size_t d_, size_t max_size_, size_t size_, Type* keys_)
     d = d_;
     size = size_;
     keys = new Type[max_size];
-    for (size_t i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
         keys[i] = keys_[i];
     Heaping();
 }
@@ -59,7 +59,7 @@ THeap<Type>::~THeap()
 template <typename Type>
 void THeap<Type>::Transpose(size_t a, size_t b)
 {
-    int temp = keys[a];
+    Type temp = keys[a];
     keys[a] = keys[b];
     keys[b] = temp;
 }
@@ -92,7 +92,7 @@ void THeap<Type>::moveDown(size_t id)
 }
 
 template <typename Type>
-int THeap<Type>::getMinKey()
+Type THeap<Type>::getMinKey()
 {
     return keys[0];
 }
@@ -121,7 +121,7 @@ size_t THeap<Type>::getMinChild(size_t id)
     size_t min = a;
     for (size_t i = a; i <= b; i++)
     {
-        if (keys[i] <= keys[min]) min = i;
+        if (keys[i] < keys[min]) min = i;
     }
     return min;
 }

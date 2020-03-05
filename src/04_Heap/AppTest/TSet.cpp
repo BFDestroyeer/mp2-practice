@@ -13,6 +13,7 @@ TSet::TSet(size_t size_)
 TSet::TSet(size_t size_, int* elements_)
 {
     size = size_;
+    keys = new int[size];
     for (size_t i = 0; i < size; i++)
     {
         keys[i] = elements_[i];
