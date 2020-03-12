@@ -85,6 +85,16 @@ void TGraph::insertEdge(const TEdge& edge)
     return;
 }
 
+size_t TGraph::getVerticiesCount() const
+{
+    return vertices_count;
+}
+
+size_t TGraph::getEdgesCount() const
+{
+    return edges_count;
+}
+
 std::ostream& operator<<(std::ostream& out, const TGraph& graph)
 {
     for (int i = 0; i < graph.edges_count; i++)

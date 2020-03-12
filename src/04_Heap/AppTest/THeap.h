@@ -29,6 +29,9 @@ public:
     //Возвращение индекса наименьшего потомка
     size_t getMinChild(size_t id);
 
+    //Проверка на пустоту
+    bool empty();
+
 private:
     //Окучивание
     void Heaping();
@@ -146,6 +149,12 @@ size_t THeap<Type>::getMinChild(size_t id)
         if (keys[i] < keys[min]) min = i;
     }
     return min;
+}
+
+template <typename Type>
+bool THeap<Type>::empty()
+{
+    return (size == 0);
 }
 
 template <typename Type>

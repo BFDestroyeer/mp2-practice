@@ -36,5 +36,8 @@ public:
     //Вставка вершины
     void insertEdge(const TEdge& edge);
 
+    size_t getVerticiesCount() const;
+    size_t getEdgesCount() const;
+
     friend std::ostream& operator<<(std::ostream& out, const TGraph& graph);
 };
