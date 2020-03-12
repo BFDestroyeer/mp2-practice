@@ -1,25 +1,32 @@
 #include <iostream>
+#include <time.h>
+#include <random>
 
 #include "pyramidSort.h"
-
 #include "TKruskalsAlgorithm.h"
 
 int main()
 {
-    /*int array[5] = { 3, 4, 5, 1, 2 };
-
-    pyramidSort(5, array);
-    for (int i = 0; i < 5; i++)
+    /*int* array = new int[100];
+    srand(time(0));
+    for (int i = 0; i < 100; i++)
     {
-        std::cout << array[i];
+        array[i] = rand() % 500;
     }
+
+    pyramidSort(100, array);
+    for (int i = 0; i < 100; i++)
+    {
+        std::cout << array[i] << ' ';
+    }
+    std::cout << std::endl;
     system("pause");*/
 
-    TEdge a = { 1, 2, 1 }, b = { 2, 3, 1 }, c = { 1, 3, 1 };
+    /*TEdge a = { 0, 1, 1 }, b = { 1, 2, 1 }, c = { 0, 2, 1 };
     TGraph graph(3);
     graph.insertEdge(a);
     graph.insertEdge(b);
     graph.insertEdge(c);
     std::cout << TKruskalsAlgorithm::findTree(graph);
-    system("pause");
+    system("pause");*/
 }

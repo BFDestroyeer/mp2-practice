@@ -12,7 +12,7 @@ TGraph TKruskalsAlgorithm::findTree(const TGraph& graph)
     while ((result.edges_count != result.vertices_count -1))
     {
         TEdge temp = edges.getMinKey();
-        edges.removeMinKey(); //рнвмн гдеяэ?!
+        edges.removeMinKey();
         if (vertices.getSubsetName(temp.from) != vertices.getSubsetName(temp.to))
         {
             vertices.uniteSubsets(temp.from, temp.to);

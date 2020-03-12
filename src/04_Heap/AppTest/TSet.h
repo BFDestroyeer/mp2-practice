@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class TSet
 {
@@ -10,8 +10,10 @@ public:
     TSet(size_t size_, int* array_);
     ~TSet();
 
+    //Создание подмножества
     void createSubset(int id);
+    //Объединение подмножеств
     void uniteSubsets(int a, int b);
+    //Возвращение имени подмножества, которому принадлежит элемент
     int getSubsetName(int id);
-   
 };

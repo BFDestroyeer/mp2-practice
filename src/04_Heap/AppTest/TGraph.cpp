@@ -1,13 +1,41 @@
 #include "TGraph.h"
 
+bool TEdge::incident(size_t vertex)
+{
+    return ((from == vertex) || (to == vertex));
+}
+
+TEdge& TEdge::operator=(const TEdge& temp)
+{
+    from = temp.from;
+    to = temp.to;
+    weight = temp.weight;
+    return *this;
+}
+
 bool TEdge::operator<(const TEdge& temp) const
 {
-    return weight < temp.weight;
+    return (weight < temp.weight);
+}
+
+bool TEdge::operator==(const TEdge& temp) const
+{
+    return (weight == temp.weight);
 }
 
 bool TEdge::operator>(const TEdge& temp) const
 {
-    return weight > temp.weight;
+    return (weight > temp.weight);
+}
+
+bool TEdge::operator<=(const TEdge& temp) const
+{
+    return (weight <= temp.weight);
+}
+
+bool TEdge::operator>=(const TEdge& temp) const
+{
+    return (weight >= temp.weight);
 }
 
 std::ostream& operator<<(std::ostream& out, const TEdge& edge)
@@ -16,6 +44,7 @@ std::ostream& operator<<(std::ostream& out, const TEdge& edge)
     return out;
 }
 
+
 TGraph::TGraph(size_t vertices_count_, TEdge* edges_ , size_t edges_count_ )
 {
     vertices_count = vertices_count_;
@@ -23,7 +52,7 @@ TGraph::TGraph(size_t vertices_count_, TEdge* edges_ , size_t edges_count_ )
     edges = new TEdge[vertices_count * (vertices_count - 1) / 2];
     for (int i = 0; i < edges_count; i++)
     {
-        edges[i] = edges_[i];
+        insertEdge(edges_[i]);
     }
 }
 
@@ -32,7 +61,7 @@ TGraph::TGraph(const TGraph& temp)
     edges_count = temp.edges_count;
     vertices_count = temp.vertices_count;
     edges = new TEdge[vertices_count * (vertices_count - 1) / 2];
-    for (int i = 0; i < edges_count; i++)
+    for (size_t i = 0; i < edges_count; i++)
     {
         edges[i] = temp.edges[i];
     }
@@ -45,24 +74,15 @@ TGraph::~TGraph()
 
 void TGraph::insertEdge(const TEdge& edge)
 {
-    if (edges_count < vertices_count * (vertices_count - 1) / 2)
+    if (edges_count >= vertices_count * (vertices_count - 1) / 2) throw "FULL";
+    if ((edge.from >= vertices_count) || (edge.to >= vertices_count)) throw "BAD EDGE";
+    for (int i = 0; i < edges_count; i++)
     {
-        for (int i = 0; i < edges_count; i++)
-        {
-            if (
-                ((edges[i].from == edge.from) && (edges[i].to == edge.to))
-                ||
-                ((edges[i].from == edge.to) && (edges[i].to == edge.from))
-                )
-            {
-                return;
-            }
-        }
-        edges[edges_count] = edge;
-        edges_count++;
-        return;
+        if ((edges[i].incident(edge.from)) && (edges[i].incident(edge.to))) return;
     }
-    throw "CANT";
+    edges[edges_count] = edge;
+    edges_count++;
+    return;
 }
 
 std::ostream& operator<<(std::ostream& out, const TGraph& graph)

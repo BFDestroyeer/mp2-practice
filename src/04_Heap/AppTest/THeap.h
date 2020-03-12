@@ -1,28 +1,36 @@
-#pragma once
+﻿#pragma once
 
 template <typename Type>
 class THeap
 {
-    size_t max_size;
-    size_t size;
-    size_t d;
-    Type* keys;
+    size_t max_size; //Максимальное число элементов 
+    size_t size;     //Текущее число элементов
+    size_t d;        //Поряд кучи
+    Type* keys;      //Элементы
+    bool owner;      //Явлеяется ли куча владельцем массива
 
 public:
-    THeap(size_t d_, size_t max_size_);
-    THeap(size_t d_, size_t max_size_, size_t size_, Type* keys_);
+    THeap(size_t d_, size_t max_size_ = 10);
+    THeap(size_t d_, size_t max_size_, size_t size_, Type* keys_, bool owner_ = true);
     ~THeap();
 
+    //Транспонирование элементов
     void Transpose(size_t a, size_t b);
+    //Всплытие элемента
     void moveUp(size_t id);
+    //Погружение элемента
     void moveDown(size_t id);
 
+    //Возврат наименьшего ключа
     Type getMinKey();
+    //Удаление элемента с наименьшим ключом
     void removeMinKey();
 
+    //Возвращение индекса наименьшего потомка
     size_t getMinChild(size_t id);
 
 private:
+    //Окучивание
     void Heaping();
 };
 
@@ -32,25 +40,39 @@ THeap<Type>::THeap(size_t d_, size_t max_size_)
     max_size = max_size_;
     d = d_;
     size = 0;
+    owner = true;
     keys = new Type[max_size];
 }
 
 template <typename Type>
-THeap<Type>::THeap(size_t d_, size_t max_size_, size_t size_, Type* keys_)
+THeap<Type>::THeap(size_t d_, size_t max_size_, size_t size_, Type* keys_, bool owner_)
 {
     max_size = max_size_;
     d = d_;
     size = size_;
-    keys = new Type[max_size];
-    for (int i = 0; i < size; i++)
-        keys[i] = keys_[i];
+    owner = owner_;
+    if (owner == true)
+    {
+        keys = new Type[max_size];
+        for (int i = 0; i < size; i++)
+        {
+            keys[i] = keys_[i];
+        }
+    }
+    else
+    {
+        keys = keys_;
+    }
     Heaping();
 }
 
 template <typename Type>
 THeap<Type>::~THeap()
 {
-    delete[] keys;
+    if (owner == true)
+    {
+        delete[] keys;
+    }
     max_size = 0;
     d = 0;
     size = 0;
@@ -108,7 +130,7 @@ void THeap<Type>::removeMinKey()
 template <typename Type>
 size_t THeap<Type>::getMinChild(size_t id)
 {
-    if (id * d + 1 >= size) return id; //���� ����� ���, �� ���������� ����
+    if (id * d + 1 >= size) return id; //Если детей нет, то возвращает себя
     size_t a = id * d + 1, b = 0;
     if ((size - 1) < (id * d + d))
     {
