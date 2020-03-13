@@ -2,7 +2,7 @@
 #include <time.h>
 #include <random>
 
-#include "pyramidSort.h"
+#include "TPyramidSort.h"
 #include "TKruskalsAlgorithm.h"
 
 int main()
@@ -14,7 +14,7 @@ int main()
         array[i] = rand() % 500;
     }
 
-    pyramidSort(100, array);
+    TPyramidSort::sort(100, array);
     for (int i = 0; i < 100; i++)
     {
         std::cout << array[i] << ' ';
