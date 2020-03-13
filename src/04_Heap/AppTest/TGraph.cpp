@@ -111,6 +111,12 @@ size_t TGraph::getEdgesCount() const
     return edges_count;
 }
 
+bool TGraph::connected() const
+{
+    //TODO:
+    return true;
+}
+
 std::ostream& operator<<(std::ostream& out, const TGraph& graph)
 {
     for (int i = 0; i < graph.edges_count; i++)

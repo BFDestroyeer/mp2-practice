@@ -7,7 +7,7 @@
 
 int main()
 {
-    /*int* array = new int[100];
+    int* array = new int[100];
     srand(time(0));
     for (int i = 0; i < 100; i++)
     {
@@ -20,13 +20,13 @@ int main()
         std::cout << array[i] << ' ';
     }
     std::cout << std::endl;
-    system("pause");*/
+    system("pause");
 
-    /*TEdge a = { 0, 1, 1 }, b = { 1, 2, 1 }, c = { 0, 2, 1 };
+    TEdge a = { 0, 1, 1 }, b = { 1, 2, 1 }, c = { 0, 2, 1 };
     TGraph graph(3);
     graph.insertEdge(a);
     graph.insertEdge(b);
     graph.insertEdge(c);
     std::cout << TKruskalsAlgorithm::findTree(graph);
-    system("pause");*/
+    system("pause");
 }

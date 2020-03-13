@@ -41,5 +41,7 @@ public:
     size_t getVerticiesCount() const;
     size_t getEdgesCount() const;
 
+    bool connected() const;
+
     friend std::ostream& operator<<(std::ostream& out, const TGraph& graph);
 };
