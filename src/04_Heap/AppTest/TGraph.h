@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "TException.h"
+
 struct TEdge
 {
     size_t from; //Исходящая вершина

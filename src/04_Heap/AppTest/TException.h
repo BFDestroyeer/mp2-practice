@@ -4,7 +4,9 @@
 
 enum TExceptionCode
 {
-    BadID,
+    BadId,
+    BadEdge,
+    ContainterIsFull
 };
 
 struct TException

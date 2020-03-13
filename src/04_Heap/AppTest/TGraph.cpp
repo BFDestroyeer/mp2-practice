@@ -50,7 +50,7 @@ size_t TEdge::operator[](size_t id) const
     }
     else
     {
-        throw "BAD ID";
+        throw TException(BadId, __LINE__);
     }
 }
 
@@ -90,8 +90,9 @@ TGraph::~TGraph()
 
 void TGraph::insertEdge(const TEdge& edge)
 {
-    if (edges_count >= vertices_count * (vertices_count - 1) / 2) throw "FULL";
-    if ((edge.from >= vertices_count) || (edge.to >= vertices_count)) throw "BAD EDGE";
+    if (edges_count >= vertices_count * (vertices_count - 1) / 2) throw TException(ContainterIsFull, __LINE__);
+    if ((edge.from >= vertices_count) || (edge.to >= vertices_count)) throw TException(BadEdge, __LINE__);
+    if (edge.from == edge.to) throw TException(BadEdge, __LINE__);
     for (int i = 0; i < edges_count; i++)
     {
         if ((edges[i].incident(edge.from)) && (edges[i].incident(edge.to))) return;
