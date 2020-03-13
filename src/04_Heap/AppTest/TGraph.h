@@ -18,6 +18,8 @@ struct TEdge
     bool operator<=(const TEdge& temp) const;
     bool operator>=(const TEdge& temp) const;
 
+    size_t operator[](size_t id) const;
+
     friend std::ostream& operator<<(std::ostream& out, const TEdge& edge);
 };
 

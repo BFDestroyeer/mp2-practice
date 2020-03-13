@@ -38,6 +38,22 @@ bool TEdge::operator>=(const TEdge& temp) const
     return (weight >= temp.weight);
 }
 
+size_t TEdge::operator[](size_t id) const
+{
+    if (id == from)
+    {
+        return to;
+    }
+    else if (id == to)
+    {
+        return from;
+    }
+    else
+    {
+        throw "BAD ID";
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, const TEdge& edge)
 {
     out << "(" << edge.from << ", " << edge.to << ")";
