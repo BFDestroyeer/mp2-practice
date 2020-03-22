@@ -116,17 +116,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TDijkstrasAlgorithm.cpp" />
+    <ClCompile Include="TException.cpp" />
     <ClCompile Include="TKruskalsAlgorithm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TGraph.cpp" />
+    <ClCompile Include="TPyramidSort.cpp" />
     <ClCompile Include="TSet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TDijkstrasAlgorithm.h" />
+    <ClInclude Include="TException.h" />
     <ClInclude Include="TKruskalsAlgorithm.h" />
-    <ClInclude Include="pyramidSort.h" />
     <ClInclude Include="TGraph.h" />
     <ClInclude Include="THeap.h" />
+    <ClInclude Include="TPyramidSort.h" />
     <ClInclude Include="TSet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

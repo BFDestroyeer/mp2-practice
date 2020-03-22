@@ -28,11 +28,12 @@ struct TEdge
 
 class TGraph
 {
-public:
+private:
     size_t vertices_count; //Количство вершин(нельзя поменять)
     size_t edges_count;    //Количество рёбер
     TEdge* edges;          //Массив рёбер
 
+public:
     TGraph(size_t vertices_count_ = 10, TEdge* edges_ = nullptr, size_t edges_count_ = 0);
     TGraph(const TGraph& temp);
     ~TGraph();
@@ -45,5 +46,9 @@ public:
 
     bool connected() const;
 
+    TEdge operator[](size_t id) const;
+
     friend std::ostream& operator<<(std::ostream& out, const TGraph& graph);
+
+    friend class TKruskalsAlgorithm;
 };

@@ -4,6 +4,7 @@
 
 #include "TPyramidSort.h"
 #include "TKruskalsAlgorithm.h"
+#include "TDijkstrasAlgorithm.h"
 
 int main()
 {
@@ -20,13 +21,13 @@ int main()
         std::cout << array[i] << ' ';
     }
     std::cout << std::endl;
-    system("pause");
 
     TEdge a = { 0, 1, 1 }, b = { 1, 2, 1 }, c = { 0, 2, 1 };
     TGraph graph(3);
     graph.insertEdge(a);
     graph.insertEdge(b);
     graph.insertEdge(c);
-    std::cout << TKruskalsAlgorithm::findTree(graph);
+    std::cout << TKruskalsAlgorithm::findTree(graph) << std::endl;
+    std::cout << TDijkstrasAlgorithm::findTree(graph, 0);
     system("pause");
 }

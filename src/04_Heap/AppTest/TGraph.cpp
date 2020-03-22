@@ -118,6 +118,18 @@ bool TGraph::connected() const
     return true;
 }
 
+TEdge TGraph::operator[](size_t id) const
+{
+    if (id < edges_count)
+    {
+        return edges[id];
+    }
+    else
+    {
+        throw TException(BadId, __LINE__);
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, const TGraph& graph)
 {
     for (int i = 0; i < graph.edges_count; i++)

@@ -6,7 +6,7 @@
 struct VertexDistance
 {
     size_t vertex;
-    int distance;
+    size_t distance;
 
     bool operator<(const VertexDistance& temp);
     bool operator>(const VertexDistance& temp);
@@ -15,6 +15,7 @@ struct VertexDistance
 
 static class TDijkstrasAlgorithm
 {
+public:
     static TGraph findTree(const TGraph& graph, size_t root);
 };
 
