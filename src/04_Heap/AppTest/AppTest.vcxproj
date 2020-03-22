@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Generator.cpp" />
     <ClCompile Include="TDijkstrasAlgorithm.cpp" />
     <ClCompile Include="TException.cpp" />
     <ClCompile Include="TKruskalsAlgorithm.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="TSet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Generator.h" />
     <ClInclude Include="TDijkstrasAlgorithm.h" />
     <ClInclude Include="TException.h" />
     <ClInclude Include="TKruskalsAlgorithm.h" />

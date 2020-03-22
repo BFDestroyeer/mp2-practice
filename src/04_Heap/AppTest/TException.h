@@ -7,7 +7,8 @@ enum TExceptionCode
     BadId,
     BadEdge,
     ContainerIsFull,
-    WrongGraph
+    WrongGraph,
+    BadSize
 };
 
 struct TException

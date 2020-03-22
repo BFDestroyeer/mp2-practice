@@ -5,6 +5,7 @@
 #include "TPyramidSort.h"
 #include "TKruskalsAlgorithm.h"
 #include "TDijkstrasAlgorithm.h"
+#include "Generator.h"
 
 int main()
 {
@@ -28,6 +29,7 @@ int main()
     graph.insertEdge(b);
     graph.insertEdge(c);
 
+
     if (graph.connected())
     {
         std::cout << "Connected" << std::endl;
@@ -39,7 +41,7 @@ int main()
         return 0;
     }
 
-    std::cout << TKruskalsAlgorithm::findTree(graph) << std::endl;
-    std::cout << TDijkstrasAlgorithm::findTree(graph, 0);
+    std::cout << TKruskalsAlgorithm::findTree(Generator::getRandomConnectedGraph(10)) << std::endl;
+    std::cout << TDijkstrasAlgorithm::findTree(Generator::getRandomConnectedGraph(10), 0);
     system("pause");
 }
