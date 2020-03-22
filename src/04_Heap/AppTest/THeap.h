@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "TException.h"
+
 template <typename Type>
 class THeap
 {
@@ -20,6 +22,9 @@ public:
     void moveUp(size_t id);
     //Погружение элемента
     void moveDown(size_t id);
+
+    //Вставка элемента
+    void insert(const Type& element);
 
     //Возврат наименьшего ключа
     Type getMinKey();
@@ -114,6 +119,13 @@ void THeap<Type>::moveDown(size_t id)
         id = current;
         current = getMinChild(id);
     }
+}
+
+template <typename Type>
+void THeap<Type>::insert(const Type& element)
+{
+    if (size == max_size) throw TException(ContainerIsFull, __LINE__);
+    keys[size++] = element;
 }
 
 template <typename Type>

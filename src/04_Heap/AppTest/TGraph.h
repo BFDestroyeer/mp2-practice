@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "THeap.h"
 #include "TException.h"
 
 struct TEdge

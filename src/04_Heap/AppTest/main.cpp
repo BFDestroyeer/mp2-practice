@@ -27,6 +27,18 @@ int main()
     graph.insertEdge(a);
     graph.insertEdge(b);
     graph.insertEdge(c);
+
+    if (graph.connected())
+    {
+        std::cout << "Connected" << std::endl;
+    }
+    else
+    {
+        std::cout << "Not connected" << std::endl;
+        system("pause");
+        return 0;
+    }
+
     std::cout << TKruskalsAlgorithm::findTree(graph) << std::endl;
     std::cout << TDijkstrasAlgorithm::findTree(graph, 0);
     system("pause");

@@ -18,6 +18,7 @@ bool VertexDistance::operator==(const VertexDistance& temp)
 
 TGraph TDijkstrasAlgorithm::findTree(const TGraph& graph, size_t root)
 {
+    if (!graph.connected()) throw TException(WrongGraph, __LINE__);
     VertexDistance* distance = new VertexDistance[graph.getVerticiesCount()];
     size_t* parent = new size_t[graph.getVerticiesCount()];
     TGraph result(graph.getVerticiesCount());
@@ -42,7 +43,7 @@ TGraph TDijkstrasAlgorithm::findTree(const TGraph& graph, size_t root)
         {
             if (graph[i].incident(min.vertex))
             {
-                size_t min_id, inc_id; //Индексы вершиин в массиве dist
+                size_t min_id, inc_id;             //Индексы вершиин в массиве dist
                 size_t inc = graph[i][min.vertex]; //Имя смежной вершины
                 for (size_t i = 0; i < graph.getVerticiesCount(); i++)
                 {

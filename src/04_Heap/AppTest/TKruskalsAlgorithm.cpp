@@ -2,6 +2,7 @@
 
 TGraph TKruskalsAlgorithm::findTree(const TGraph& graph)
 {
+    if (!graph.connected()) throw TException(WrongGraph, __LINE__);
     TSet vertices(graph.getVerticiesCount());
     for (int i = 0; i < graph.getVerticiesCount(); i++)
         vertices.createSubset(i);

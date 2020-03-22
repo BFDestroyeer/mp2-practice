@@ -90,7 +90,7 @@ TGraph::~TGraph()
 
 void TGraph::insertEdge(const TEdge& edge)
 {
-    if (edges_count >= vertices_count * (vertices_count - 1) / 2) throw TException(ContainterIsFull, __LINE__);
+    if (edges_count >= vertices_count * (vertices_count - 1) / 2) throw TException(ContainerIsFull, __LINE__);
     if ((edge.from >= vertices_count) || (edge.to >= vertices_count)) throw TException(BadEdge, __LINE__);
     if (edge.from == edge.to) throw TException(BadEdge, __LINE__);
     for (int i = 0; i < edges_count; i++)
@@ -114,7 +114,41 @@ size_t TGraph::getEdgesCount() const
 
 bool TGraph::connected() const
 {
-    //TODO:
+    if (vertices_count == 0) return true;
+
+    THeap<size_t> queue(2, vertices_count);
+    bool* group = new bool[vertices_count];
+    for (size_t i = 0; i < vertices_count; i++)
+    {
+        group[i] = 0;
+    }
+    
+    queue.insert(0);
+    group[0] = true;
+
+    while (!queue.empty())
+    {
+        size_t vertex = queue.getMinKey();
+        for (size_t i = 0; i < edges_count; i++)
+        {
+            if (edges[i].incident(vertex) && !group[edges[i][vertex]])
+            {
+                queue.insert(edges[i][vertex]);
+                group[edges[i][vertex]] = true;
+            }
+        }
+        queue.removeMinKey();
+    }
+
+    for (size_t i = 0; i < vertices_count; i++)
+    {
+        if (!group[i])
+        {
+            delete[] group;
+            return false;
+        }
+    }
+    delete[] group;
     return true;
 }
 
