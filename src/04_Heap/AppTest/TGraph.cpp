@@ -60,6 +60,12 @@ std::ostream& operator<<(std::ostream& out, const TEdge& edge)
     return out;
 }
 
+std::istream& operator>>(std::istream& in, TEdge& edge)
+{
+    in >> edge.from >> edge.to >> edge.weight;
+    return in;
+}
+
 
 TGraph::TGraph(size_t vertices_count_, TEdge* edges_ , size_t edges_count_ )
 {
@@ -152,6 +158,19 @@ bool TGraph::connected() const
     return true;
 }
 
+TGraph& TGraph::operator=(const TGraph& temp)
+{
+    if (&temp == this) return *this;
+    edges_count = temp.edges_count;
+    vertices_count = temp.vertices_count;
+    if (edges != nullptr) delete[] edges;
+    edges = new TEdge[vertices_count * (vertices_count - 1) / 2];
+    for (size_t i = 0; i < edges_count; i++)
+    {
+        edges[i] = temp.edges[i];
+    }
+}
+
 TEdge TGraph::operator[](size_t id) const
 {
     if (id < edges_count)
@@ -171,4 +190,19 @@ std::ostream& operator<<(std::ostream& out, const TGraph& graph)
         out << graph.edges[i] << " ";
     }
     return out;
+}
+
+std::istream& operator>>(std::istream& in, TGraph& graph)
+{
+    size_t verticies_count, edges_count;
+    in >> verticies_count >> edges_count;
+    if (edges_count > verticies_count* (verticies_count - 1) / 2) throw TException(BadSize, __LINE__);
+    graph = TGraph(verticies_count);
+    for (size_t i = 0; i < edges_count; i++)
+    {
+        TEdge edge;
+        in >> edge;
+        graph.insertEdge(edge);
+    }
+    return in;
 }

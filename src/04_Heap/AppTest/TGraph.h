@@ -24,6 +24,7 @@ struct TEdge
     size_t operator[](size_t id) const;
 
     friend std::ostream& operator<<(std::ostream& out, const TEdge& edge);
+    friend std::istream& operator>>(std::istream& in, TEdge& edge);
 };
 
 
@@ -47,9 +48,12 @@ public:
 
     bool connected() const;
 
+    TGraph& operator=(const TGraph& temp);
+
     TEdge operator[](size_t id) const;
 
     friend std::ostream& operator<<(std::ostream& out, const TGraph& graph);
+    friend std::istream& operator>>(std::istream& in, TGraph& graph);
 
     friend class TKruskalsAlgorithm;
 };

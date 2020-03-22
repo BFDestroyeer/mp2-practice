@@ -23,12 +23,9 @@ int main()
     }
     std::cout << std::endl;
 
-    TEdge a = { 0, 1, 1 }, b = { 1, 2, 1 }, c = { 0, 2, 1 };
     TGraph graph(3);
-    graph.insertEdge(a);
-    graph.insertEdge(b);
-    graph.insertEdge(c);
-
+    std::cin >> graph;
+    std::cout << graph;
 
     if (graph.connected())
     {
