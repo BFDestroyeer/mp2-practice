@@ -121,7 +121,7 @@
     <ClCompile Include="TKruskalsAlgorithm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TGraph.cpp" />
-    <ClCompile Include="TPyramidSort.cpp" />
+    <ClCompile Include="THeapSort.cpp" />
     <ClCompile Include="TSet.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -131,7 +131,7 @@
     <ClInclude Include="TKruskalsAlgorithm.h" />
     <ClInclude Include="TGraph.h" />
     <ClInclude Include="THeap.h" />
-    <ClInclude Include="TPyramidSort.h" />
+    <ClInclude Include="THeapSort.h" />
     <ClInclude Include="TSet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

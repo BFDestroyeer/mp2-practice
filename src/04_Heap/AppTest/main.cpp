@@ -2,7 +2,7 @@
 #include <time.h>
 #include <random>
 
-#include "TPyramidSort.h"
+#include "THeapSort.h"
 #include "TKruskalsAlgorithm.h"
 #include "TDijkstrasAlgorithm.h"
 #include "Generator.h"
@@ -16,7 +16,7 @@ int main()
         array[i] = rand() % 500;
     }
 
-    TPyramidSort::sort(100, array);
+    THeapSort::sort(100, array);
     for (int i = 0; i < 100; i++)
     {
         std::cout << array[i] << ' ';
