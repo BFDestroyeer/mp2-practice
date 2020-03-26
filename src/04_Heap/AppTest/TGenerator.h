@@ -6,7 +6,7 @@
 #include "TGraph.h"
 #include "TException.h"
 
-static class Generator
+static class TGenerator
 {
 public:
     //Возврат массива размера size заполненого случайными значениями меньше max

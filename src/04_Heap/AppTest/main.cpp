@@ -5,7 +5,7 @@
 #include "THeapSort.h"
 #include "TKruskalsAlgorithm.h"
 #include "TDijkstrasAlgorithm.h"
-#include "Generator.h"
+#include "TGenerator.h"
 
 int main()
 {
@@ -38,7 +38,7 @@ int main()
         return 0;
     }
 
-    std::cout << TKruskalsAlgorithm::findTree(Generator::getRandomConnectedGraph(10)) << std::endl;
-    std::cout << TDijkstrasAlgorithm::findTree(Generator::getRandomConnectedGraph(10), 0);
+    std::cout << TKruskalsAlgorithm::findTree(TGenerator::getRandomConnectedGraph(10)) << std::endl;
+    std::cout << TDijkstrasAlgorithm::findTree(TGenerator::getRandomConnectedGraph(10), 0);
     system("pause");
 }

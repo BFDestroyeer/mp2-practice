@@ -1,6 +1,6 @@
-#include "Generator.h"
+#include "TGenerator.h"
 
-int* Generator::getRandomArray(size_t size, int max)
+int* TGenerator::getRandomArray(size_t size, int max)
 {
     if (size == 0) throw TException(BadSize, __LINE__);
     srand(time(0));
@@ -12,7 +12,7 @@ int* Generator::getRandomArray(size_t size, int max)
     return result;
 }
 
-TGraph Generator::getRandomConnectedGraph(size_t size)
+TGraph TGenerator::getRandomConnectedGraph(size_t size)
 {
     if (size < 3) throw TException(BadSize, __LINE__);
     srand(time(0));
