@@ -67,6 +67,13 @@ std::istream& operator>>(std::istream& in, TEdge& edge)
 }
 
 
+TGraph::TGraph(size_t vertices_count_)
+{
+    vertices_count = vertices_count_;
+    edges_count = 0;
+    edges = new TEdge[vertices_count * (vertices_count - 1) / 2];
+}
+
 TGraph::TGraph(size_t vertices_count_, TEdge* edges_ , size_t edges_count_ )
 {
     vertices_count = vertices_count_;

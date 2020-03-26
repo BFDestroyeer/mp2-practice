@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "TException.h"
+
 class TSet
 {
     size_t size;

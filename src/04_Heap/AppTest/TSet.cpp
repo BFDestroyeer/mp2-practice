@@ -28,7 +28,7 @@ TSet::~TSet()
 
 void TSet::createSubset(int id)
 {
-    if (keys[id] != -1) throw "CANT";
+    if (keys[id] != -1) throw TException(BadId, __LINE__);
     keys[id] = id;
 }
 
